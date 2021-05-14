@@ -106,7 +106,7 @@ class AutoTrackHelper : AsmHelper {
                 instructions.insertBefore(
                         it, MethodInsnNode(
                         Opcodes.INVOKESTATIC,
-                        "com/a/dproject/utils/ToastHelper",
+                        "com/bn/pd/utils/ToastHelper",
                         "toast",
                         "(Ljava/lang/Object;Landroid/view/View;Ljava/lang/Object;)V",
                         false)
@@ -158,7 +158,7 @@ class AutoTrackHelper : AsmHelper {
                 instructions.insertBefore(
                         it, MethodInsnNode(
                         Opcodes.INVOKESTATIC,
-                        "com/a/dproject/utils/ToastHelper",
+                        "com/bn/pd/utils/ToastHelper",
                         "toast",
                         "(Ljava/lang/Object;Landroid/view/View;Ljava/lang/Object;)V",
                         false)
