@@ -6,7 +6,7 @@ public class PersonService {
 
     public static final String TAG = "PersonService";
     int test1 = 0;
-    String testStr1 = "testStr";
+    public String testStr1 = "testStr";
     static int test2 = 1;
     static String testStr2 = "staticStr2";
     public void getPerson(){

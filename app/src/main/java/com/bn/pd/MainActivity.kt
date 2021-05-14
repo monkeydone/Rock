@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.tvHello.setOnClickListener {
 
-            Toast.makeText(it.getContext(), PersonService().toastText(), Toast.LENGTH_LONG).show()
+            Toast.makeText(it.getContext(), PersonService().testStr1, Toast.LENGTH_LONG).show()
         }
 
     }

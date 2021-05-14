@@ -138,8 +138,62 @@ object AsmUtils {
         classReader.accept(ca,0)
         return classWriter.toByteArray()
     }
-    
+
     fun handleTestClass3(srcClass: ByteArray):ByteArray {
+        val classNode = ClassNode(ASM5)
+        val classReader = ClassReader(srcClass)
+        //1 将读入的字节转为classNode
+        classReader.accept(classNode, 0)
+        val classWriter = ClassWriter(0)
+        var methodVisitor: MethodVisitor
+        classNode.accept(classWriter)
+
+        genField(classWriter)
+
+        classWriter.visitEnd()
+        return classWriter.toByteArray()
+    }
+
+    private fun genField(classWriter: ClassWriter) {
+        genStaticField(classWriter)
+        genIntField(classWriter)
+        genStringField(classWriter)
+        modifyField(classWriter)
+    }
+
+    fun modifyField(classWriter: ClassWriter) {
+        val methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+        methodVisitor.visitCode();
+        val label2 = Label();
+        methodVisitor.visitLabel(label2);
+        methodVisitor.visitLineNumber(9, label2);
+        methodVisitor.visitVarInsn(ALOAD, 0);
+        methodVisitor.visitLdcInsn("modifyStr");
+        methodVisitor.visitFieldInsn(PUTFIELD, "com/bn/pd/javassist/PersonService", "testStr1", "Ljava/lang/String;");
+        methodVisitor.visitInsn(RETURN)
+        methodVisitor.visitEnd();
+    }
+
+    fun genStaticField(classWriter: ClassWriter) {
+        val fieldVisitor = classWriter.visitField(
+            ACC_PUBLIC or ACC_FINAL or ACC_STATIC,
+            "GEN_TAG",
+            "Ljava/lang/String;",
+            null,
+            "PersonService2"
+        )
+        fieldVisitor.visitEnd()
+    }
+    fun genIntField(classWriter: ClassWriter) {
+        val fieldVisitor = classWriter.visitField(0, "testInt", "I", null, null);
+        fieldVisitor.visitEnd();
+    }
+    fun genStringField(classWriter: ClassWriter) {
+        val fieldVisitor = classWriter.visitField(0, "testString", "Ljava/lang/String;", null, null);
+        fieldVisitor.visitEnd();
+    }
+    
+    fun handleTestClass4(srcClass: ByteArray):ByteArray {
         val classNode = ClassNode(ASM5)
         val classReader = ClassReader(srcClass)
         //1 将读入的字节转为classNode
