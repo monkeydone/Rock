@@ -3,6 +3,19 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/AsmPlugin" name="AsmPlugin">
+                <projects>
+                  <project path="$PROJECT_DIR$/AsmPlugin" />
+                  <project path="$PROJECT_DIR$/AsmPlugin/BasePlugin" />
+                  <project path="$PROJECT_DIR$/AsmPlugin/SimplePlugin" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,6 +23,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AsmPlugin" />
+            <option value="$PROJECT_DIR$/AsmPlugin/BasePlugin" />
+            <option value="$PROJECT_DIR$/AsmPlugin/SimplePlugin" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

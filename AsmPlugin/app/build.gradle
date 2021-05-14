@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'simple-plugin'
-
 }
 
 android {
@@ -10,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.bn.pd"
+        applicationId "com.bn.asmplugin"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
