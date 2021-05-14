@@ -16,11 +16,11 @@
 - [ASM插入方法](https://blog.csdn.net/ljz2016/article/details/83508931)
 
 ## 完成一个简单的插件
-本文设计到的代码都在这个项目中的AsmPlugin目录下[代码](https://github.com/lijunjieone/DProject)
-- 首先创建一个工程，这里是AsmPlugin，我是在DProject的工程下。因为我希望后面调试的时候，可以很容易的把这俩工程关联起来
+本文设计到的代码都在这个项目中的AsmPlugin目录下[代码](https://github.com/lijunjieone/PluginDemo)
+- 首先创建一个工程，这里是AsmPlugin，我是在PluginDemo的工程下。因为我希望后面调试的时候，可以很容易的把这俩工程关联起来
 - AsmPlugin是一个插件工程，是新建了一个android工程，然后根据AndroidAutoTrack里面的插件模板修改相应的build.gradle文件来完成的
 - 在AsmPlugin中建立比较简单的插件模板，我引入了AndroidAutoTrack中的基类插件库，然后自己增加一个简单的Demo
-- 关联这个插件到DProject中。
+- 关联这个插件到PluginDemo中。
 
 ### 建立一个插件工程
 我是建立一个普通的的Android工程，修改相应的文件完成插件的改造，
