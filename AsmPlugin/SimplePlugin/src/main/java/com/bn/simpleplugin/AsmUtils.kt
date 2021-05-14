@@ -151,37 +151,165 @@ object AsmUtils {
 
 
 
-//        classWriter.visit(V1_8, ACC_PUBLIC or ACC_SUPER, "com/a/dproject/javassist/PersonService", null, "java/lang/Object", null)
 
-//        classWriter.visitSource("PersonService.java", null)
+
+        var fieldVisitor = classWriter.visitField(0, "test1", "I", null, null)
+        fieldVisitor.visitEnd()
+
+
+        fieldVisitor = classWriter.visitField(0, "test2", "I", null, null)
+        fieldVisitor.visitEnd()
+
+
+        fieldVisitor = classWriter.visitField(0, "testStr1", "Ljava/lang/String;", null, null)
+        fieldVisitor.visitEnd()
+
+
+        fieldVisitor = classWriter.visitField(0, "testStr2", "Ljava/lang/String;", null, null)
+        fieldVisitor.visitEnd()
+
 
         methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null)
         methodVisitor.visitCode()
-        val label0 = Label()
+        var label0 = Label()
         methodVisitor.visitLabel(label0)
         methodVisitor.visitLineNumber(3, label0)
         methodVisitor.visitVarInsn(ALOAD, 0)
         methodVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false)
-        methodVisitor.visitInsn(RETURN)
-        val label1 = Label()
+        var label1 = Label()
         methodVisitor.visitLabel(label1)
-        methodVisitor.visitLocalVariable("this", "Lcom/a/dproject/javassist/PersonService;", null, label0, label1, 0)
-        methodVisitor.visitMaxs(1, 1)
+        methodVisitor.visitLineNumber(5, label1)
+        methodVisitor.visitVarInsn(ALOAD, 0)
+        methodVisitor.visitInsn(ICONST_0)
+        methodVisitor.visitFieldInsn(PUTFIELD, "com/bn/pd/javassist/PersonService", "test1", "I")
+        var label2 = Label()
+        methodVisitor.visitLabel(label2)
+        methodVisitor.visitLineNumber(6, label2)
+        methodVisitor.visitVarInsn(ALOAD, 0)
+        methodVisitor.visitInsn(ICONST_1)
+        methodVisitor.visitFieldInsn(PUTFIELD, "com/bn/pd/javassist/PersonService", "test2", "I")
+        var label3 = Label()
+        methodVisitor.visitLabel(label3)
+        methodVisitor.visitLineNumber(7, label3)
+        methodVisitor.visitVarInsn(ALOAD, 0)
+        methodVisitor.visitLdcInsn("test1")
+        methodVisitor.visitFieldInsn(
+            PUTFIELD,
+            "com/bn/pd/javassist/PersonService",
+            "testStr1",
+            "Ljava/lang/String;"
+        )
+        var label4 = Label()
+        methodVisitor.visitLabel(label4)
+        methodVisitor.visitLineNumber(8, label4)
+        methodVisitor.visitVarInsn(ALOAD, 0)
+        methodVisitor.visitLdcInsn("test2")
+        methodVisitor.visitFieldInsn(
+            PUTFIELD,
+            "com/bn/pd/javassist/PersonService",
+            "testStr2",
+            "Ljava/lang/String;"
+        )
+        methodVisitor.visitInsn(RETURN)
+        var label5 = Label()
+        methodVisitor.visitLabel(label5)
+        methodVisitor.visitLocalVariable(
+            "this",
+            "Lcom/bn/pd/javassist/PersonService;",
+            null,
+            label0,
+            label5,
+            0
+        )
+        methodVisitor.visitMaxs(2, 1)
         methodVisitor.visitEnd()
 
 
-        methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "toastText", "()Ljava/lang/String;", null, null)
+        methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "getPerson", "()V", null, null)
         methodVisitor.visitCode()
-        val label10 = Label()
-        methodVisitor.visitLabel(label10)
-        methodVisitor.visitLineNumber(7, label10)
-        methodVisitor.visitLdcInsn("This is another modify toast text")
+        label0 = Label()
+        methodVisitor.visitLabel(label0)
+        methodVisitor.visitLineNumber(10, label0)
+        methodVisitor.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;")
+        methodVisitor.visitLdcInsn("get Person")
+        methodVisitor.visitMethodInsn(
+            INVOKEVIRTUAL,
+            "java/io/PrintStream",
+            "println",
+            "(Ljava/lang/String;)V",
+            false
+        )
+        label1 = Label()
+        methodVisitor.visitLabel(label1)
+        methodVisitor.visitLineNumber(11, label1)
+        methodVisitor.visitInsn(RETURN)
+        label2 = Label()
+        methodVisitor.visitLabel(label2)
+        methodVisitor.visitLocalVariable(
+            "this",
+            "Lcom/bn/pd/javassist/PersonService;",
+            null,
+            label0,
+            label2,
+            0
+        )
+        methodVisitor.visitMaxs(2, 1)
+        methodVisitor.visitEnd()
+
+
+        methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "personFly", "()V", null, null)
+        methodVisitor.visitCode()
+        label0 = Label()
+        methodVisitor.visitLabel(label0)
+        methodVisitor.visitLineNumber(14, label0)
+        methodVisitor.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;")
+        methodVisitor.visitLdcInsn("oh my god,I can fly")
+        methodVisitor.visitMethodInsn(
+            INVOKEVIRTUAL,
+            "java/io/PrintStream",
+            "println",
+            "(Ljava/lang/String;)V",
+            false
+        )
+        label1 = Label()
+        methodVisitor.visitLabel(label1)
+        methodVisitor.visitLineNumber(15, label1)
+        methodVisitor.visitInsn(RETURN)
+        label2 = Label()
+        methodVisitor.visitLabel(label2)
+        methodVisitor.visitLocalVariable(
+            "this",
+            "Lcom/bn/pd/javassist/PersonService;",
+            null,
+            label0,
+            label2,
+            0
+        )
+        methodVisitor.visitMaxs(2, 1)
+        methodVisitor.visitEnd()
+
+
+        methodVisitor =
+            classWriter.visitMethod(ACC_PUBLIC, "toastText", "()Ljava/lang/String;", null, null)
+        methodVisitor.visitCode()
+        label0 = Label()
+        methodVisitor.visitLabel(label0)
+        methodVisitor.visitLineNumber(18, label0)
+        methodVisitor.visitLdcInsn("This is modify toast text")
         methodVisitor.visitInsn(ARETURN)
-        val label11 = Label()
-        methodVisitor.visitLabel(label11)
-        methodVisitor.visitLocalVariable("this", "Lcom/a/dproject/javassist/PersonService;", null, label10, label11, 0)
+        label1 = Label()
+        methodVisitor.visitLabel(label1)
+        methodVisitor.visitLocalVariable(
+            "this",
+            "Lcom/bn/pd/javassist/PersonService;",
+            null,
+            label0,
+            label1,
+            0
+        )
         methodVisitor.visitMaxs(1, 1)
         methodVisitor.visitEnd()
+
         classWriter.visitEnd()
 
         return classWriter.toByteArray()

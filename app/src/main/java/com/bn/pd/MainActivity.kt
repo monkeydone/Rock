@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bn.pd.databinding.ActivityMainBinding
+import com.bn.pd.javassist.PersonService
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.tvHello.setOnClickListener {
 
-//            Toast.makeText(it.getContext(), "hello", Toast.LENGTH_LONG).show()
+            Toast.makeText(it.getContext(), PersonService().toastText(), Toast.LENGTH_LONG).show()
         }
 
     }
