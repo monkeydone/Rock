@@ -13,7 +13,7 @@ fun String.toast() {
 }
 
 fun dpToPx(dp: Float): Float {
-    return dp * globalApplicationContext()!!.getResources().getDisplayMetrics().density
+    return dp * ContextUtils.applicationContext.getResources().getDisplayMetrics().density
 }
 
 
@@ -53,12 +53,12 @@ fun globalApplicationContext(): Application? {
 }
 
 fun Int.toArtString(): String {
-    return globalApplicationContext()!!.getString(this)
+    return ContextUtils.applicationContext.getString(this)
 }
 
-fun Int.toArtString(vararg args: Any?) = globalApplicationContext()!!.getString(this, *args)
+fun Int.toArtString(vararg args: Any?) = ContextUtils.applicationContext.getString(this, *args)
 
-fun Int.toArtDrawable() = ContextCompat.getDrawable(globalApplicationContext()!!, this)
+fun Int.toArtDrawable() = ContextCompat.getDrawable(ContextUtils.applicationContext, this)
 
-fun Int.toArtColor() = ContextCompat.getColor(globalApplicationContext()!!, this)
+fun Int.toArtColor() = ContextCompat.getColor(ContextUtils.applicationContext, this)
 
