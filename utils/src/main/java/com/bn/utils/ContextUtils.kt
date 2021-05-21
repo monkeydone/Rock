@@ -8,4 +8,8 @@ object ContextUtils {
     fun init(application: Context) {
         applicationContext = application.applicationContext
     }
+
+    fun isInit(): Boolean {
+        return ::applicationContext.isInitialized
+    }
 }

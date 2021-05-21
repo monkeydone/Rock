@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/AsmPlugin/BasePlugin" />
             <option value="$PROJECT_DIR$/AsmPlugin/SimplePlugin" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
