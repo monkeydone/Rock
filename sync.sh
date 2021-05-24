@@ -25,6 +25,10 @@ listTag(){
 
 createTag(){
   git tag $1
+  git push --tag
+
+  echo "https://jitpack.io/"
+  git remote -v
 }
 
   if [ $# == 0 ]; then
@@ -39,7 +43,9 @@ createTag(){
     listTag
   elif [ $1 == "tag" ]; then
     echo "create tag from a"
+    goDistProject
     createTag $2
+    listTag
   else
     echo "sh sync.sh sync|push|tag <v1.0.1>|"
     echo ""
