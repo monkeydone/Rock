@@ -4,7 +4,7 @@ distProject="../AsmHelperPlugin"
 
 cpCode(){
   echo "copy new code to project"
-  cp -rf AsmPlugin/* distProject
+  cp -vrf AsmPlugin/* $distProject
 }
 
 goDistProject() {
@@ -28,7 +28,7 @@ createTag(){
 }
 
   if [ $# == 0 ]; then
-    echo "sh helper.sh sync|push|tag v1.0.1"
+    echo "sh sync.sh sync|push|tag <v1.0.1>|"
   elif [ $1 == "sync" ]; then
     echo "sync string from a to b"
     cpCode
@@ -40,5 +40,8 @@ createTag(){
   elif [ $1 == "tag" ]; then
     echo "create tag from a"
     createTag $2
+  else
+    echo "sh sync.sh sync|push|tag <v1.0.1>|"
+    echo ""
 #    syncDevStr2Test
   fi
