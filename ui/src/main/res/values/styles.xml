@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="common_num_heading7_medium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

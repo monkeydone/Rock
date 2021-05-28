@@ -3,7 +3,7 @@ package com.bn.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 
-class CustomTextView extends androidx.appcompat.widget.AppCompatTextView {
+public class CustomTextView extends androidx.appcompat.widget.AppCompatTextView {
 
 
     public CustomTextView(Context context) {
@@ -23,5 +23,11 @@ class CustomTextView extends androidx.appcompat.widget.AppCompatTextView {
     public void setTextSize(int unit, float size) {
         float newSize = size * 3f;
         super.setTextSize(unit, newSize);
+    }
+
+    @Override
+    public void setTextSize(float size) {
+        float newSize = size * 3f;
+        super.setTextSize(newSize);
     }
 }

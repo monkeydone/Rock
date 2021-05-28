@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.github.dcendents.android-maven'
 }
-group='com.github.lijunjieone'
+group='com.github.one'
 
 
 
