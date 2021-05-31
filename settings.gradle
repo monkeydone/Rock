@@ -1,3 +1,4 @@
+include ':base'
 include ':ui'
 include ':utils'
 include ':app'
