@@ -1,4 +1,7 @@
+include ':findFragment'
 include ':base'
+include ':annotation-processor4'
+include ':xbase'
 include ':ui'
 include ':utils'
 include ':app'

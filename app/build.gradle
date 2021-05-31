@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'simple-plugin'
+//    id 'simple-plugin'
+    id 'kotlin-kapt'
 
 }
 
@@ -45,7 +46,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(":utils")
     implementation project(":ui")
+    implementation project(":findFragment")
 //    implementation 'com.github.lijunjieone.PluginDemo:utils:v1.0.6'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
