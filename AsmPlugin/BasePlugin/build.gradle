@@ -3,7 +3,7 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 //apply from: '../upload_bintray.gradle'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.lijunjieone'
+group='com.github.monkeydone'
 
 
 dependencies {
