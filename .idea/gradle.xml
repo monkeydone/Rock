@@ -33,7 +33,6 @@
             <option value="$PROJECT_DIR$/findFragment" />
             <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/utils" />
-            <option value="$PROJECT_DIR$/xbase" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
