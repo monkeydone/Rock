@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.a.base.BaseViewModel
 import com.a.dproject.FragmentObject
 import com.a.dproject.getAnnotationMap
+import com.a.findfragment.ListActivity.Companion.PARAM_PARENT_NAME
 
 class ListViewModel(application: Application) :
     BaseViewModel<List<ListViewModel.ListDataModel>>(application) {
@@ -54,7 +55,6 @@ class ListViewModel(application: Application) :
     }
 
     companion object {
-        const val PARAM_PARENT_NAME = "parent_name"
     }
 
 
