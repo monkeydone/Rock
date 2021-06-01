@@ -39,7 +39,7 @@ class ListActivity : AppCompatActivity() {
         }
 
         fun createFragmentByName(fragmentName: String): Fragment {
-            val f = Class.forName("$fragmentName").newInstance() as Fragment
+            val f = Class.forName("$fragmentName".trim()).newInstance() as Fragment
             return f;
         }
     }

@@ -78,7 +78,7 @@ map.put("$showName", FragmentObject("$showName","$parentName","${typeElement.qua
             for (element in parentNameList) {
                 body = """
                     ${body}
-map.put("$element", FragmentObject("$element","","com.a.dproject.mvvm.fragment.ListFragment"))
+map.put("$element", FragmentObject("$element","","com.a.findfragment.ListFragment"))
                 """.trimIndent()
             }
 

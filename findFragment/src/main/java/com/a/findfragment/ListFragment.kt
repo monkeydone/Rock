@@ -100,12 +100,7 @@ class ListFragment : BaseFragment() {
     companion object {
         const val PARAM_DEFAULT_ID = "param_default_id"
 
-        fun newInstance(id: Long = 0L): Fragment = ListFragment().apply {
-            //在这里完成Fragment和外部数据的通讯
-            val args = Bundle()
-            args.putLong(PARAM_DEFAULT_ID, id)
-            arguments = args
-        }
+        fun newInstance(): Fragment = ListFragment()
     }
 
 
