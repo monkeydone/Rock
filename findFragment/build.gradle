@@ -52,7 +52,7 @@ dependencies {
 //    implementation project(":annotation-processor4")
 //    kapt project(":annotation-processor4")
 
-    implementation 'com.github.monkeydone.Rock:annotation-processor4:v1.0.11'
+    api 'com.github.monkeydone.Rock:annotation-processor4:v1.0.11'
     kapt 'com.github.monkeydone.Rock:annotation-processor4:v1.0.11'
     implementation 'com.github.monkeydone.Rock:base:v1.0.11'
 
