@@ -6,9 +6,9 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.a.base.BaseViewModel
-import com.a.dproject.FragmentObject
 import com.a.dproject.getAnnotationMap
 import com.a.findfragment.ListActivity.Companion.PARAM_PARENT_NAME
+import com.a.processor.FragmentObject
 
 class ListViewModel(application: Application) :
     BaseViewModel<List<ListViewModel.ListDataModel>>(application) {

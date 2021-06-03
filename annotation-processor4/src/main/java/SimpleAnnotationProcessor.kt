@@ -42,19 +42,21 @@ class SimpleAnnotationProcessor : AbstractProcessor() {
 
 val map = HashMap<String,FragmentObject>()
             """.trimIndent()
-            classDeclaration("FragmentObject", DATA) {
-                primaryConstructor {
-                    param<String>("showName", VAL)
-                    param<String>("parentName", VAL)
-                    param<String>("fragmentName", VAL)
-                }
-            }
+//            classDeclaration("FragmentObject", DATA) {
+//                primaryConstructor {
+//                    param<String>("showName", VAL)
+//                    param<String>("parentName", VAL)
+//                    param<String>("fragmentName", VAL)
+//                }
+//            }
+
+            import("com.a.processor.FragmentObject")
 
             val parentNameList = ArrayList<String>()
 
             for (element in annotatedElements) {
                 val annotation: ListFragmentAnnotation =
-                    element.getAnnotation(ListFragmentAnnotation::class.java)
+                        element.getAnnotation(ListFragmentAnnotation::class.java)
                 val showName = annotation.showName
                 val parentName = annotation.parentName
                 if (!parentNameList.contains(parentName) && parentName.isNotEmpty()) {
