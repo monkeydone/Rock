@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 
 
 open class ListActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
@@ -25,6 +26,8 @@ open class ListActivity : AppCompatActivity() {
     companion object {
         const val FRAGMENT_NAME = "fragmentName"
         const val PARAM_PARENT_NAME = "fragmentParentName"
+
+        var init = false
         fun startFragment(context: Context, fragmentName: String, parentName: String = "") {
             val intent = Intent();
             intent.setClass(context, ListActivity::class.java)
@@ -34,18 +37,20 @@ open class ListActivity : AppCompatActivity() {
         }
 
         fun initAnnotation(context: Context) {
-            val annotated = LocalPackage.getAnnotationClasses(
-                FragmentAnnotation::class.java,
-                context.packageCodePath
-            )
-            for (i in annotated) {
-                val c = i.getAnnotationsByType(FragmentAnnotation::class.java)
-                if (c.isNotEmpty()) {
-                    ListViewModel.addAnnotation(c[0], i.canonicalName)
+            if (init) {
+                val annotated = LocalPackage.getAnnotationClasses(
+                    FragmentAnnotation::class.java,
+                    context.packageCodePath
+                )
+                for (i in annotated) {
+                    val c = i.getAnnotationsByType(FragmentAnnotation::class.java)
+                    if (c.isNotEmpty()) {
+                        ListViewModel.addAnnotation(c[0], i.canonicalName)
+                    }
                 }
+
+                init = true
             }
-
-
         }
 
         fun startListActivity(context: Context) {
