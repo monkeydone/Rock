@@ -33,7 +33,7 @@ class ListViewModel(application: Application) :
         if (loading) {
             return itemList
         }
-        itemList.value = list
+        itemList.value = list.filter { it.fragmentObject.parentName == parentName }
         return itemList
     }
 
