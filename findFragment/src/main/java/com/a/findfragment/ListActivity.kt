@@ -11,6 +11,7 @@ class ListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+        initAnnotation(this)
         if (savedInstanceState == null) {
             val fragmentName = intent.getStringExtra(FRAGMENT_NAME)
             val f =
@@ -30,6 +31,21 @@ class ListActivity : AppCompatActivity() {
             intent.putExtra(FRAGMENT_NAME, fragmentName)
             intent.putExtra(PARAM_PARENT_NAME, parentName)
             context.startActivity(intent)
+        }
+
+        fun initAnnotation(context: Context) {
+            val annotated = LocalPackage.getAnnotationClasses(
+                FragmentAnnotation::class.java,
+                context.packageCodePath
+            )
+            for (i in annotated) {
+                val c = i.getAnnotationsByType(FragmentAnnotation::class.java)
+                if (c.isNotEmpty()) {
+                    ListViewModel.addAnnotation(c[0], i.canonicalName)
+                }
+            }
+
+
         }
 
         fun startListActivity(context: Context) {

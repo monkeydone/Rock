@@ -2,13 +2,10 @@ package com.a.findfragment
 
 import android.app.Application
 import android.content.Intent
-import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.a.base.BaseViewModel
-import com.a.dproject.getAnnotationMap
 import com.a.findfragment.ListActivity.Companion.PARAM_PARENT_NAME
-import com.a.processor.FragmentObject
 
 class ListViewModel(application: Application) :
     BaseViewModel<List<ListViewModel.ListDataModel>>(application) {
@@ -24,7 +21,7 @@ class ListViewModel(application: Application) :
     }
 
     //    data class ListDataModel(val letter: String)
-    data class ListDataModel(val letter: String, val fragmentObject: FragmentObject)
+    data class ListDataModel(val letter: String, val fragmentObject: FragmentAnnotationData)
 
     fun initVM(intent: Intent?) {
         intent?.let {
@@ -36,25 +33,16 @@ class ListViewModel(application: Application) :
         if (loading) {
             return itemList
         }
-        val list = ArrayList<ListDataModel>()
-        getAnnotationMap().forEach {
-            val key = if (TextUtils.isEmpty(it.key)) {
-                it.value
-            } else {
-                it.key
-            }
-            if (parentName == it.value.parentName) {
-                list.add(ListDataModel(it.value.showName, it.value))
-            }
-        }
-//        list.add(ListDataModel("SimpleFragment", "SimpleFragment"))
-//        list.add(ListDataModel("TabFragment", "TabFragment"))
-        //itemList.value = handleListRequestResponse(list=list,haveMore = canLoadMore)
         itemList.value = list
         return itemList
     }
 
     companion object {
+        val list = ArrayList<ListDataModel>()
+        fun addAnnotation(annotation: FragmentAnnotation, fragmentName: String) {
+            list.add(ListDataModel(annotation.showName, FragmentAnnotationData(annotation.showName, annotation.parentName, fragmentName)))
+        }
+
     }
 
 

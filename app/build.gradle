@@ -47,9 +47,6 @@ dependencies {
     implementation project(":utils")
     implementation project(":ui")
     implementation project(":findFragment")
-//    implementation 'com.github.monkeydone.Rock:findFragment:v1.1.1'
-    implementation 'com.github.yanex:takenoko:0.1'
-
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

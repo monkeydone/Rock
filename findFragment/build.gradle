@@ -49,12 +49,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 
     implementation project(":base")
-    implementation project(":annotation-processor4")
-    kapt project(":annotation-processor4")
 
-//    api 'com.github.monkeydone.Rock:annotation-processor4:1.1'
-//    kapt 'com.github.monkeydone.Rock:annotation-processor4:1.1'
-    implementation 'com.github.monkeydone.Rock:base:1.0.11'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 

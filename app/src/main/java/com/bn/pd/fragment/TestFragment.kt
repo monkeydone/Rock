@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.a.findfragment.EmptyFragment
-import com.a.processor.ListFragmentAnnotation
+import com.a.findfragment.FragmentAnnotation
 import java.util.*
 
-@ListFragmentAnnotation("简单例子2", "root")
+@FragmentAnnotation("简单例子", "app")
 class TestFragment : Fragment() {
 
     override fun onCreateView(
