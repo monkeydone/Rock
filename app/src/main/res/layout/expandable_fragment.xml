@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="#0000ff"
+            android:background="#cccccc"
             android:gravity="left"
             android:text="Hello World!"
             app:layout_constraintLeft_toLeftOf="parent"
