@@ -42,11 +42,27 @@ open class ListActivity : AppCompatActivity() {
                     FragmentAnnotation::class.java,
                     context.packageCodePath
                 )
+                val parentNameList = ArrayList<String>()
                 for (i in annotated) {
                     val c = i.getAnnotationsByType(FragmentAnnotation::class.java)
                     if (c.isNotEmpty()) {
                         ListViewModel.addAnnotation(c[0], i.canonicalName)
+                        if (c[0].parentName.isNotEmpty() && !parentNameList.contains(c[0].parentName)) {
+                            parentNameList.add(c[0].parentName)
+                        }
                     }
+                }
+
+                for (i in parentNameList) {
+                    val data = ListViewModel.ListDataModel(
+                        i,
+                        FragmentAnnotationData(
+                            i,
+                            "",
+                            "com.a.findfragment.ListFragment"
+                        )
+                    )
+                    ListViewModel.addAnnotation(data)
                 }
 
                 init = true

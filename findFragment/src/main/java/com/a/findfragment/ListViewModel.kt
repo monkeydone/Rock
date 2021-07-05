@@ -40,7 +40,16 @@ class ListViewModel(application: Application) :
     companion object {
         val list = ArrayList<ListDataModel>()
         fun addAnnotation(annotation: FragmentAnnotation, fragmentName: String) {
-            list.add(ListDataModel(annotation.showName, FragmentAnnotationData(annotation.showName, annotation.parentName, fragmentName)))
+            list.add(
+                ListDataModel(
+                    annotation.showName,
+                    FragmentAnnotationData(annotation.showName, annotation.parentName, fragmentName)
+                )
+            )
+        }
+
+        fun addAnnotation(listDataModel: ListDataModel) {
+            list.add(listDataModel)
         }
 
     }
