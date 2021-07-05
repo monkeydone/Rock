@@ -18,7 +18,7 @@ open class ListActivity : AppCompatActivity() {
             val f =
                 if (fragmentName == null) ListFragment() else createFragmentByName(fragmentName!!)
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, f)
+                .replace(R.id.fragment_container, f)
                 .commitNow()
         }
     }
@@ -37,7 +37,7 @@ open class ListActivity : AppCompatActivity() {
         }
 
         fun initAnnotation(context: Context) {
-            if (init) {
+            if (!init) {
                 val annotated = LocalPackage.getAnnotationClasses(
                     FragmentAnnotation::class.java,
                     context.packageCodePath
