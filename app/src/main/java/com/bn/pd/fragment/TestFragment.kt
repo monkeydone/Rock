@@ -11,7 +11,7 @@ import com.a.findfragment.EmptyFragment
 import com.a.findfragment.FragmentAnnotation
 import java.util.*
 
-@FragmentAnnotation("简单例子", "app")
+@FragmentAnnotation("简单例子2", "root")
 class TestFragment : Fragment() {
 
     override fun onCreateView(
