@@ -12,7 +12,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.skeletonlayout.Skeleton
@@ -42,7 +42,7 @@ abstract class RBaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Frag
     open fun initViewModel() {
         ClassUtil.getViewModel<VM>(this).also {
             it?.also {
-                viewModel = ViewModelProviders.of(this).get(it)
+                viewModel = ViewModelProvider(this).get(it)
                 doObserve(viewModel)
             }
         }
