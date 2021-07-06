@@ -3,6 +3,7 @@ package com.a.findfragment
 import android.view.View
 import com.a.base.RBaseFragment
 import com.a.base.funOwnerObserver
+import com.a.base.list.SimpleGridDecoration
 import com.a.base.list.loadListData
 import com.a.base.observer
 import com.a.findfragment.databinding.FragmentListBinding
@@ -35,26 +36,10 @@ class ListFragment : RBaseFragment<ListViewModel, FragmentListBinding>(), OnItem
 
     override fun initView() {
         binding.recyclerView.adapter = artworkAdapter
-//        binding.recyclerView.addItemDecoration(SpaceItemDecoration(flank = 10.dp, spanFlank = 16.dp, spanInterval = 8.dp))
+        binding.recyclerView.addItemDecoration(SimpleGridDecoration(10))
 
-        initAllView()
     }
 
-    /**
-     * 根据不同Type 展示不同UI
-     */
-    private fun initAllView() {
-//        when (viewModel.type) {
-//            ArtWorkListType.ARTWORK_ARTWORK -> {
-//                R.layout.item_artist_header.layoutToDataBinding().apply {
-//                    (this as ItemArtistHeaderBinding).msg = viewModel.msg
-//                    artworkAdapter.addHeaderView(this.root)
-//                }
-//            }
-//            else -> {
-//            }
-//        }
-    }
 
     override fun initData() {
         getGalleryArtWorks(true)
