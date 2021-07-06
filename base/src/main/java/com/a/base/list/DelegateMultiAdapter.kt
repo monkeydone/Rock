@@ -1,4 +1,4 @@
-package com.art.ui.adapter.recyclerview
+package com.a.base.list
 
 import androidx.databinding.ViewDataBinding
 import com.a.base.BR
