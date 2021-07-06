@@ -46,6 +46,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(":utils")
     implementation project(":ui")
+    implementation project(":base")
+
     implementation project(":findFragment")
 //    implementation 'com.github.monkeydone.Rock:findFragment:1.1.2'
 

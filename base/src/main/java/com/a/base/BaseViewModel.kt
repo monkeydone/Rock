@@ -2,19 +2,25 @@ package com.a.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 open class BaseViewModel<T>(application: Application) : AndroidViewModel(application) {
-    var canLoadMore: Boolean = true                             //是否能加载更多
-    open var requestCount: Int = 20                             //startIndex算起，请求多少条数据
-    open var startIndex: Int = -requestCount                    //开始的index,从0开始
-    var loadingLive = MutableLiveData<Boolean>()                //页面刚打开时候的loading状态
-    var noDataLive = MutableLiveData<Boolean>()                 //无产品占位图
-    var noNetwork = MutableLiveData<Int>()                      //无网络
-    var noCacheContent = MutableLiveData<Boolean>()             //无缓存数据
+    var canLoadMore: Boolean = true
+    open var requestCount: Int = 20
+    open var requestCountL: Long = 20L
+    var lastIdStr = ""
+    var lastIdLong = 0L
+    var lastIdInt = 0
+
+    open var startIndex: Int = -requestCount
+    var loadingLive = MutableLiveData<Boolean>()
+    var noDataLive = MutableLiveData<Boolean>()
+    var noNetwork = MutableLiveData<Int>()
+    var noCacheContent = MutableLiveData<Boolean>()
     var itemList: MutableLiveData<T> = MutableLiveData()
-    var nextPageLoadingLive = MutableLiveData<Boolean>()        //加载下一页的loading状态
+    var nextPageLoadingLive = MutableLiveData<Boolean>()
     var canReload = false
 
     open fun loadData(): LiveData<T> {
@@ -27,5 +33,28 @@ open class BaseViewModel<T>(application: Application) : AndroidViewModel(applica
         return loadData()
     }
 
+    fun postSkeleton(value: Boolean) {
+        loadingLive.value = value
+    }
+
+    private val loading = MutableLiveData<Boolean>()
+    private var loadingQueue = 0
+    fun postLoading(value: Boolean) {
+        if (value) {
+            sendLoading(value)
+            loadingQueue++
+        } else {
+            if (loadingQueue > 0) loadingQueue--
+            sendLoading(value)
+        }
+    }
+
+    private fun sendLoading(value: Boolean) {
+        if (loadingQueue == 0) loading.value = value
+    }
+
+    fun obserLoading(lifecycleOwner: LifecycleOwner, callBack: (Boolean) -> Unit) {
+        lifecycleOwner.observer(loading, callBack)
+    }
 
 }
