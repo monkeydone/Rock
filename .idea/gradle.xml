@@ -27,7 +27,6 @@
             <option value="$PROJECT_DIR$/AsmPlugin" />
             <option value="$PROJECT_DIR$/AsmPlugin/BasePlugin" />
             <option value="$PROJECT_DIR$/AsmPlugin/SimplePlugin" />
-            <option value="$PROJECT_DIR$/annotation-processor4" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/findFragment" />
