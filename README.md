@@ -248,3 +248,5 @@ public void checkAndSet(int var1) {
 
 # 模板生成
 - ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tn Simple -sn Simple2
+- ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tn Page -sn VideoList
+- ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tn List -sn List2
