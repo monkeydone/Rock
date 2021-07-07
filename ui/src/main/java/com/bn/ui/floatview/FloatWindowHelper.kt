@@ -53,63 +53,73 @@ object FloatWindowHelper {
             view = FloatViews(context)
         windowManager?.addView(view, layoutParam)
         view?.needAttach = true
-        view?.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, ev: MotionEvent?): Boolean {
-                if (v == null || ev == null)
-                    return false
-                when (ev.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        lastX = ev.rawX.toInt()
-                        lastY = ev.rawY.toInt()
-                        downTime = System.currentTimeMillis()
-                        isDraged = false
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        var dx = ev.rawX.toInt() - lastX
-                        var dy = ev.rawY.toInt() - lastY
-                        var l = v.left + dx
-                        var r = v.right + dx
-                        var t = v.top + dy
-                        var b = v.bottom + dy
-                        //当滑动出边界时需要重新设置位置
-                        if (l < 0) {
-                            l = 0
-                            r = v.width
-                        }
-                        if (t < 0) {
-                            t = 0
-                            b = v.height
-                        }
-                        v.layout(l, t, r, b)
-                        lastX = ev.rawX.toInt()
-                        lastY = ev.rawY.toInt()
-                        layoutParam.x = lastX - v.width / 2
-                        layoutParam.y = lastY - v.height / 2
-                        windowManager?.updateViewLayout(v, layoutParam)
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (System.currentTimeMillis() - downTime < ViewConfiguration.getTapTimeout()) {
-                            v.performClick()
-                            isDraged = false
-                        } else {
-                            isDraged = true
-                        }
-//                        LogUtils.instance.getLogPrint(screenHeight.toString())
-                        if ((v as FloatViews).needAttach && screenWidth != 0) {
-                            if (lastX > screenWidth / 2) {
-                                layoutParam.x = screenWidth - v.width
-                            } else {
-                                layoutParam.x = 0
-                            }
-                            windowManager?.updateViewLayout(v, layoutParam)
-                        }
-                    }
-                }
-                return isDraged
-            }
-        })
+        view?.handleTouchEvent = { v, ev ->
+            handleTouchEvent2(layoutParam, v, ev)
+        }
+
     }
 
+
+    private fun handleTouchEvent2(
+        layoutParam: WindowManager.LayoutParams,
+        v: View?,
+        ev: MotionEvent?
+    ): Boolean {
+        if (v == null || ev == null)
+            return false
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> {
+                lastX = ev.rawX.toInt()
+                lastY = ev.rawY.toInt()
+                downTime = System.currentTimeMillis()
+                isDraged = false
+            }
+            MotionEvent.ACTION_MOVE -> {
+                var dx = ev.rawX.toInt() - lastX
+                var dy = ev.rawY.toInt() - lastY
+                var l = v.left + dx
+                var r = v.right + dx
+                var t = v.top + dy
+                var b = v.bottom + dy
+                //当滑动出边界时需要重新设置位置
+                if (l < 0) {
+                    l = 0
+                    r = v.width
+                }
+                if (t < 0) {
+                    t = 0
+                    b = v.height
+                }
+                v.layout(l, t, r, b)
+                lastX = ev.rawX.toInt()
+                lastY = ev.rawY.toInt()
+                layoutParam.x = lastX - v.width / 2
+                layoutParam.y = lastY - v.height / 2
+                windowManager?.updateViewLayout(v, layoutParam)
+            }
+            MotionEvent.ACTION_UP -> {
+                if (System.currentTimeMillis() - downTime < ViewConfiguration.getTapTimeout()) {
+                    v.performClick()
+                    isDraged = false
+                } else {
+                    isDraged = true
+                }
+                val screenWidth = v.context.resources.displayMetrics.widthPixels
+//                        LogUtils.instance.getLogPrint(screenHeight.toString())
+                if ((v as FloatViews).needAttach && screenWidth != 0) {
+                    if (lastX > screenWidth / 2) {
+                        layoutParam.x = screenWidth - v.width
+                        view?.isLeft = false
+                    } else {
+                        layoutParam.x = 0
+                        view?.isLeft = true
+                    }
+                    windowManager?.updateViewLayout(v, layoutParam)
+                }
+            }
+        }
+        return isDraged
+    }
     fun showView(context: Context) {
         if (view == null || view?.windowToken == null) {
             addView(context)

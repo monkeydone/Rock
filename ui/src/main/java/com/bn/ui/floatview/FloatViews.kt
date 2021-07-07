@@ -2,11 +2,13 @@ package com.example.floatingwindowdemo.custom.floatview
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
+import androidx.databinding.DataBindingUtil
 import com.bn.ui.R
+import com.bn.ui.databinding.FloatViewsLayoutBinding
 
 
 class FloatViews : LinearLayout, View.OnClickListener {
@@ -16,22 +18,69 @@ class FloatViews : LinearLayout, View.OnClickListener {
             super(context, attributeSet, defStyleAttr) {
     }
 
-    private var image: AppCompatImageView? = null
-    private var text: TextView? = null
+    var binding: FloatViewsLayoutBinding
+    lateinit var handleTouchEvent: (view: View, event: MotionEvent?) -> Unit
 
     //是否需要依附边缘
     var needAttach = false
+    var isLeft = true
 
     init {
-        View.inflate(context, R.layout.float_views_layout, this)
-        image = findViewById(R.id.img_float_window)
-        text = findViewById(R.id.text_float_window)
-        setOnClickListener(this)
-        //减去虚拟按键的高度
-//        screenHeight -= DeviceUtils.instance.getVirtualBarHeight(context)
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.float_views_layout,
+            this,
+            true
+        )
+        binding.onClickListener = this
+        handleViews(isLeft, false)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (::handleTouchEvent.isInitialized) {
+            handleTouchEvent(this, ev)
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
+
+    fun goTargetView(src: View, dest: View) {
+        src.animate().x(dest.x).y(dest.y).setDuration(1000).start()
+    }
+
+    fun handleViews(isLeft: Boolean, isShowAll: Boolean) {
+        if (isShowAll) {
+            binding.imageBottomLeft.visibility = View.VISIBLE
+            binding.imageBottomRight.visibility = View.VISIBLE
+            binding.imageTopLeft.visibility = View.VISIBLE
+            binding.imageTopRight.visibility = View.VISIBLE
+            binding.imageCenterLeft.visibility = View.VISIBLE
+            binding.imageCenterRight.visibility = View.VISIBLE
+        } else {
+            binding.imageBottomLeft.visibility = View.GONE
+            binding.imageBottomRight.visibility = View.GONE
+            binding.imageTopLeft.visibility = View.GONE
+            binding.imageTopRight.visibility = View.GONE
+            if (isLeft) {
+                binding.imageCenterRight.visibility = View.GONE
+                binding.imageCenterLeft.visibility = View.VISIBLE
+            } else {
+                binding.imageCenterLeft.visibility = View.GONE
+                binding.imageCenterRight.visibility = View.VISIBLE
+            }
+
+        }
     }
 
     override fun onClick(v: View?) {
-//        LogUtils.instance.getLogPrint("点击了可拖动控件" + v?.context?.packageName)
+        when (v?.id) {
+            R.id.image_center_left -> {
+                handleViews(isLeft, binding.imageBottomLeft.visibility == View.GONE)
+            }
+            R.id.image_center_right -> {
+                handleViews(isLeft, binding.imageBottomLeft.visibility == View.GONE)
+            }
+        }
+
     }
 }
