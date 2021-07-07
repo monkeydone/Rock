@@ -4,10 +4,9 @@ import android.view.View
 import com.a.base.NoViewModel
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
-
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentSimple1Binding
-import com.bn.utils.toast
+import com.example.floatingwindowdemo.custom.floatview.FloatWindowHelper
 
 
 @FragmentAnnotation("Simple", "Template")
@@ -24,7 +23,8 @@ class Simple1Fragment : RBaseFragment<NoViewModel, FragmentSimple1Binding>(), Vi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.message -> {
-                "message".toast()
+//                "message".toast()
+                FloatWindowHelper.requestPermission(requireActivity())
             }
 
         }

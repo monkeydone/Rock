@@ -1,4 +1,4 @@
-package com.bn.pd.fragment
+package com.bn.pd.mvvm.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
