@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.PixelFormat
 import android.net.Uri
 import android.os.Build
@@ -12,7 +13,11 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.*
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
+import com.bn.ui.R
 import com.bn.utils.toast
+import com.bvapp.arcmenulibrary.ArcMenu
 
 object FloatWindowHelper {
     private var windowManager: WindowManager? = null
@@ -101,6 +106,7 @@ object FloatWindowHelper {
                             } else {
                                 layoutParam.x = 0
                             }
+                            view?.handleDirection(layoutParam.x == 0)
                             windowManager?.updateViewLayout(v, layoutParam)
                         }
                     }
@@ -108,9 +114,15 @@ object FloatWindowHelper {
                 return isDraged
             }
         })
+
     }
 
+
+
     fun showView(context: Context) {
+        if(!hasPermission(context)){
+            return
+        }
         if (view == null || view?.windowToken == null) {
             addView(context)
         }
@@ -126,7 +138,8 @@ object FloatWindowHelper {
 
 
     fun init(application: Application) {
-        application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+        application.registerActivityLifecycleCallbacks(object :
+            Application.ActivityLifecycleCallbacks {
             override fun onActivityPaused(activity: Activity) {
 
             }
@@ -158,9 +171,12 @@ object FloatWindowHelper {
             }
         })
     }
+    fun hasPermission(context: Context):Boolean{
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(context)
+    }
 
     fun requestPermission(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(activity)) {
+        if (!hasPermission(activity)) {
 //            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show()
             "当前无权限，请授权".toast()
             val intent = Intent()
@@ -172,7 +188,7 @@ object FloatWindowHelper {
 
     fun handleActivityResult(context: Context, requestCode: Int) {
         if (requestCode == 0) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)) {
+            if (hasPermission(context)) {
                 "授权失败".toast()
             } else {
                 "授权成功".toast()
