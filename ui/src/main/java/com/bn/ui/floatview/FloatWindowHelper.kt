@@ -36,10 +36,7 @@ object FloatWindowHelper {
         layoutParam.format = PixelFormat.TRANSPARENT
         layoutParam.gravity = Gravity.START or Gravity.TOP
 
-        var displayMetrics: DisplayMetrics? = context.resources.displayMetrics
-        var screenWidth = displayMetrics?.widthPixels ?: 0
-        var screenHeight = displayMetrics?.heightPixels ?: 0
-        layoutParam.y = screenHeight - 300
+
 //        layoutParam.verticalMargin = 0.2f
         // FLAG_LAYOUT_IN_SCREEN：将window放置在整个屏幕之内,无视其他的装饰(比如状态栏)； FLAG_NOT_TOUCH_MODAL：不阻塞事件传递到后面的窗口
         layoutParam.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
@@ -53,14 +50,14 @@ object FloatWindowHelper {
         }
         if (view == null)
             view = FloatViews(context)
-        layoutParam.x = screenWidth - view!!.width
+        setInitPosition(context, layoutParam, false, 300)
         windowManager?.addView(view, layoutParam)
         view?.needAttach = true
         view?.handleTouchEvent = { v, ev ->
             handleTouchEvent2(layoutParam, v, ev)
         }
         view?.binding?.imageTopLeft?.setOnClickListener {
-            if(::viewClickListener.isInitialized){
+            if (::viewClickListener.isInitialized) {
                 viewClickListener.onClick(it)
             }
         }
@@ -68,6 +65,23 @@ object FloatWindowHelper {
 
     }
 
+    private fun setInitPosition(
+        context: Context,
+        layoutParam: WindowManager.LayoutParams,
+        isLeft: Boolean,
+        y: Int
+    ) {
+        var displayMetrics: DisplayMetrics? = context.resources.displayMetrics
+        var screenWidth = displayMetrics?.widthPixels ?: 0
+        var screenHeight = displayMetrics?.heightPixels ?: 0
+        layoutParam.y = screenHeight - y
+        if (isLeft) {
+            layoutParam.x = 0
+        } else {
+            layoutParam.x = screenWidth - view!!.width
+        }
+
+    }
 
     private fun handleTouchEvent2(
         layoutParam: WindowManager.LayoutParams,
