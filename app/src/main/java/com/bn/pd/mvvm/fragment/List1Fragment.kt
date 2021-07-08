@@ -1,7 +1,9 @@
 package com.bn.pd.mvvm.fragment
 
+import android.content.Context
 import android.graphics.Color
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.ViewDataBinding
 import com.a.base.RBaseFragment
 import com.a.base.funOwnerObserver
@@ -18,6 +20,8 @@ import com.bn.pd.ui.CustomPartShadowPopupView
 import com.bn.pd.ui.CustomPartShadowPopupView2
 import com.bn.pd.ui.PagerDrawerPopup
 import com.bn.utils.toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
@@ -28,6 +32,8 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.enums.PopupPosition
 import com.lxj.xpopup.interfaces.SimpleCallback
+import com.lxj.xpopup.interfaces.XPopupImageLoader
+import java.io.File
 
 @FragmentAnnotation("List1", "Template")
 class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnItemClickListener,
@@ -96,7 +102,37 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
         val data = adapter.data[position] as List1ViewModel.List1DataModel
         when (view.id) {
             R.id.iv_image -> {
-                data.url.toast()
+//                data.url.toast()
+                XPopup.Builder(requireContext())
+                    .asImageViewer(
+                        view as ImageView, position, viewModel.imageUrlList as List<Object>,
+                        true, true, -1, -1, -1, true,
+                        Color.rgb(32, 36, 46),
+                        { popupView, position ->
+//                            val rv = holder.itemView.getParent() as RecyclerView
+//                            popupView.updateSrcView(rv.getChildAt(position) as ImageView)
+                        }, object : XPopupImageLoader {
+                            override fun loadImage(position: Int, uri: Any, imageView: ImageView) {
+
+                                //如果你确定你的图片没有超级大的，直接这样写就行
+                                Glide.with(imageView).load(uri.toString())
+                                    .apply(RequestOptions().override(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL))
+                                    .into(imageView)
+                            }
+
+                            override fun getImageFile(context: Context, uri: Any): File? {
+                                try {
+                                    return Glide.with(context).downloadOnly().load(uri).submit()
+                                        .get()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                                return null
+                            }
+
+                        }, null
+                    )
+                    .show()
             }
             R.id.tv_letter -> {
                 data.letter.toast()
