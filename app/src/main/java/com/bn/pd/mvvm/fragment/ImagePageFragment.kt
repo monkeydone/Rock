@@ -1,15 +1,15 @@
 package com.bn.pd.mvvm.fragment
 
 import android.view.View
-import com.a.base.NoViewModel
 import com.a.base.RViewPageFragment
 import com.a.findfragment.EmptyFragment
 import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentImagePageBinding
+import com.bn.pd.mvvm.viewmodel.List1ViewModel
 
 @FragmentAnnotation("ImagePage", "Template")
-class ImagePageFragment : RViewPageFragment<NoViewModel, FragmentImagePageBinding>(),
+class ImagePageFragment : RViewPageFragment<List1ViewModel, FragmentImagePageBinding>(),
     View.OnClickListener {
 
     private val fragments = ArrayList<FragmentData>()
