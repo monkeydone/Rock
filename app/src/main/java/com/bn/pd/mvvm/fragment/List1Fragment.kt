@@ -13,16 +13,20 @@ import com.bn.pd.databinding.FragmentList1Binding
 import com.bn.pd.mvvm.viewmodel.List1ViewModel
 import com.bn.utils.toast
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 
 @FragmentAnnotation("List1", "Template")
 class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnItemClickListener,
+    OnItemChildClickListener,
     OnLoadMoreListener {
 
     private val adapter =
         CommonAdapter<List1ViewModel.List1DataModel>(R.layout.fragment_item_list1).apply {
+            addChildClickViewIds(R.id.iv_image, R.id.tv_letter)
             setOnItemClickListener(this@List1Fragment)
+            setOnItemChildClickListener(this@List1Fragment)
             loadMoreModule.setOnLoadMoreListener(this@List1Fragment)
         }
 
@@ -62,9 +66,19 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val data = adapter.data[position] as List1ViewModel.List1DataModel
-        data.url.toast()
+        "${data.letter}  ${data.url}".toast()
+    }
 
-//        val it = artworkAdapter.data[position].fragmentObject
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val data = adapter.data[position] as List1ViewModel.List1DataModel
+        when (view.id) {
+            R.id.iv_image -> {
+                data.url.toast()
+            }
+            R.id.tv_letter -> {
+                data.letter.toast()
+            }
+        }
     }
 
 
