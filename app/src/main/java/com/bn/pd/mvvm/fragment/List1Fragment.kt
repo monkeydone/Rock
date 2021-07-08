@@ -105,13 +105,21 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
 //                data.url.toast()
                 XPopup.Builder(requireContext())
                     .asImageViewer(
-                        view as ImageView, position, viewModel.imageUrlList as List<Object>,
-                        true, true, -1, -1, -1, true,
+                        view as ImageView,
+                        position,
+                        viewModel.itemList.value?.map { it.url } as List<Object>,
+                        true,
+                        true,
+                        -1,
+                        -1,
+                        -1,
+                        true,
                         Color.rgb(32, 36, 46),
                         { popupView, position ->
 //                            val rv = holder.itemView.getParent() as RecyclerView
 //                            popupView.updateSrcView(rv.getChildAt(position) as ImageView)
-                        }, object : XPopupImageLoader {
+                        },
+                        object : XPopupImageLoader {
                             override fun loadImage(position: Int, uri: Any, imageView: ImageView) {
 
                                 //如果你确定你的图片没有超级大的，直接这样写就行
