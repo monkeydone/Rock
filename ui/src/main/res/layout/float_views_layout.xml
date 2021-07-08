@@ -18,7 +18,6 @@
             android:id="@+id/image_top_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{onClickListener}"
             android:src="@mipmap/alarm"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/image_top_right"

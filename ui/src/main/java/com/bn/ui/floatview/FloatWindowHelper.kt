@@ -21,6 +21,7 @@ object FloatWindowHelper {
     private var lastY: Int = 0
     private var downTime = 0L
     private var isDraged = false
+    lateinit var viewClickListener:View.OnClickListener
 
     @SuppressLint("ClickableViewAccessibility")
     private fun addView(context: Context) {
@@ -56,6 +57,12 @@ object FloatWindowHelper {
         view?.handleTouchEvent = { v, ev ->
             handleTouchEvent2(layoutParam, v, ev)
         }
+        view?.binding?.imageTopLeft?.setOnClickListener {
+            if(::viewClickListener.isInitialized){
+                viewClickListener.onClick(it)
+            }
+        }
+
 
     }
 
