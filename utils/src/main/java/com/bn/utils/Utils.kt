@@ -44,11 +44,12 @@ fun Int.layoutToDataBinding(viewGroup: ViewGroup? = null): ViewDataBinding =
         LayoutInflater.from(ContextUtils.applicationContext), this, viewGroup, false
     )
 
+@BindingAdapter("roundRadius")
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-fun View.setRoundRect(radius: Float) {
+fun View.setRoundRect(radius: Float?) {
     this.outlineProvider = object : ViewOutlineProvider() {
         override fun getOutline(view: View, outline: Outline) {
-            outline.setRoundRect(0, 0, view.width, view.height, radius)
+            outline.setRoundRect(0, 0, view.width, view.height, radius ?: 0.0f)
         }
     }
     this.clipToOutline = true
