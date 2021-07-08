@@ -53,7 +53,7 @@ open class BaseViewModel<T>(application: Application) : AndroidViewModel(applica
         if (loadingQueue == 0) loading.value = value
     }
 
-    fun obserLoading(lifecycleOwner: LifecycleOwner, callBack: (Boolean) -> Unit) {
+    fun notifyLoading(lifecycleOwner: LifecycleOwner, callBack: (Boolean) -> Unit) {
         lifecycleOwner.observer(loading, callBack)
     }
 

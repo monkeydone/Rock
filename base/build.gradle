@@ -54,7 +54,8 @@ dependencies {
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 
-    api 'com.lxj:xpopup:2.4.5'
+
+    api 'com.github.li-xiaojun:XPopup:2.4.5'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.faltenreich:skeletonlayout:4.0.0'

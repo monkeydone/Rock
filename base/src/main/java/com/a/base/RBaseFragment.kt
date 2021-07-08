@@ -19,12 +19,15 @@ import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.SkeletonConfig
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.faltenreich.skeletonlayout.createSkeleton
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.impl.LoadingPopupView
 
 abstract class RBaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragment(),
     BackPressHandler {
 
     lateinit var binding: DB
     lateinit var viewModel: VM
+    var loadingPopup: LoadingPopupView? = null
 
     protected lateinit var rootView: FrameLayout
 
@@ -50,7 +53,7 @@ abstract class RBaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Frag
 
     protected fun doObserve(viewModel: BaseViewModel<*>) {
         observer(viewModel.loadingLive) { handleSkeleton(it) }
-        viewModel.obserLoading(this) { handleLoading(it) }
+        viewModel.notifyLoading(this) { handleLoading(it) }
     }
 
     /**
@@ -128,16 +131,23 @@ abstract class RBaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Frag
         stoneView.visibility = View.GONE
     }
 
+    open var loadingStr: String = "Loading...."
+
     fun showLoadingDialog() {
-//        if (activity is BaseActivity) {
-//            (activity as BaseActivity).showLoadingDialog()
-//        }
+        if (loadingPopup == null) {
+            loadingPopup = XPopup.Builder(context)
+                .dismissOnBackPressed(false)
+                .asLoading(loadingStr)
+                .show() as LoadingPopupView
+        } else {
+            loadingPopup!!.show()
+        }
     }
 
     fun hideLoadingDialog() {
-//        if (activity is BaseActivity) {
-//            (activity as BaseActivity).hideLoadingDialog()
-//        }
+        if (loadingPopup != null) {
+            loadingPopup!!.delayDismissWith(0) { }
+        }
     }
 
     private fun showSkeleton() {
