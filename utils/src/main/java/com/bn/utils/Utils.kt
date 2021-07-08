@@ -1,9 +1,13 @@
 package com.bn.utils
 
+import android.graphics.Outline
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -30,3 +34,13 @@ fun Int.layoutToDataBinding(viewGroup: ViewGroup? = null): ViewDataBinding =
     DataBindingUtil.inflate(
         LayoutInflater.from(ContextUtils.applicationContext), this, viewGroup, false
     )
+
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+fun View.setRoundRect(radius: Float) {
+    this.outlineProvider = object : ViewOutlineProvider() {
+        override fun getOutline(view: View, outline: Outline) {
+            outline.setRoundRect(0, 0, view.width, view.height, radius)
+        }
+    }
+    this.clipToOutline = true
+}
