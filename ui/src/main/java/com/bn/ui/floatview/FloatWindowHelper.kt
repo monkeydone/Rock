@@ -98,21 +98,21 @@ object FloatWindowHelper {
                 isDraged = false
             }
             MotionEvent.ACTION_MOVE -> {
-                var dx = ev.rawX.toInt() - lastX
-                var dy = ev.rawY.toInt() - lastY
-                var l = v.left + dx
-                var r = v.right + dx
-                var t = v.top + dy
-                var b = v.bottom + dy
-                //当滑动出边界时需要重新设置位置
-                if (l < 0) {
-                    l = 0
-                    r = v.width
-                }
-                if (t < 0) {
-                    t = 0
-                    b = v.height
-                }
+//                var dx = ev.rawX.toInt() - lastX
+//                var dy = ev.rawY.toInt() - lastY
+//                var l = v.left + dx
+//                var r = v.right + dx
+//                var t = v.top + dy
+//                var b = v.bottom + dy
+//                //当滑动出边界时需要重新设置位置
+//                if (l < 0) {
+//                    l = 0
+//                    r = v.width
+//                }
+//                if (t < 0) {
+//                    t = 0
+//                    b = v.height
+//                }
 //                v.layout(l, t, r, b)
                 lastX = ev.rawX.toInt()
                 lastY = ev.rawY.toInt()
