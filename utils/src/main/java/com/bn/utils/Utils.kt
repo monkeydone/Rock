@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import java.util.*
 
 fun String.toast() {
     Toast.makeText(ContextUtils.applicationContext, this, Toast.LENGTH_SHORT).show()
@@ -29,6 +30,11 @@ fun Int.drawable() = ContextCompat.getDrawable(ContextUtils.applicationContext, 
 fun Int.color() = ContextCompat.getColor(ContextUtils.applicationContext, this)
 fun Int.layoutToView(root: ViewGroup? = null): View =
     LayoutInflater.from(ContextUtils.applicationContext).inflate(this, root, false)
+
+fun Int.random(): Int {
+    val r = Random()
+    return r.nextInt(this)
+}
 
 fun Int.layoutToDataBinding(viewGroup: ViewGroup? = null): ViewDataBinding =
     DataBindingUtil.inflate(

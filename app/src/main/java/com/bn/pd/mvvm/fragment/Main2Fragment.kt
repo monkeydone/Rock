@@ -7,19 +7,20 @@ import com.a.base.TabEntity
 import com.a.findfragment.EmptyFragment
 import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
-import com.bn.pd.databinding.FragmentMainBinding
-import com.bn.pd.mvvm.viewmodel.MainViewModel
+import com.bn.pd.databinding.FragmentMain2Binding
+import com.bn.pd.mvvm.viewmodel.Main2ViewModel
+import com.bn.utils.random
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 
-@FragmentAnnotation("Main", "Template")
-class MainFragmentFragment : RViewPageFragment<MainViewModel, FragmentMainBinding>(),
+
+@FragmentAnnotation("Main2", "Template")
+class Main2FragmentFragment : RViewPageFragment<Main2ViewModel, FragmentMain2Binding>(),
     View.OnClickListener {
 
     private val fragments = ArrayList<FragmentData>()
 
-
-    override fun getContentId() = R.layout.fragment_main
+    override fun getContentId() = R.layout.fragment_main2
     override fun getStoneId() = 0
 
     private val mTitles = arrayOf("首页", "消息", "联系人", "更多")
@@ -33,6 +34,7 @@ class MainFragmentFragment : RViewPageFragment<MainViewModel, FragmentMainBindin
     )
 
     private val mTabEntities = java.util.ArrayList<CustomTabEntity>()
+
 
     override fun initIntent() {
         initFragments()
@@ -84,16 +86,19 @@ class MainFragmentFragment : RViewPageFragment<MainViewModel, FragmentMainBindin
         })
 
         binding.viewPager.setCurrentItem(1)
+        binding.tabLayout.showMsg(0, 100.random() + 1)
+        binding.tabLayout.showMsg(1, 100.random() + 1)
 
     }
+
 
     override fun initObserver() {
     }
 
 
     private fun initFragments() {
-        for (i in mTitles.indices) {
-            val title = mTitles[i]
+        for (i in 0..3) {
+            val title = "title${i}"
             val d = FragmentData(title, EmptyFragment())
             fragments.add(d)
         }
@@ -110,7 +115,7 @@ class MainFragmentFragment : RViewPageFragment<MainViewModel, FragmentMainBindin
     }
 
     override fun bindViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
-//        binding.tabLayout.setViewPager(viewPager)
+        //   binding.tabLayout.setViewPager(viewPager)
     }
 
 

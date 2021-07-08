@@ -5,7 +5,7 @@
     <application>
         <provider
             android:name="com.bn.utils.InitProvider"
-            android:authorities="com.bn.utils.InitProvider"
+            android:authorities="${applicationId}.InitProvider"
             android:exported="true" />
     </application>
 
