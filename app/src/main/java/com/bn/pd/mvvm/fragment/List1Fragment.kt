@@ -5,17 +5,13 @@ import com.a.base.RBaseFragment
 import com.a.base.funOwnerObserver
 import com.a.base.list.SimpleGridDecoration
 import com.a.base.list.loadListData
-
 import com.a.base.observer
-
 import com.a.findfragment.FragmentAnnotation
-
 import com.art.ui.adapter.recyclerview.CommonAdapter
-
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentList1Binding
 import com.bn.pd.mvvm.viewmodel.List1ViewModel
-
+import com.bn.utils.toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
@@ -65,6 +61,9 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val data = adapter.data[position] as List1ViewModel.List1DataModel
+        data.url.toast()
+
 //        val it = artworkAdapter.data[position].fragmentObject
     }
 
