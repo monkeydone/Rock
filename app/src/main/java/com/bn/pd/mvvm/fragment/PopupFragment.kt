@@ -8,6 +8,7 @@ import com.bn.pd.databinding.FragmentPopupBinding
 import com.bn.pd.mvvm.viewmodel.PopupViewModel
 import com.bn.pd.ui.CustomAttachPopup
 import com.bn.pd.ui.CustomAttachPopup2
+import com.bn.pd.ui.PagerDrawerPopup
 import com.bn.utils.toast
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
@@ -139,6 +140,14 @@ class PopupFragment : RBaseFragment<PopupViewModel, FragmentPopupBinding>(), Vie
                     .hasShadowBg(false) // 去掉半透明背景
                     .atView(v)
                     .asCustom(CustomAttachPopup2(requireContext()))
+                    .show()
+            }
+            R.id.tv_attach_4 -> {
+                XPopup.Builder(context)
+                    .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+                    //                        .asCustom(new CustomDrawerPopupView(getContext()))
+                    //                        .hasShadowBg(false)
+                    .asCustom(PagerDrawerPopup(requireContext())) //                        .asCustom(new ListDrawerPopupView(getContext()))
                     .show()
             }
 
