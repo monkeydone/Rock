@@ -6,9 +6,7 @@ import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentPopupBinding
 import com.bn.pd.mvvm.viewmodel.PopupViewModel
-import com.bn.pd.ui.CustomAttachPopup
-import com.bn.pd.ui.CustomAttachPopup2
-import com.bn.pd.ui.PagerDrawerPopup
+import com.bn.pd.ui.*
 import com.bn.utils.toast
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
@@ -147,7 +145,24 @@ class PopupFragment : RBaseFragment<PopupViewModel, FragmentPopupBinding>(), Vie
                     .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
                     //                        .asCustom(new CustomDrawerPopupView(getContext()))
                     //                        .hasShadowBg(false)
+                    .popupPosition(PopupPosition.Right)//右边
                     .asCustom(PagerDrawerPopup(requireContext())) //                        .asCustom(new ListDrawerPopupView(getContext()))
+
+                    .show()
+            }
+            R.id.tv_attach_5 -> {
+                XPopup.Builder(context)
+                    .hasStatusBarShadow(true) //                        .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+                    .autoOpenSoftInput(true)
+                    .asCustom(CustomFullScreenPopup(requireContext()))
+                    .show()
+            }
+            R.id.tv_pop_5 -> {
+                XPopup.Builder(context)
+                    .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+                    .isCenterHorizontal(true)
+                    .offsetY(200)
+                    .asCustom(QQMsgPopup(requireContext()))
                     .show()
             }
 
