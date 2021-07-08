@@ -39,6 +39,7 @@ object FloatWindowHelper {
         var displayMetrics: DisplayMetrics? = context.resources.displayMetrics
         var screenWidth = displayMetrics?.widthPixels ?: 0
         var screenHeight = displayMetrics?.heightPixels ?: 0
+        layoutParam.y = screenHeight - 300
 //        layoutParam.verticalMargin = 0.2f
         // FLAG_LAYOUT_IN_SCREEN：将window放置在整个屏幕之内,无视其他的装饰(比如状态栏)； FLAG_NOT_TOUCH_MODAL：不阻塞事件传递到后面的窗口
         layoutParam.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
@@ -52,6 +53,7 @@ object FloatWindowHelper {
         }
         if (view == null)
             view = FloatViews(context)
+        layoutParam.x = screenWidth - view!!.width
         windowManager?.addView(view, layoutParam)
         view?.needAttach = true
         view?.handleTouchEvent = { v, ev ->
@@ -97,7 +99,7 @@ object FloatWindowHelper {
                     t = 0
                     b = v.height
                 }
-                v.layout(l, t, r, b)
+//                v.layout(l, t, r, b)
                 lastX = ev.rawX.toInt()
                 lastY = ev.rawY.toInt()
                 layoutParam.x = lastX - v.width / 2
