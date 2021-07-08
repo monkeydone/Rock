@@ -1,6 +1,8 @@
 package com.bn.pd.mvvm.fragment
 
+import android.graphics.Color
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.a.base.RBaseFragment
 import com.a.base.funOwnerObserver
 import com.a.base.list.SimpleGridDecoration
@@ -9,6 +11,7 @@ import com.a.base.observer
 import com.a.findfragment.FragmentAnnotation
 import com.art.ui.adapter.recyclerview.CommonAdapter
 import com.bn.pd.R
+import com.bn.pd.databinding.FragmentItemList1Binding
 import com.bn.pd.databinding.FragmentList1Binding
 import com.bn.pd.mvvm.viewmodel.List1ViewModel
 import com.bn.utils.toast
@@ -16,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 
 @FragmentAnnotation("List1", "Template")
 class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnItemClickListener,
@@ -23,7 +27,16 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
     OnLoadMoreListener {
 
     private val adapter =
-        CommonAdapter<List1ViewModel.List1DataModel>(R.layout.fragment_item_list1).apply {
+        object : CommonAdapter<List1ViewModel.List1DataModel>(R.layout.fragment_item_list1) {
+            override fun convert(
+                holder: BaseDataBindingHolder<ViewDataBinding>,
+                item: List1ViewModel.List1DataModel
+            ) {
+                super.convert(holder, item)
+                val binding = holder.dataBinding as FragmentItemList1Binding
+                binding.tvLetter.setBackgroundColor(Color.CYAN)
+            }
+        }.apply {
             addChildClickViewIds(R.id.iv_image, R.id.tv_letter)
             setOnItemClickListener(this@List1Fragment)
             setOnItemChildClickListener(this@List1Fragment)
