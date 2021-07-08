@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.bumptech.glide.Glide
 import java.util.*
 
 fun String.toast() {
@@ -49,4 +52,9 @@ fun View.setRoundRect(radius: Float) {
         }
     }
     this.clipToOutline = true
+}
+
+@BindingAdapter("loadImageByUrl")
+fun ImageView.loadImageByUrl(url: String?) {
+    Glide.with(this).load(url).into(this)
 }
