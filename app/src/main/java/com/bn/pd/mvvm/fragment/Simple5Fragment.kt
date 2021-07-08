@@ -1,27 +1,23 @@
 package com.bn.pd.mvvm.fragment
 
+import android.content.Context
 import android.view.View
-import com.a.base.RBaseFragment
-import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
-import com.bn.pd.databinding.FragmentSimple5Binding
-import com.bn.pd.mvvm.viewmodel.Simple5ViewModel
 import com.bn.utils.toast
+import com.lxj.xpopup.core.BottomPopupView
+import com.lxj.xpopup.util.XPopupUtils
 
 
-@FragmentAnnotation("Simple5", "Template")
-class Simple5Fragment : RBaseFragment<Simple5ViewModel, FragmentSimple5Binding>(),
+class Simple5Fragment(context: Context) : BottomPopupView(context),
     View.OnClickListener {
-    override fun getContentId(): Int = R.layout.fragment_simple5
-
-    override fun initView() {
-        binding.onClickListener = this
-        binding.viewModel = viewModel
+    override fun getImplLayoutId(): Int {
+        return R.layout.fragment_simple5
     }
 
-    override fun initData() {
-        viewModel.loadData()
+    override fun getMaxHeight(): Int {
+        return (XPopupUtils.getScreenHeight(context) * .85f).toInt()
     }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {

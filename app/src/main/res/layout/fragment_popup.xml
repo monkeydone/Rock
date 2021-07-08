@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.bn.pd.mvvm.viewmodel.PopupViewModel" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/normal_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="普通弹窗"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_custom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="自定义布局"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/normal_dialog" />
+
+        <TextView
+            android:id="@+id/tv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="选中列表"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_custom_layout" />
+
+        <TextView
+            android:id="@+id/tv_bottom_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="底部列表"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_list" />
+
+        <TextView
+            android:id="@+id/tv_custom_bottom_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="自定义底部列表"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
