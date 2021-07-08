@@ -165,6 +165,12 @@ class PopupFragment : RBaseFragment<PopupViewModel, FragmentPopupBinding>(), Vie
                     .asCustom(QQMsgPopup(requireContext()))
                     .show()
             }
+            R.id.tv_edit_text -> {
+                XPopup.Builder(context)
+                    .autoOpenSoftInput(true) //.isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+                    .asCustom(CustomEditTextBottomPopup(requireContext()))
+                    .show()
+            }
 
         }
     }
