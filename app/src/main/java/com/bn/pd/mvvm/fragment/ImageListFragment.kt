@@ -15,7 +15,7 @@ import com.art.ui.adapter.recyclerview.CommonAdapter
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentItemList1Binding
 import com.bn.pd.databinding.FragmentList1Binding
-import com.bn.pd.mvvm.viewmodel.List1ViewModel
+import com.bn.pd.mvvm.viewmodel.ImageListViewModel
 import com.bn.pd.ui.CustomPartShadowPopupView
 import com.bn.pd.ui.CustomPartShadowPopupView2
 import com.bn.pd.ui.PagerDrawerPopup
@@ -35,28 +35,28 @@ import com.lxj.xpopup.interfaces.SimpleCallback
 import com.lxj.xpopup.interfaces.XPopupImageLoader
 import java.io.File
 
-@FragmentAnnotation("List1", "Template")
-class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnItemClickListener,
-    OnItemChildClickListener,
-    OnItemLongClickListener,
-    OnLoadMoreListener, View.OnClickListener {
+@FragmentAnnotation("ImageList", "Template")
+class ImageListFragment : RBaseFragment<ImageListViewModel, FragmentList1Binding>(), OnItemClickListener,
+        OnItemChildClickListener,
+        OnItemLongClickListener,
+        OnLoadMoreListener, View.OnClickListener {
 
     private val adapter =
-        object : CommonAdapter<List1ViewModel.List1DataModel>(R.layout.fragment_item_list1) {
-            override fun convert(
-                holder: BaseDataBindingHolder<ViewDataBinding>,
-                item: List1ViewModel.List1DataModel
-            ) {
-                super.convert(holder, item)
-                val binding = holder.dataBinding as FragmentItemList1Binding
-                binding.tvLetter.setBackgroundColor(Color.CYAN)
-            }
-        }.apply {
-            addChildClickViewIds(R.id.iv_image, R.id.tv_letter)
-            setOnItemClickListener(this@List1Fragment)
-            setOnItemLongClickListener(this@List1Fragment)
-            setOnItemChildClickListener(this@List1Fragment)
-            loadMoreModule.setOnLoadMoreListener(this@List1Fragment)
+            object : CommonAdapter<ImageListViewModel.List1DataModel>(R.layout.fragment_item_list1) {
+                override fun convert(
+                        holder: BaseDataBindingHolder<ViewDataBinding>,
+                        item: ImageListViewModel.List1DataModel
+                ) {
+                    super.convert(holder, item)
+                    val binding = holder.dataBinding as FragmentItemList1Binding
+                    binding.tvLetter.setBackgroundColor(Color.CYAN)
+                }
+            }.apply {
+                addChildClickViewIds(R.id.iv_image, R.id.tv_letter)
+                setOnItemClickListener(this@ImageListFragment)
+                setOnItemLongClickListener(this@ImageListFragment)
+                setOnItemChildClickListener(this@ImageListFragment)
+                loadMoreModule.setOnLoadMoreListener(this@ImageListFragment)
         }
 
     override fun getContentId(): Int = R.layout.fragment_list1
@@ -94,12 +94,12 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val data = adapter.data[position] as List1ViewModel.List1DataModel
+        val data = adapter.data[position] as ImageListViewModel.List1DataModel
         "${data.letter}  ${data.url}".toast()
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val data = adapter.data[position] as List1ViewModel.List1DataModel
+        val data = adapter.data[position] as ImageListViewModel.List1DataModel
         when (view.id) {
             R.id.iv_image -> {
 //                data.url.toast()
@@ -238,3 +238,4 @@ class List1Fragment : RBaseFragment<List1ViewModel, FragmentList1Binding>(), OnI
 
 
 }
+

@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="com.bn.pd.mvvm.viewmodel.List1ViewModel" />
+            type="com.bn.pd.mvvm.viewmodel.ImageListViewModel" />
 
     </data>
 

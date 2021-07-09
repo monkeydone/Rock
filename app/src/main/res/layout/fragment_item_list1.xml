@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.bn.pd.mvvm.viewmodel.List1ViewModel.List1DataModel" />
+            type="com.bn.pd.mvvm.viewmodel.ImageListViewModel.List1DataModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

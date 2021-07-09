@@ -6,11 +6,11 @@ import com.a.findfragment.EmptyFragment
 import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentImagePageBinding
-import com.bn.pd.mvvm.viewmodel.List1ViewModel
+import com.bn.pd.mvvm.viewmodel.ImageListViewModel
 
 @FragmentAnnotation("ImagePage", "Template")
-class ImagePageFragment : RViewPageFragment<List1ViewModel, FragmentImagePageBinding>(),
-    View.OnClickListener {
+class ImagePageFragment : RViewPageFragment<ImageListViewModel, FragmentImagePageBinding>(),
+        View.OnClickListener {
 
     private val fragments = ArrayList<FragmentData>()
 
