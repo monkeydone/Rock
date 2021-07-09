@@ -4,7 +4,6 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.a.base.RViewPageFragment
 import com.a.base.TabEntity
-import com.a.findfragment.EmptyFragment
 import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentMain2Binding
@@ -99,7 +98,7 @@ class Main2FragmentFragment : RViewPageFragment<Main2ViewModel, FragmentMain2Bin
     private fun initFragments() {
         for (i in 0..3) {
             val title = "title${i}"
-            val d = FragmentData(title, EmptyFragment())
+            val d = FragmentData(title, PopupFragment())
             fragments.add(d)
         }
     }
