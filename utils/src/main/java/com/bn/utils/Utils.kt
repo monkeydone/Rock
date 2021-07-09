@@ -36,8 +36,24 @@ fun Int.color() = ContextCompat.getColor(ContextUtils.applicationContext, this)
 fun Int.layoutToView(root: ViewGroup? = null): View =
         LayoutInflater.from(ContextUtils.applicationContext).inflate(this, root, false)
 
+
 fun Int.fillFragment(fragment: Fragment, fragmentManager: FragmentManager) {
     fragmentManager.beginTransaction().replace(this, fragment, fragment.javaClass.getSimpleName()).commitNow()
+}
+
+fun Int.randomColor(): String {
+    var R: String
+    var G: String
+    var B: String
+    val random = Random()
+    R = Integer.toHexString(random.nextInt(this)).toUpperCase()
+    G = Integer.toHexString(random.nextInt(this)).toUpperCase()
+    B = Integer.toHexString(random.nextInt(this)).toUpperCase()
+    R = if (R.length == 1) "0$R" else R
+    G = if (G.length == 1) "0$G" else G
+    B = if (B.length == 1) "0$B" else B
+
+    return "#$R$G$B"
 }
 
 fun Int.random(): Int {
@@ -47,7 +63,7 @@ fun Int.random(): Int {
 
 fun Int.layoutToDataBinding(viewGroup: ViewGroup? = null): ViewDataBinding =
         DataBindingUtil.inflate(
-                LayoutInflater.from(ContextUtils.applicationContext), this, viewGroup, false
+            LayoutInflater.from(ContextUtils.applicationContext), this, viewGroup, false
         )
 
 @BindingAdapter("roundRadius")
