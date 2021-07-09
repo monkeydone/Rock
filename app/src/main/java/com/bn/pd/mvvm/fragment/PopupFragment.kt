@@ -12,7 +12,7 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
 
 
-@FragmentAnnotation("Popup", "Template")
+@FragmentAnnotation("PopupDialog", "Demo")
 class PopupFragment : RBaseFragment<PopupViewModel, FragmentPopupBinding>(), View.OnClickListener {
     override fun getContentId(): Int = R.layout.fragment_popup
 

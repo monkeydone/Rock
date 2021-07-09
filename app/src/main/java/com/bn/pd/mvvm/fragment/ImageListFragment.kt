@@ -35,7 +35,7 @@ import com.lxj.xpopup.interfaces.SimpleCallback
 import com.lxj.xpopup.interfaces.XPopupImageLoader
 import java.io.File
 
-@FragmentAnnotation("ImageList", "Template")
+@FragmentAnnotation("ImageList", "Demo")
 class ImageListFragment : RBaseFragment<ImageListViewModel, FragmentList1Binding>(), OnItemClickListener,
         OnItemChildClickListener,
         OnItemLongClickListener,
