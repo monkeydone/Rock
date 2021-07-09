@@ -33,6 +33,17 @@ class BannerFragment : RBaseFragment<BannerViewModel, FragmentBannerBinding>(),
             .setIndicator(CircleIndicator(requireContext())) //设置指示器
 
 
+        binding.banner2.setAdapter(adapter) //              .setCurrentItem(0,false)
+            .addBannerLifecycleObserver(this) //添加生命周期观察者
+            .setIndicator(CircleIndicator(requireContext())) //设置指示器
+            .setBannerGalleryEffect(40, 10)
+            .setIndicator(CircleIndicator(requireContext()))
+//            .setBannerGalleryMZ(20)
+        binding.banner3.setAdapter(adapter) //              .setCurrentItem(0,false)
+            .addBannerLifecycleObserver(this) //添加生命周期观察者
+            .setIndicator(CircleIndicator(requireContext()))
+            .setBannerGalleryMZ(20)
+
     }
 
     override fun onClick(v: View?) {
