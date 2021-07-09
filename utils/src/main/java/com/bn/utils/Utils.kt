@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import java.util.*
 
@@ -32,7 +34,11 @@ fun Int.string(vararg args: String) = ContextUtils.applicationContext.getString(
 fun Int.drawable() = ContextCompat.getDrawable(ContextUtils.applicationContext, this)
 fun Int.color() = ContextCompat.getColor(ContextUtils.applicationContext, this)
 fun Int.layoutToView(root: ViewGroup? = null): View =
-    LayoutInflater.from(ContextUtils.applicationContext).inflate(this, root, false)
+        LayoutInflater.from(ContextUtils.applicationContext).inflate(this, root, false)
+
+fun Int.fillFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+    fragmentManager.beginTransaction().replace(this, fragment, fragment.javaClass.getSimpleName()).commitNow()
+}
 
 fun Int.random(): Int {
     val r = Random()
@@ -40,9 +46,9 @@ fun Int.random(): Int {
 }
 
 fun Int.layoutToDataBinding(viewGroup: ViewGroup? = null): ViewDataBinding =
-    DataBindingUtil.inflate(
-        LayoutInflater.from(ContextUtils.applicationContext), this, viewGroup, false
-    )
+        DataBindingUtil.inflate(
+                LayoutInflater.from(ContextUtils.applicationContext), this, viewGroup, false
+        )
 
 @BindingAdapter("roundRadius")
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -58,4 +64,8 @@ fun View.setRoundRect(radius: Float?) {
 @BindingAdapter("loadImageByUrl")
 fun ImageView.loadImageByUrl(url: String?) {
     Glide.with(this).load(url).into(this)
+}
+
+fun Fragment.setup(resId: Int, fragmentManager: FragmentManager) {
+    resId.fillFragment(this, fragmentManager)
 }

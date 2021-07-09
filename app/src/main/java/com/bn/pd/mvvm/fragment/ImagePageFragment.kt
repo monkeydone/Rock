@@ -45,8 +45,16 @@ class ImagePageFragment : RViewPageFragment<ImageListViewModel, FragmentImagePag
     private fun initFragments() {
         for (i in 0..3) {
             val title = "title${i}"
-            val d = FragmentData(title, EmptyFragment())
-            fragments.add(d)
+            if (i == 0) {
+                val d = FragmentData(title, ImageListFragment())
+                fragments.add(d)
+            } else if (i == 1) {
+                val d = FragmentData(title, PopupFragment())
+                fragments.add(d)
+            } else {
+                val d = FragmentData(title, EmptyFragment())
+                fragments.add(d)
+            }
         }
     }
 
