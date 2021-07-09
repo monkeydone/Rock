@@ -251,3 +251,4 @@ public void checkAndSet(int var1) {
 - ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tn Page -sn VideoList
 - ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tn List -sn List
 - ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tn Detail -sn Detail
+- ./RTemplates.py c -ap /d/dev/studio/PluginDemo -pn com.bn.pd -mn app  -tl Detail,List -sn X
