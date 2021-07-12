@@ -12,6 +12,7 @@ import com.bn.pd.databinding.FragmentOtherBinding
 import com.bn.pd.mvvm.viewmodel.OtherViewModel
 import com.bn.utils.AppUtils
 import com.bn.utils.toast
+import com.example.floatingwindowdemo.custom.floatview.FloatWindowHelper
 import com.permissionx.guolindev.PermissionX
 import java.io.File
 
@@ -91,6 +92,7 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
             R.id.tv_update_apk -> {
                 val downlaod_url =
                     "https://release.windimg.com/tmp/iOS/artgain/app-release_71d4258c80e5f3c341890632248d8028ac4d5a2d.apk"
+                FloatWindowHelper.requestPermission(requireActivity())
 
             }
 

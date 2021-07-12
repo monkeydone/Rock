@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:onClick="@{onClickListener}"
-            android:text="权限申请"
+            android:text="浮动弹窗"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_request_permission" />
