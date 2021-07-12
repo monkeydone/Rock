@@ -2,6 +2,7 @@ package com.bn.utils
 
 import android.graphics.Outline
 import android.os.Build
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,6 +81,17 @@ fun View.setRoundRect(radius: Float?) {
 @BindingAdapter("loadImageByUrl")
 fun ImageView.loadImageByUrl(url: String?) {
     Glide.with(this).load(url).into(this)
+}
+
+@BindingAdapter(value = ["url", "placeholderRes"], requireAll = false)
+fun ImageView.setImageUri(url: String?, placeholderRes: Int) {
+    if (!TextUtils.isEmpty(url)) {
+        //使用Glide框架加载图片
+        Glide.with(this.context)
+            .load(url)
+            .placeholder(placeholderRes)
+            .into(this)
+    }
 }
 
 fun Fragment.setup(resId: Int, fragmentManager: FragmentManager) {

@@ -4,6 +4,7 @@
 
     <data>
 
+        <import type="com.bn.pd.R"></import>
 
         <variable
             name="item"
@@ -22,7 +23,8 @@
             android:layout_margin="10dp"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:loadImageByUrl="@{item.url}"
+            app:placeholderRes="@{R.mipmap.ic_launcher}"
+            app:url="@{item.url}"
             app:roundRadius="@{25.0f}"
 
             android:scaleType="centerCrop"
