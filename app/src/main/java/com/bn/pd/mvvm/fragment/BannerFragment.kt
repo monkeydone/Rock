@@ -19,12 +19,6 @@ class BannerFragment : RBaseFragment<BannerViewModel, FragmentBannerBinding>(),
     override fun initView() {
         binding.onClickListener = this
         binding.viewModel = viewModel
-
-    }
-
-    override fun initData() {
-        viewModel.loadData()
-
         //自定义的图片适配器，也可以使用默认的BannerImageAdapter
         val adapter = ImageNetAdapter(viewModel.getTestData3())
 
@@ -43,6 +37,30 @@ class BannerFragment : RBaseFragment<BannerViewModel, FragmentBannerBinding>(),
             .addBannerLifecycleObserver(this) //添加生命周期观察者
             .setIndicator(CircleIndicator(requireContext()))
             .setBannerGalleryMZ(20)
+
+
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        binding.marqueeView.startFlipping()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.marqueeView.startFlipping()
+    }
+
+
+    override fun initData() {
+        viewModel.loadData()
+        binding.marqueeView.startWithList(
+            viewModel.getMarqueeData(),
+            R.anim.anim_bottom_in,
+            R.anim.anim_right_out
+        )
+
 
     }
 

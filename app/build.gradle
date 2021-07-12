@@ -51,13 +51,17 @@ dependencies {
     implementation project(":findFragment")
 //    implementation 'com.github.monkeydone.Rock:findFragment:1.1.2'
 
+    //banner
     implementation 'io.github.youth5201314:banner:2.2.1'
 
+    //下载
     implementation 'me.laoyuyu.aria:core:3.8.16'
     kapt 'me.laoyuyu.aria:compiler:3.8.16'
 
+    //权限申请
     implementation 'com.permissionx.guolindev:permissionx:1.4.0'
-
+    //跑马灯
+    implementation 'com.sunfusheng:MarqueeView:1.4.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

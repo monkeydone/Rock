@@ -79,5 +79,22 @@
             banner:banner_indicator_normal_color="@android:color/white"
             banner:banner_indicator_selected_color="@color/colorPrimary"
             banner:banner_radius="5dp" />
+
+        <com.sunfusheng.marqueeview.MarqueeView
+            android:id="@+id/marqueeView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#ccffcc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/banner3"
+            app:mvAnimDuration="1000"
+            app:mvDirection="bottom_to_top"
+            app:mvInterval="3000"
+            app:mvSingleLine="true"
+            app:mvTextColor="@color/black"
+            app:mvTextSize="14sp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

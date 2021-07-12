@@ -18,6 +18,19 @@ class BannerViewModel(application: Application) :
     data class DataBean(val imageUrl: String, val title: String, val viewType: Int)
 
     var id = 0L
+
+    fun getMarqueeData(): MutableList<String> {
+
+        val messages: MutableList<String> = ArrayList()
+        messages.add("1. 大家好，我是孙福生。")
+        messages.add("2. 欢迎大家关注我哦！")
+        messages.add("3. GitHub帐号：sunfusheng")
+        messages.add("4. 新浪微博：孙福生微博")
+        messages.add("5. 个人博客：sunfusheng.com")
+        messages.add("6. 微信公众号：孙福生")
+        return messages
+    }
+
     fun getTestData3(): List<DataBean>? {
         val list: MutableList<DataBean> =
             ArrayList<DataBean>()
