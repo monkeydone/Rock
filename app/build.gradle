@@ -53,6 +53,11 @@ dependencies {
 
     implementation 'io.github.youth5201314:banner:2.2.1'
 
+    implementation 'me.laoyuyu.aria:core:3.8.16'
+    kapt 'me.laoyuyu.aria:compiler:3.8.16'
+
+    implementation 'com.permissionx.guolindev:permissionx:1.4.0'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
