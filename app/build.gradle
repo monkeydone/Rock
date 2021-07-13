@@ -36,6 +36,9 @@ android {
         jvmTarget = '1.8'
     }
 }
+def retrofitVersion = "2.5.0"
+def fastJsonVersion = "1.1.60.android"
+
 
 dependencies {
 
@@ -64,6 +67,11 @@ dependencies {
     implementation 'com.sunfusheng:MarqueeView:1.4.0'
 
 
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.github.BaronZ88:Retrofit2-FastJson-Converter:1.2"
+    implementation "com.alibaba:fastjson:${fastJsonVersion}"
 
 
     testImplementation 'junit:junit:4.+'
