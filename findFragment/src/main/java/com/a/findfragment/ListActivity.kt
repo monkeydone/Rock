@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.r0adkll.slidr.Slidr
 
 
 open class ListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setLeftExitMode()
         setContentView(R.layout.activity_list)
         initAnnotation(this)
         if (savedInstanceState == null) {
@@ -21,6 +23,10 @@ open class ListActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, f)
                 .commitNow()
         }
+    }
+
+    open fun setLeftExitMode() {
+        Slidr.attach(this)
     }
 
     companion object {
