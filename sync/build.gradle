@@ -2,11 +2,8 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.github.dcendents.android-maven'
 
 }
-
-group='com.github.monkeydone'
 
 android {
     compileSdkVersion 30
@@ -39,9 +36,9 @@ android {
     dataBinding {
         enabled = true
     }
-    kapt {
-        generateStubs = true
-    }
+//    kapt {
+//        generateStubs = true
+//    }
 }
 
 dependencies {
@@ -50,15 +47,15 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 
+
+//    implementation 'com.github.monkeydone.Rock:findFragment:1.1.2'
+    implementation project(":findFragment")
     implementation project(":base")
+    implementation project(":utils")
 
-
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
