@@ -18,6 +18,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -100,6 +101,17 @@
             app:layout_constraintTop_toBottomOf="@id/tv_light_mode" />
 
         <TextView
+            android:id="@+id/tv_set_top_imageview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{onClickListener}"
+            android:text="顶部图片模式"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_set_top_imageview" />
+
+        <TextView
             android:id="@+id/tv_set_banner_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,6 +120,30 @@
             android:text="设置颜色"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_set_top_imageview" />
+            app:layout_constraintTop_toBottomOf="@id/tv_set_top_imageview2" />
+
+
+        <TextView
+            android:id="@+id/tv_set_fit_system"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{onClickListener}"
+            android:text="fit_system_window=true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_set_banner_color" />
+
+
+        <TextView
+            android:id="@+id/tv_set_fit_system_false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{onClickListener}"
+            android:text="fit_system_window=true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_set_fit_system" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

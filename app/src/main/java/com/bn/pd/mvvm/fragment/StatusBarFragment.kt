@@ -1,6 +1,7 @@
 package com.bn.pd.mvvm.fragment
 
 import android.view.View
+import android.view.WindowManager
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
@@ -58,12 +59,36 @@ class StatusBarFragment : RBaseFragment<StatusBarViewModel, FragmentStatusBarBin
             R.id.tv_set_top_imageview -> {
                 StatusBarUtil.setTranslucentForImageView(requireActivity(), binding.ivImage);
             }
+            R.id.tv_set_top_imageview2 -> {
+                StatusBarUtil.setTranslucentForImageViewInFragment(
+                    requireActivity(),
+                    binding.ivImage
+                );
+
+            }
             R.id.tv_set_banner_color -> {
                 val random = Random()
                 val mColor = 0x000000 or random.nextInt(0xffffff)
                 alpha = (alpha + 10) % 255
                 StatusBarUtil.setColor(requireActivity(), mColor, alpha)
                 "color ${mColor} alpha ${alpha} ".toast()
+            }
+            R.id.tv_set_fit_system -> {
+                binding.clRoot.fitsSystemWindows = true
+                requireActivity().window
+                    .setFlags(
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    )
+
+            }
+            R.id.tv_set_fit_system_false -> {
+                binding.clRoot.fitsSystemWindows = false
+                requireActivity().window
+                    .setFlags(
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    )
             }
 
         }
