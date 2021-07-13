@@ -55,6 +55,7 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data);
         "test: requestCode:${requestCode} resultCode:${resultCode} data:${data?.extras}".toast()
+        binding.tvEvent.text = data?.getStringExtra("result")
 
     }
 
