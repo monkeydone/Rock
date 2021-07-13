@@ -7,8 +7,10 @@ import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
 import com.a.sync.R
 import com.a.sync.databinding.FragmentSyncServerBinding
+import com.a.sync.mvvm.Utils
 import com.a.sync.mvvm.viewmodel.SyncServerViewModel
 import com.bn.utils.toast
+import com.jwsd.libzxing.QRCodeManager
 import com.jwsd.libzxing.activity.CaptureActivity
 import com.permissionx.guolindev.PermissionX
 
@@ -21,6 +23,13 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
     override fun initView() {
         binding.onClickListener = this
         binding.viewModel = viewModel
+        binding.tvCreateQr.setImageBitmap(
+            QRCodeManager.getInstance().createQRCode("this is a text", 200, 200)
+        )
+        val host = "ws://${Utils.IP_ADDRESS_BY_WIFI}:${Utils.MC_WS_PORT}/mc"
+        binding.ivCode.setImageBitmap(QRCodeManager.getInstance().createQRCode(host, 500, 500))
+        binding.tvHost.text = host
+
     }
 
     override fun initData() {
@@ -47,6 +56,8 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
                             "These permissions are denied: $deniedList".toast()
                         }
                     }
+            }
+            R.id.tv_create_qr -> {
             }
 
         }
