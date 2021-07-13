@@ -10,6 +10,7 @@ import com.bn.utils.loadImageByUrl
 import com.bn.utils.toArtColor
 import com.bn.utils.toast
 import com.jaeger.library.StatusBarUtil
+import java.util.*
 
 
 @FragmentAnnotation("StatusBar", "Demo")
@@ -40,7 +41,7 @@ class StatusBarFragment : RBaseFragment<StatusBarViewModel, FragmentStatusBarBin
                 );
             }
             R.id.tv_event -> {
-                alpha = (alpha + 10) % 100
+                alpha = (alpha + 10) % 255
                 StatusBarUtil.setTranslucent(requireActivity(), alpha)
                 "配置透明度 ${alpha}".toast()
             }
@@ -53,6 +54,16 @@ class StatusBarFragment : RBaseFragment<StatusBarViewModel, FragmentStatusBarBin
             }
             R.id.tv_light_mode -> {
                 StatusBarUtil.setLightMode(requireActivity())
+            }
+            R.id.tv_set_top_imageview -> {
+                StatusBarUtil.setTranslucentForImageView(requireActivity(), binding.ivImage);
+            }
+            R.id.tv_set_banner_color -> {
+                val random = Random()
+                val mColor = 0x000000 or random.nextInt(0xffffff)
+                alpha = (alpha + 10) % 255
+                StatusBarUtil.setColor(requireActivity(), mColor, alpha)
+                "color ${mColor} alpha ${alpha} ".toast()
             }
 
         }
