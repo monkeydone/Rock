@@ -2,7 +2,6 @@ package com.a.sync.client
 
 import com.a.sync.*
 import com.bn.utils.LogHelper
-import com.bn.utils.toast
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.engine.okhttp.*
@@ -102,7 +101,7 @@ object DoKitWsClient {
                                                 "Server said BYE"
                                             )
                                         )
-                                        "已从主机【${Utils.HOST_INFO?.deviceName}】断开".toast()
+                                        LogHelper.i(TAG, "已从主机【${Utils.HOST_INFO?.deviceName}】断开")
                                     }
 
 

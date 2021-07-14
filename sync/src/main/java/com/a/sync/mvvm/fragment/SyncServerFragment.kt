@@ -77,6 +77,10 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
                     }
             }
 
+            R.id.tv_send_message -> {
+
+            }
+
 
         }
     }
@@ -87,8 +91,8 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
         if (requestCode == REQUEST_CODE) {
             binding.tvEvent.text = data?.getStringExtra("result")
         } else if (requestCode == REQUEST_CONNECT_CODE) {
-//            val code =  data?.getStringExtra("result")
-            val code = "ws://10.129.100.121:4444/mc"
+            val code = data?.getStringExtra("result")
+//            val code = "ws://10.129.100.121:4444/mc"
             val uri = Uri.parse(code)
             handleScanResult(uri)
         }
