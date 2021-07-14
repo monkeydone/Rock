@@ -72,7 +72,10 @@ dependencies {
     implementation "com.github.BaronZ88:Retrofit2-FastJson-Converter:1.2"
     implementation "com.alibaba:fastjson:${fastJsonVersion}"
 
+    implementation rootProject.ext.dependencies["coroutines-core"]
+    implementation rootProject.ext.dependencies["coroutines-android"]
 
+    
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

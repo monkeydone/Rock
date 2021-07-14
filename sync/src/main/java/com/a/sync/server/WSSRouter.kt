@@ -3,7 +3,7 @@ package com.a.sync.server
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.a.sync.*
-import com.bn.utils.toast
+import com.bn.utils.LogHelper
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.cio.websocket.*
@@ -43,7 +43,7 @@ val WSRouter: Application.() -> Unit = {
             val deviceModels = headers["deviceModel"]
             //保存
             DoKitWsServer.wsSessionMaps[deviceModels] = this
-            "从机【$deviceModels】已连接".toast()
+            LogHelper.d(TAG, "从机【$deviceModels】已连接")
             val hostInfo = HostInfo(
                 "${Utils.getManufacturer()}-${Utils.getModel()}",
 
@@ -80,7 +80,7 @@ val WSRouter: Application.() -> Unit = {
                                 )
                             )
                             close(CloseReason(CloseReason.Codes.NORMAL, "Client said BYE"))
-                            "从机【$deviceModels】已断开连接".toast()
+                            LogHelper.e(TAG, "从机【$deviceModels】已断开连接")
                         } else {
                             WSEventProcessor.process(wsEvent)
                         }
