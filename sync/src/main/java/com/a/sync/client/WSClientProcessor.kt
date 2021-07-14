@@ -30,7 +30,8 @@ object WSClientProcessor {
         //LogHelper.i(TAG, "wsEvent===>$wsEvent")
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
-                //ToastUtils.showShort(wsEvent.message)
+//                ToastUtils.showShort(wsEvent.message)
+                wsEvent.commParams.toString().toast()
             }
 
             /**

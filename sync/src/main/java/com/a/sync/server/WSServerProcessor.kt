@@ -2,6 +2,7 @@ package com.a.sync.server
 
 import com.a.sync.WSEType
 import com.a.sync.WSEvent
+import com.bn.utils.toast
 
 /**
  * ================================================
@@ -20,11 +21,12 @@ object WSServerProcessor {
     suspend fun process(wsEvent: WSEvent) {
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
-                //ToastUtils.showShort(wsEvent.message)
+                wsEvent.commParams.toString().toast()
             }
 
             WSEType.WSE_CONNECTED -> {
-                //ToastUtils.showShort(wsEvent.message)
+//                ToastUtils.showShort(wsEvent.message)
+                wsEvent.eventType.toString().toast()
             }
 
             WSEType.WSE_CLOSE -> {

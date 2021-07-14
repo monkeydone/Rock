@@ -74,6 +74,7 @@ enum class WSEType {
      * 辅助模式手势事件
      */
     WSE_ACCESS_EVENT
+
 }
 
 

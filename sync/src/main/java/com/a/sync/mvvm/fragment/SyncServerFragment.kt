@@ -6,15 +6,13 @@ import android.net.Uri
 import android.view.View
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
-import com.a.sync.GsonUtils
-import com.a.sync.R
-import com.a.sync.Utils
-import com.a.sync.WSMode
+import com.a.sync.*
 import com.a.sync.client.DoKitWsClient
 import com.a.sync.databinding.FragmentSyncServerBinding
 import com.a.sync.mvvm.viewmodel.SyncServerViewModel
 import com.a.sync.server.DoKitWsServer
 import com.a.sync.server.HostInfo
+import com.bn.utils.random
 import com.bn.utils.toast
 import com.jwsd.libzxing.QRCodeManager
 import com.jwsd.libzxing.activity.CaptureActivity
@@ -40,7 +38,9 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
 
         if (Utils.WS_MODE == WSMode.UNKNOW) {
             DoKitWsServer.start {
-                "server running...".toast()
+                requireActivity().runOnUiThread {
+                    "server running...".toast()
+                }
             }
         }
 
@@ -78,6 +78,29 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
             }
 
             R.id.tv_send_message -> {
+                if (Utils.WS_MODE == WSMode.HOST) {
+                    val text = "random ${1000.random()}"
+                    "send message from host to client  by ${text}".toast()
+                    DoKitWsServer.send(
+                        WSEvent(
+                            WSMode.HOST,
+                            WSEType.WSE_TEST,
+                            mutableMapOf("text" to "${text}"),
+                            null
+                        )
+                    )
+                } else if (Utils.WS_MODE == WSMode.CLIENT) {
+                    val text = "random ${1000.random()}"
+                    "send message from client to host  by ${text}".toast()
+                    DoKitWsClient.send(
+                        WSEvent(
+                            WSMode.CLIENT,
+                            WSEType.WSE_TEST,
+                            mutableMapOf("text" to "${text}"),
+                            null
+                        )
+                    )
+                }
 
             }
 
