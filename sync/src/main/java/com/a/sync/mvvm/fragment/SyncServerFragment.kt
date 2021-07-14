@@ -40,6 +40,7 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
             DoKitWsServer.start {
                 requireActivity().runOnUiThread {
                     "server running...".toast()
+                    binding.tvEvent.text = "${host} created"
                 }
             }
         }
@@ -131,6 +132,7 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
                 when (code) {
                     DoKitWsClient.CONNECT_SUCCEED -> {
                         message?.toast()
+                        binding.tvEvent.text = message?.toString()
                         Utils.HOST_INFO =
                             GsonUtils.fromJson<HostInfo>(message, HostInfo::class.java)
                     }
