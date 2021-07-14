@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion "30.0.3"
     dataBinding {
         enabled = true

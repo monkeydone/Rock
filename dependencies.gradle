@@ -10,59 +10,29 @@ def fastJsonVersion = "1.1.60.android"
 
 project.ext {
     android = [
-            compileSdkVersion: 28,
-            applicationId    : "com.baronzhang.android.weather",
-            minSdkVersion    : 19,
-            targetSdkVersion : 28,
+            compileSdkVersion: 30,
+            applicationId    : "com.bn.pd",
+            buildToolsVersion :"30.0.3",
+            minSdkVersion    : 21,
+            targetSdkVersion : 30,
             versionCode      : 1,
-            versionName      : "1.0"
+            versionName      : "1.0",
+            ktor                         : "1.5.4",
+
     ]
 
     dependencies = [
-            //android-support
-//            "support-v4"                  : "com.android.support:support-v4:${supportVersion}",
-//            "appcompat-v7"                : "com.android.support:appcompat-v7:${supportVersion}",
-//            "design"                      : "com.android.support:design:${supportVersion}",
-//            "recyclerview"                : "com.android.support:recyclerview-v7:${supportVersion}",
-//            "cardview"                    : "com.android.support:cardview-v7:${supportVersion}",
+            //ktor
+            "ktor_server_core"              : "io.ktor:ktor-server-core:${android["ktor"]}",
+            "ktor_server_cio"               : "io.ktor:ktor-server-cio:${android["ktor"]}",
+            "ktor_server_netty"             : "io.ktor:ktor-server-netty:${android["ktor"]}",
+            "ktor_server_websockets"        : "io.ktor:ktor-websockets:${android["ktor"]}",
+            "ktor_client_websockets"        : "io.ktor:ktor-client-websockets:${android["ktor"]}",
+            "ktor_client_cio"               : "io.ktor:ktor-client-cio:${android["ktor"]}",
+            "ktor_client_apache"            : "io.ktor:ktor-client-apache:${android["ktor"]}",
+            "ktor_client_android"           : "io.ktor:ktor-client-android:${android["ktor"]}",
+            "ktor_client_okhttp"            : "io.ktor:ktor-client-okhttp:${android["ktor"]}",
+            "ktor_jackson"                  : "io.ktor:ktor-jackson:${android["ktor"]}",
 
-            "support-v4"                  : "androidx.legacy:legacy-support-v4:1.0.0",
-            "appcompat-v7"                : "androidx.appcompat:appcompat:1.0.0",
-            "design"                      : "com.google.android.material:material:1.0.0-rc01",
-            "recyclerview"                : "androidx.recyclerview:recyclerview:1.0.0",
-            "cardview"                    : "androidx.cardview:cardview:1.0.0",
-
-            //java8-support
-            "stream"                      : "com.annimon:stream:1.0.8",
-
-            //rx
-            "rxandroid"                   : "io.reactivex:rxandroid:1.2.1",
-            "rxbinding"                   : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
-            "rxbinding-support-v4"        : "com.jakewharton.rxbinding:rxbinding-support-v4:${rxBindingVersion}",
-            "rxbinding-appcompat-v7"      : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}",
-            "rxbinding-design"            : "com.jakewharton.rxbinding:rxbinding-design:${rxBindingVersion}",
-            "rxbinding-recyclerview-v7"   : "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${rxBindingVersion}",
-
-            //retrofit
-            "retrofit"                    : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            "adapter-rxjava"              : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
-
-            //dagger
-            "dagger"                      : "com.google.dagger:dagger:${daggerVersion}",
-            "dagger-compiler"             : "com.google.dagger:dagger-compiler:${daggerVersion}",
-
-            //facebook
-            "stetho"                      : "com.facebook.stetho:stetho:${stethoVersion}",
-            "stetho-okhttp3"              : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
-
-            //others
-            "okhttp3-logging-interceptor" : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
-            "ormlite-android"             : "com.j256.ormlite:ormlite-android:${ormLiteVersion}",
-            "fastjson"                    : "com.alibaba:fastjson:${fastJsonVersion}",
-            "butterknife"                 : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            "butterknife-compiler"        : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-            "retrofit2-fastjson-converter": "com.github.BaronZ88:Retrofit2-FastJson-Converter:1.2",
-            "SmartRefreshLayout"          : "com.scwang.smartrefresh:SmartRefreshLayout:1.0.3",
-            "SmartRefreshHeader"          : "com.scwang.smartrefresh:SmartRefreshHeader:1.0.3"
     ]
 }
