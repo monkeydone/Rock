@@ -53,6 +53,11 @@ dependencies {
     implementation rootProject.ext.dependencies["ktor_server_cio"]
     //默认客户端websocket引擎
     implementation rootProject.ext.dependencies["ktor_client_cio"]
+    //备用客户端websocket引擎
+    compileOnly rootProject.ext.dependencies["ktor_client_okhttp"]
+
+
+    implementation rootProject.ext.dependencies["gson"]
 
 
 

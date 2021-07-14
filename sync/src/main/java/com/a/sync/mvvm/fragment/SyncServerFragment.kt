@@ -2,17 +2,25 @@ package com.a.sync.mvvm.fragment
 
 import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
+import com.a.sync.GsonUtils
 import com.a.sync.R
+import com.a.sync.Utils
+import com.a.sync.WSMode
+import com.a.sync.client.DoKitWsClient
 import com.a.sync.databinding.FragmentSyncServerBinding
-import com.a.sync.mvvm.Utils
 import com.a.sync.mvvm.viewmodel.SyncServerViewModel
+import com.a.sync.server.DoKitWsServer
+import com.a.sync.server.HostInfo
 import com.bn.utils.toast
 import com.jwsd.libzxing.QRCodeManager
 import com.jwsd.libzxing.activity.CaptureActivity
 import com.permissionx.guolindev.PermissionX
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 @FragmentAnnotation("SyncServer", "Sync")
@@ -30,6 +38,12 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
         binding.ivCode.setImageBitmap(QRCodeManager.getInstance().createQRCode(host, 500, 500))
         binding.tvHost.text = host
 
+        if (Utils.WS_MODE == WSMode.UNKNOW) {
+            DoKitWsServer.start {
+                "server running...".toast()
+            }
+        }
+
     }
 
     override fun initData() {
@@ -44,6 +58,11 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
                 startActivityForResult(intent, REQUEST_CODE)
 
             }
+            R.id.tv_connect_server -> {
+                val intent = Intent(requireContext(), CaptureActivity::class.java)
+                intent.putExtra("type", 0)
+                startActivityForResult(intent, REQUEST_CONNECT_CODE)
+            }
             R.id.tv_event -> {
                 PermissionX.init(activity)
                     .permissions(
@@ -57,8 +76,7 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
                         }
                     }
             }
-            R.id.tv_create_qr -> {
-            }
+
 
         }
     }
@@ -66,12 +84,44 @@ class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServer
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data);
         "test: requestCode:${requestCode} resultCode:${resultCode} data:${data?.extras}".toast()
-        binding.tvEvent.text = data?.getStringExtra("result")
+        if (requestCode == REQUEST_CODE) {
+            binding.tvEvent.text = data?.getStringExtra("result")
+        } else if (requestCode == REQUEST_CONNECT_CODE) {
+//            val code =  data?.getStringExtra("result")
+            val code = "ws://10.129.100.121:4444/mc"
+            val uri = Uri.parse(code)
+            handleScanResult(uri)
+        }
+
+    }
+
+    /**
+     * 处理返回结果
+     */
+    private fun handleScanResult(uri: Uri) {
+        DoKitWsClient.connect(uri.host!!, uri.port, uri.path!!) { code, message ->
+            withContext(Dispatchers.Main) {
+                when (code) {
+                    DoKitWsClient.CONNECT_SUCCEED -> {
+                        message?.toast()
+                        Utils.HOST_INFO =
+                            GsonUtils.fromJson<HostInfo>(message, HostInfo::class.java)
+                    }
+                    DoKitWsClient.CONNECT_FAIL -> {
+                        message?.toast()
+                    }
+                    else -> {
+
+                    }
+                }
+            }
+        }
 
     }
 
     companion object {
         const val REQUEST_CODE = 100
+        const val REQUEST_CONNECT_CODE = 101
     }
 
 }

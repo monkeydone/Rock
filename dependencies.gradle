@@ -34,5 +34,8 @@ project.ext {
             "ktor_client_okhttp"            : "io.ktor:ktor-client-okhttp:${android["ktor"]}",
             "ktor_jackson"                  : "io.ktor:ktor-jackson:${android["ktor"]}",
 
+            "gson"                          : 'com.google.code.gson:gson:2.8.2',
+
+
     ]
 }

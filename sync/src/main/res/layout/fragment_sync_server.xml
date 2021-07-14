@@ -56,6 +56,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_event" />
 
         <LinearLayout
+            android:id="@+id/ll_server_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -81,5 +82,15 @@
                 tools:text="ws://192.168.0.1:88888" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_connect_server"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:onClick="@{onClickListener}"
+            android:text="连接服务器"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_server_container" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
