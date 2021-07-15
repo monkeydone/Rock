@@ -8,6 +8,8 @@ def daggerVersion = "2.8"
 def ormLiteVersion = "4.48"
 def fastJsonVersion = "1.1.60.android"
 def coroutines_android_version = "1.3.7"
+def lifecycle_version = '2.1.0'
+def livedata_version = '2.2.0-rc02'
 
 project.ext {
     android = [
@@ -44,6 +46,10 @@ project.ext {
             "coroutines-core":"org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version",
             "coroutines-android":"org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version",
 
+            // ViewModel and LiveData
+            "lifecycle-extensions":"androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
+            "lifecycle-livedata-ktx":"androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version",
+            "lifecycle-viewmodel-ktx":"androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
 
 
     ]

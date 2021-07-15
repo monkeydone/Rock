@@ -75,7 +75,16 @@ dependencies {
     implementation rootProject.ext.dependencies["coroutines-core"]
     implementation rootProject.ext.dependencies["coroutines-android"]
 
-    
+
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation rootProject.ext.dependencies["lifecycle-livedata-ktx"]
+    implementation rootProject.ext.dependencies["lifecycle-viewmodel-ktx"]
+
+
+    api rootProject.ext.dependencies["gson"]
+
+
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
