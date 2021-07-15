@@ -12,6 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 
 class CoroutinesViewModel(application: Application) :
@@ -27,9 +29,16 @@ class CoroutinesViewModel(application: Application) :
     fun onMainViewClicked() {
         launchDataLoad {
             messageLive.value = getTitle()
+            try {
+                getWeather()
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                "error".toast()
+            }
 //            getTitle()
         }
         updateTaps()
+
     }
 
 
@@ -64,6 +73,39 @@ class CoroutinesViewModel(application: Application) :
         return ""
     }
 
+    sealed class Result<out R> {
+        data class Success<out T>(val data: T) : Result<T>()
+        data class Error(val exception: Exception) : Result<Nothing>()
+    }
+
+    class LoginRepoitory() {
+        private val loginUrl = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101010100"
+
+        fun makeLoginRequest(): Result<String?> {
+            val client = OkHttpClient();
+            val request = Request.Builder()
+                .url(loginUrl)
+                .build()
+            try {
+                val response = client.newCall(request).execute()
+                return Result.Success(response.body()?.string())
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+                return Result.Error(Exception("Cannot open HttpURLConnection"))
+            }
+        }
+    }
+
+    val loginRepoitory = LoginRepoitory()
+
+    suspend fun getWeather() {
+        withContext(Dispatchers.IO) {
+            val result = loginRepoitory.makeLoginRequest()
+            if (result is Result.Success) {
+                messageLive.postValue(result.data)
+            }
+        }
+    }
 
     suspend fun getNetworkTitle() {
         withContext(Dispatchers.IO) {
