@@ -17,173 +17,180 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="sleep(1000)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_event"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="点数"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/message" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_random_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="随机信息"
-            app:layout_constraintTop_toBottomOf="@id/tv_method8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="sleep(1000)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_method1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法1,withContext"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_event" />
+            <TextView
+                android:id="@+id/tv_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="点数"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/message" />
 
-        <TextView
-            android:id="@+id/tv_method2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法2,withTimeout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method1" />
+            <TextView
+                android:id="@+id/tv_random_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="随机信息"
+                app:layout_constraintTop_toBottomOf="@id/tv_method8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_method3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法3,切换线程"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method2" />
+            <TextView
+                android:id="@+id/tv_method1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法1,withContext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_event" />
 
-        <TextView
-            android:id="@+id/tv_method4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法4,切换线程"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method3" />
+            <TextView
+                android:id="@+id/tv_method2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法2,withTimeout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method1" />
 
-        <TextView
-            android:id="@+id/tv_method5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法5,async"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method4" />
+            <TextView
+                android:id="@+id/tv_method3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法3,切换线程"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method2" />
 
-        <TextView
-            android:id="@+id/tv_method6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法6,job取消"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method5" />
+            <TextView
+                android:id="@+id/tv_method4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法4,切换线程"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method3" />
+
+            <TextView
+                android:id="@+id/tv_method5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法5,async"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method4" />
+
+            <TextView
+                android:id="@+id/tv_method6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法6,job取消"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method5" />
 
 
-        <TextView
-            android:id="@+id/tv_method7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法7,job执行"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method6" />
+            <TextView
+                android:id="@+id/tv_method7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法7,job执行"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method6" />
 
-        <TextView
-            android:id="@+id/tv_method8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="方法8,scope理解"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_method7" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_method8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="20dp"
+                android:background="#cccccc"
+                android:gravity="center"
+                android:onClick="@{onClickListener}"
+                android:padding="10dp"
+                android:text="方法8,scope理解"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_method7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </layout>
