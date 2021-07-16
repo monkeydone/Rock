@@ -52,5 +52,8 @@ class ServerInfoSimpleFragment :
         }
     }
 
+    companion object {
+
+    }
 
 }

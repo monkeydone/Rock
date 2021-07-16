@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.r0adkll.slidr.Slidr
 
 
 open class ListActivity : AppCompatActivity() {
@@ -26,7 +25,7 @@ open class ListActivity : AppCompatActivity() {
     }
 
     open fun setLeftExitMode() {
-        Slidr.attach(this)
+//        Slidr.attach(this)
     }
 
     companion object {

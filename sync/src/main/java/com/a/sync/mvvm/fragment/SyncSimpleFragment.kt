@@ -46,7 +46,9 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
                 startActivityForResult(intent, REQUEST_CONNECT_CODE)
             }
             R.id.tv_sync_simple_create_qr -> {
-                val fragmentName = "com.a.sync.mvvm.fragment.ServerInfoSimpleFragment"
+//                val fragmentName = "com.a.sync.mvvm.fragment.ServerInfoSimpleFragment"
+                val fragmentName =
+                    ServerInfoSimpleFragment.javaClass.canonicalName.replace(".Companion", "")
                 ListActivity.startFragment(binding.root.context, fragmentName, fragmentName)
             }
             R.id.tv_sync_send_message -> {
