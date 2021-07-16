@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
+            android:paddingTop="300dp"
             android:background="#cccccc"
             android:gravity="center"
             android:onClick="@{onClickListener}"
@@ -76,7 +76,7 @@
             android:gravity="center"
             android:onClick="@{onClickListener}"
             android:padding="10dp"
-            android:text="方法1"
+            android:text="方法1,withContext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_event" />
@@ -91,7 +91,7 @@
             android:gravity="center"
             android:onClick="@{onClickListener}"
             android:padding="10dp"
-            android:text="方法2"
+            android:text="方法2,withTimeout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_method1" />
@@ -106,9 +106,25 @@
             android:gravity="center"
             android:onClick="@{onClickListener}"
             android:padding="10dp"
-            android:text="方法3"
+            android:text="方法3,切换线程"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_method2" />
+
+        <TextView
+            android:id="@+id/tv_method4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="方法4,切换线程"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_method3" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

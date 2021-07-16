@@ -36,6 +36,14 @@ class CoroutinesFragment : RBaseFragment<CoroutinesViewModel, FragmentCoroutines
         observer(viewModel.messageShowLive) {
             binding.tvRandomText.visibility = if (it == true) View.VISIBLE else View.GONE
         }
+
+        observer(viewModel.loadingLive) {
+            if (it == true) {
+                showLoadingDialog()
+            } else {
+                hideLoadingDialog()
+            }
+        }
     }
 
     override fun onClick(v: View?) {
@@ -49,7 +57,12 @@ class CoroutinesFragment : RBaseFragment<CoroutinesViewModel, FragmentCoroutines
             R.id.tv_method2 -> {
                 viewModel.method2()
             }
-
+            R.id.tv_method3 -> {
+                viewModel.method3()
+            }
+            R.id.tv_method4 -> {
+                viewModel.method4()
+            }
         }
     }
 

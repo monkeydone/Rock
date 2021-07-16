@@ -66,6 +66,19 @@ class CoroutinesViewModel(application: Application) :
         }
     }
 
+    fun method3() {
+        viewModelScope.launch {
+            loadingLive.value = true
+            delay(3000)
+            getWeatherWithTimeout2()
+        }
+    }
+
+    fun method4() {
+        viewModelScope.launch {
+            fetchDocs()
+        }
+    }
 
     suspend fun getTitle(): String {
         delay(1000)
@@ -87,13 +100,30 @@ class CoroutinesViewModel(application: Application) :
         data class Error(val exception: Exception) : Result<Nothing>()
     }
 
-    class LoginRepoitory() {
-        private val loginUrl = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101010100"
+    suspend fun get(url: String): Result<String?>? {
+        withContext(Dispatchers.IO) {
+            return@withContext loginRepoitory.makeLoginRequest(url)
+        }
+        return null
+    }
 
-        fun makeLoginRequest(): Result<String?> {
+    suspend fun fetchDocs() {
+        val result = get(loginRepoitory.loginUrl)
+        result?.let {
+            if (it is Result.Success) {
+                messageLive.value = it.data
+            }
+        }
+    }
+
+
+    class LoginRepoitory() {
+        val loginUrl = "http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101010100"
+
+        fun makeLoginRequest(url: String = loginUrl): Result<String?> {
             val client = OkHttpClient();
             val request = Request.Builder()
-                .url(loginUrl)
+                .url(url)
                 .build()
             try {
                 val response = client.newCall(request).execute()
@@ -130,10 +160,11 @@ class CoroutinesViewModel(application: Application) :
 
     suspend fun getWeatherWithTimeout2() {
         withContext(Dispatchers.IO) {
-            withTimeout(1500) {
+            withTimeout(15000) {
                 val result = loginRepoitory.makeLoginRequest()
                 if (result is Result.Success) {
                     withContext(Dispatchers.Main) {
+                        loadingLive.value = false
                         messageLive.value = result.data
                     }
                 }
