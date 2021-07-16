@@ -36,8 +36,6 @@ class CoroutinesViewModel(application: Application) :
             }
 //            getTitle()
         }
-        updateTaps()
-
     }
 
 
@@ -49,13 +47,25 @@ class CoroutinesViewModel(application: Application) :
         "Check out the Advanced Coroutines codelab next!"
     )
 
-
-    private fun updateTaps() {
+    fun dalay1000() {
         viewModelScope.launch {
             delay(1_000)
-            dataLive.value = "${++tapCount} taps"
+            messageLive.value = "${++tapCount} taps at delay 1000"
         }
     }
+
+    fun method1() {
+        viewModelScope.launch {
+            getWeather()
+        }
+    }
+
+    fun method2() {
+        viewModelScope.launch {
+            getWeatherWithTimeout()
+        }
+    }
+
 
     suspend fun getTitle(): String {
         delay(1000)
@@ -108,7 +118,7 @@ class CoroutinesViewModel(application: Application) :
 
     suspend fun getWeatherWithTimeout() {
         withContext(Dispatchers.IO) {
-            withTimeout(15000) {
+            withTimeout(1500) {
                 val result = loginRepoitory.makeLoginRequest()
                 if (result is Result.Success) {
                     messageLive.postValue(result.data)
@@ -120,7 +130,7 @@ class CoroutinesViewModel(application: Application) :
 
     suspend fun getWeatherWithTimeout2() {
         withContext(Dispatchers.IO) {
-            withTimeout(15000) {
+            withTimeout(1500) {
                 val result = loginRepoitory.makeLoginRequest()
                 if (result is Result.Success) {
                     withContext(Dispatchers.Main) {

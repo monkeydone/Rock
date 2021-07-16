@@ -41,7 +41,13 @@ class CoroutinesFragment : RBaseFragment<CoroutinesViewModel, FragmentCoroutines
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.message -> {
-                viewModel.onMainViewClicked()
+                viewModel.dalay1000()
+            }
+            R.id.tv_method1 -> {
+                viewModel.method1()
+            }
+            R.id.tv_method2 -> {
+                viewModel.method2()
             }
 
         }
