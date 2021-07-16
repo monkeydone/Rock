@@ -55,12 +55,14 @@ class CoroutinesViewModel(application: Application) :
     }
 
     fun method1() {
+        loadingLive.value = true
         viewModelScope.launch {
             getWeather()
         }
     }
 
     fun method2() {
+        loadingLive.value = true
         viewModelScope.launch {
             getWeatherWithTimeout()
         }
@@ -75,9 +77,29 @@ class CoroutinesViewModel(application: Application) :
     }
 
     fun method4() {
+        loadingLive.value = true
         viewModelScope.launch {
             fetchDocs()
         }
+    }
+
+    fun method5() {
+        viewModelScope.launch {
+            loadingLive.value = true
+            delay(3000)
+            val deferredOne = async { get(loginRepoitory.loginUrl) }
+            val deferredTwo = async { get(loginRepoitory.loginUrl) }
+            deferredOne.await()
+            val r = deferredTwo.await()
+            r?.let {
+                if (it is Result.Success) {
+                    loadingLive.value = false
+                    messageLive.value = it.data
+                }
+            }
+
+        }
+
     }
 
     suspend fun getTitle(): String {
@@ -101,10 +123,12 @@ class CoroutinesViewModel(application: Application) :
     }
 
     suspend fun get(url: String): Result<String?>? {
+        var result: Result<String?>? = null
         withContext(Dispatchers.IO) {
-            return@withContext loginRepoitory.makeLoginRequest(url)
+            result = loginRepoitory.makeLoginRequest(url)
         }
-        return null
+
+        return result
     }
 
     suspend fun fetchDocs() {
