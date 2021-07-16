@@ -1,0 +1,10 @@
+<resources>
+    <string name="sync_tab_main">主页</string>
+    <string name="sync_tab_list">消息列表</string>
+    <string name="sync_simple_create_qr">创建二维码</string>
+    <string name="sync_simple_scan_qr">扫描二维码</string>
+    <string name="sync_simple_connection_tip">连接信息</string>
+    <string name="sync_simple_send_message">发送信息</string>
+    <string name="sync_list_me">我</string>
+    <string name="sync_list_other">对方</string>
+</resources>
