@@ -66,7 +66,17 @@ class CoroutinesFragment : RBaseFragment<CoroutinesViewModel, FragmentCoroutines
             R.id.tv_method5 -> {
                 viewModel.method5()
             }
+            R.id.tv_method6 -> {
+                viewModel.method6()
+            }
+            R.id.tv_method7 -> {
+                viewModel.method7()
+            }
+            R.id.tv_method8 -> {
+                viewModel.method8()
+            }
         }
+
     }
 
 

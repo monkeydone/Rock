@@ -102,6 +102,55 @@ class CoroutinesViewModel(application: Application) :
 
     }
 
+    fun method6() {
+        val job = viewModelScope.launch {
+            loadingLive.value = true
+            delay(5000)
+            loadingLive.value = false
+            messageLive.value = "job execute"
+        }
+        job.cancel()
+        messageLive.value = "job cancel"
+        loadingLive.value = false
+    }
+
+
+    fun method7() {
+        val job = viewModelScope.launch {
+            loadingLive.value = true
+            delay(5000)
+            loadingLive.value = false
+            messageLive.value = "job execute"
+        }
+    }
+
+    fun method8() {
+        val scopeMain = CoroutineScope(Job() + Dispatchers.Main)
+        val scopeIO = CoroutineScope(Job() + Dispatchers.IO)
+        val scopeCPU = CoroutineScope(Job() + Dispatchers.Default)
+
+        scopeMain.launch {
+            loadingLive.value = true
+            messageLive.value = "scope start"
+        }
+        scopeMain.launch(Dispatchers.IO) {
+            delay(1000)
+            val result = async { get(loginRepoitory.loginUrl) }
+            val r = result.await()
+            scopeIO.launch(Dispatchers.Main) {
+                r.let {
+                    if (r is Result.Success) {
+                        messageLive.value = r.data
+                        loadingLive.value = false
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
     suspend fun getTitle(): String {
         delay(1000)
         val index = FAKE_RESULTS.size.random()
