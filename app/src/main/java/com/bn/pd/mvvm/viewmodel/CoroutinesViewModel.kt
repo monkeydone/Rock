@@ -8,10 +8,7 @@ import com.a.base.BaseViewModel
 import com.bn.pd.http.getNetworkService
 import com.bn.utils.random
 import com.bn.utils.toast
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -30,7 +27,9 @@ class CoroutinesViewModel(application: Application) :
         launchDataLoad {
             messageLive.value = getTitle()
             try {
-                getWeather()
+//                getWeather()
+                getWeatherWithTimeout2()
+//                getWeatherWithTimeoutNotIO()
             } catch (e: Throwable) {
                 e.printStackTrace()
                 "error".toast()
@@ -105,6 +104,42 @@ class CoroutinesViewModel(application: Application) :
                 messageLive.postValue(result.data)
             }
         }
+    }
+
+    suspend fun getWeatherWithTimeout() {
+        withContext(Dispatchers.IO) {
+            withTimeout(15000) {
+                val result = loginRepoitory.makeLoginRequest()
+                if (result is Result.Success) {
+                    messageLive.postValue(result.data)
+                }
+            }
+        }
+
+    }
+
+    suspend fun getWeatherWithTimeout2() {
+        withContext(Dispatchers.IO) {
+            withTimeout(15000) {
+                val result = loginRepoitory.makeLoginRequest()
+                if (result is Result.Success) {
+                    withContext(Dispatchers.Main) {
+                        messageLive.value = result.data
+                    }
+                }
+            }
+        }
+
+    }
+
+    suspend fun getWeatherWithTimeoutNotIO() {
+        withTimeout(5000) {
+            val result = loginRepoitory.makeLoginRequest()
+            if (result is Result.Success) {
+                messageLive.postValue(result.data)
+            }
+        }
+
     }
 
     suspend fun getNetworkTitle() {
