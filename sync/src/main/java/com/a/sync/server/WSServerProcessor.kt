@@ -24,7 +24,9 @@ object WSServerProcessor {
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
 //                wsEvent.commParams.toString().toast()
-                SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.HOST)
+                SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.CLIENT)
+                SyncListViewModel.liveRefreshData.postValue(true)
+
             }
 
             WSEType.WSE_CONNECTED -> {

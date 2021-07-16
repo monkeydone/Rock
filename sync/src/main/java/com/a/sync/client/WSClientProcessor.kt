@@ -34,7 +34,8 @@ object WSClientProcessor {
             WSEType.WSE_TEST -> {
 //                ToastUtils.showShort(wsEvent.message)
 //                wsEvent.commParams.toString().toast()
-                SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.CLIENT)
+                SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.HOST)
+                SyncListViewModel.liveRefreshData.postValue(true)
             }
 
             /**

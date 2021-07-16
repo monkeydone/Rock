@@ -55,6 +55,9 @@ class SyncListFragment : RBaseFragment<SyncListViewModel, FragmentSyncListBindin
         observer(viewModel.noDataLive) {
 //            binding.flNoData.visibility = if (it == true) View.VISIBLE else View.GONE
         }
+        observer(SyncListViewModel.liveRefreshData) {
+            initData()
+        }
     }
 
     override fun initView() {

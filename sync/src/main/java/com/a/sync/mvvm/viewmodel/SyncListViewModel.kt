@@ -55,6 +55,8 @@ class SyncListViewModel(application: Application) :
             messageList.add(SyncListDataModel(who, message))
         }
 
+        var liveRefreshData = MutableLiveData<Boolean>()
+
     }
 
 }
