@@ -2,13 +2,12 @@ package com.a.sync.mvvm.fragment
 
 import android.view.View
 import com.a.base.RViewPageFragment
-import com.a.findfragment.FragmentAnnotation
 import com.a.sync.R
 import com.a.sync.databinding.FragmentSyncPageBinding
 import com.a.sync.mvvm.viewmodel.SyncPageViewModel
 import com.bn.utils.string
 
-@FragmentAnnotation("SyncPage", "Sync")
+//@FragmentAnnotation("SyncPage", "Sync")
 class SyncPageFragmentFragment : RViewPageFragment<SyncPageViewModel, FragmentSyncPageBinding>(),
     View.OnClickListener {
 
