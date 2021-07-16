@@ -2,6 +2,7 @@ package com.a.sync.server
 
 import com.a.sync.WSEType
 import com.a.sync.WSEvent
+import com.a.sync.mvvm.fragment.SyncSimpleFragment
 import com.bn.utils.toast
 
 /**
@@ -26,7 +27,8 @@ object WSServerProcessor {
 
             WSEType.WSE_CONNECTED -> {
 //                ToastUtils.showShort(wsEvent.message)
-                wsEvent.eventType.toString().toast()
+//                wsEvent.eventType.toString().toast()
+                SyncSimpleFragment.liveConnectionInfo.value = wsEvent.eventType.toString()
             }
 
             WSEType.WSE_CLOSE -> {

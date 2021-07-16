@@ -3,15 +3,18 @@ package com.a.sync.mvvm.fragment
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import com.a.base.RBaseFragment
+import com.a.base.observer
 import com.a.findfragment.ListActivity
-import com.a.sync.GsonUtils
-import com.a.sync.R
-import com.a.sync.Utils
+import com.a.sync.*
 import com.a.sync.client.DoKitWsClient
 import com.a.sync.databinding.FragmentSyncSimpleBinding
 import com.a.sync.mvvm.viewmodel.SyncSimpleViewModel
+import com.a.sync.server.DoKitWsServer
 import com.a.sync.server.HostInfo
+import com.bn.utils.random
+import com.bn.utils.string
 import com.bn.utils.toast
 import com.jwsd.libzxing.activity.CaptureActivity
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +32,9 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
 
     override fun initData() {
         viewModel.loadData()
+        observer(liveConnectionInfo) {
+            handleConnectionInfo(it)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -42,7 +48,36 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
                 val fragmentName = "com.a.sync.mvvm.fragment.ServerInfoSimpleFragment"
                 ListActivity.startFragment(binding.root.context, fragmentName, fragmentName)
             }
+            R.id.tv_sync_send_message -> {
+                sendTestMessage()
+            }
 
+        }
+    }
+
+    private fun sendTestMessage() {
+        if (Utils.WS_MODE == WSMode.HOST) {
+            val text = "random ${1000.random()}"
+            "send message from host to client  by ${text}".toast()
+            DoKitWsServer.send(
+                WSEvent(
+                    WSMode.HOST,
+                    WSEType.WSE_TEST,
+                    mutableMapOf("text" to "${text}"),
+                    null
+                )
+            )
+        } else if (Utils.WS_MODE == WSMode.CLIENT) {
+            val text = "random ${1000.random()}"
+            "send message from client to host  by ${text}".toast()
+            DoKitWsClient.send(
+                WSEvent(
+                    WSMode.CLIENT,
+                    WSEType.WSE_TEST,
+                    mutableMapOf("text" to "${text}"),
+                    null
+                )
+            )
         }
     }
 
@@ -67,10 +102,10 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
                     DoKitWsClient.CONNECT_SUCCEED -> {
                         Utils.HOST_INFO =
                             GsonUtils.fromJson<HostInfo>(message, HostInfo::class.java)
-                        handleConnectionInfo("连接到设备 ${Utils.HOST_INFO?.deviceName}")
+                        handleConnectionInfo("${R.string.sync_connect_device.string()} ${Utils.HOST_INFO?.deviceName}")
                     }
                     DoKitWsClient.CONNECT_FAIL -> {
-                        message?.toast()
+                        handleConnectionInfo("${R.string.sync_connect_device_fail.string()}")
                     }
                     else -> {
 
@@ -82,8 +117,9 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
     }
 
     companion object {
-        const val REQUEST_CODE = 100
         const val REQUEST_CONNECT_CODE = 101
+        public var liveConnectionInfo: MutableLiveData<String> = MutableLiveData<String>()
+
     }
 
 }

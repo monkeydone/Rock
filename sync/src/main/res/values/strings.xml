@@ -7,4 +7,6 @@
     <string name="sync_simple_send_message">发送信息</string>
     <string name="sync_list_me">我</string>
     <string name="sync_list_other">对方</string>
+    <string name="sync_connect_device">连接到设备</string>
+    <string name="sync_connect_device_fail">连接失败</string>
 </resources>
