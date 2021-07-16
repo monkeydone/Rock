@@ -1,25 +1,46 @@
 package com.a.sync.mvvm.fragment
 
+import android.view.Gravity
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.a.base.RBaseFragment
 import com.a.base.funOwnerObserver
 import com.a.base.list.SimpleGridDecoration
 import com.a.base.list.loadListData
 import com.a.base.observer
 import com.a.sync.R
+import com.a.sync.WSMode
+import com.a.sync.databinding.FragmentItemSyncListBinding
 import com.a.sync.databinding.FragmentSyncListBinding
 import com.a.sync.mvvm.viewmodel.SyncListViewModel
 import com.art.ui.adapter.recyclerview.CommonAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 
 class SyncListFragment : RBaseFragment<SyncListViewModel, FragmentSyncListBinding>(),
     OnItemClickListener,
     OnLoadMoreListener {
 
     private val adapter =
-        CommonAdapter<SyncListViewModel.SyncListDataModel>(R.layout.fragment_item_sync_list).apply {
+        object :
+            CommonAdapter<SyncListViewModel.SyncListDataModel>(R.layout.fragment_item_sync_list) {
+            override fun convert(
+                holder: BaseDataBindingHolder<ViewDataBinding>,
+                item: SyncListViewModel.SyncListDataModel
+            ) {
+                super.convert(holder, item)
+                val binding = holder.dataBinding as FragmentItemSyncListBinding
+                if (item.who == WSMode.HOST) {
+                    binding.tvLetter.text = "${item.who}  ${item.message}"
+                    binding.tvLetter.gravity = Gravity.LEFT
+                } else {
+                    binding.tvLetter.text = "${item.message} ${item.who}"
+                    binding.tvLetter.gravity = Gravity.RIGHT
+                }
+            }
+        }.apply {
             setOnItemClickListener(this@SyncListFragment)
             loadMoreModule.setOnLoadMoreListener(this@SyncListFragment)
         }
@@ -42,6 +63,12 @@ class SyncListFragment : RBaseFragment<SyncListViewModel, FragmentSyncListBindin
 
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && isResumed) {
+            initData()
+        }
+    }
 
     override fun initData() {
         getMoreData(true)

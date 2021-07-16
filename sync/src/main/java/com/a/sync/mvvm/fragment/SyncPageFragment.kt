@@ -6,6 +6,7 @@ import com.a.findfragment.FragmentAnnotation
 import com.a.sync.R
 import com.a.sync.databinding.FragmentSyncPageBinding
 import com.a.sync.mvvm.viewmodel.SyncPageViewModel
+import com.bn.utils.string
 
 @FragmentAnnotation("SyncPage", "Sync")
 class SyncPageFragmentFragment : RViewPageFragment<SyncPageViewModel, FragmentSyncPageBinding>(),
@@ -26,7 +27,7 @@ class SyncPageFragmentFragment : RViewPageFragment<SyncPageViewModel, FragmentSy
     }
 
     override fun initView() {
-        binding.viewPager.currentItem = 1
+        binding.viewPager.currentItem = 0
     }
 
 
@@ -35,13 +36,9 @@ class SyncPageFragmentFragment : RViewPageFragment<SyncPageViewModel, FragmentSy
 
 
     private fun initFragments() {
-//        for (i in 0..2) {
-//            val title = "title${i}"
-//
-//        }
-        val d = FragmentData("主页", SyncSimpleFragment())
+        val d = FragmentData(R.string.sync_tab_main.string(), SyncSimpleFragment())
         fragments.add(d)
-        val d2 = FragmentData("消息列表", SyncListFragment())
+        val d2 = FragmentData(R.string.sync_tab_list.string(), SyncListFragment())
         fragments.add(d2)
     }
 

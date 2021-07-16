@@ -2,8 +2,9 @@ package com.a.sync.server
 
 import com.a.sync.WSEType
 import com.a.sync.WSEvent
+import com.a.sync.WSMode
 import com.a.sync.mvvm.fragment.SyncSimpleFragment
-import com.bn.utils.toast
+import com.a.sync.mvvm.viewmodel.SyncListViewModel
 
 /**
  * ================================================
@@ -22,7 +23,8 @@ object WSServerProcessor {
     suspend fun process(wsEvent: WSEvent) {
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
-                wsEvent.commParams.toString().toast()
+//                wsEvent.commParams.toString().toast()
+                SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.HOST)
             }
 
             WSEType.WSE_CONNECTED -> {

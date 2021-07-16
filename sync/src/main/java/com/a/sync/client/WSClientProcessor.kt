@@ -4,6 +4,8 @@ import android.app.Activity
 import com.a.sync.GsonUtils
 import com.a.sync.WSEType
 import com.a.sync.WSEvent
+import com.a.sync.WSMode
+import com.a.sync.mvvm.viewmodel.SyncListViewModel
 import com.a.sync.server.HostInfo
 import com.bn.utils.toast
 
@@ -31,7 +33,8 @@ object WSClientProcessor {
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
 //                ToastUtils.showShort(wsEvent.message)
-                wsEvent.commParams.toString().toast()
+//                wsEvent.commParams.toString().toast()
+                SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.CLIENT)
             }
 
             /**

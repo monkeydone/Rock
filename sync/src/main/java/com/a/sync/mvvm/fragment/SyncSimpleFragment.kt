@@ -10,6 +10,7 @@ import com.a.findfragment.ListActivity
 import com.a.sync.*
 import com.a.sync.client.DoKitWsClient
 import com.a.sync.databinding.FragmentSyncSimpleBinding
+import com.a.sync.mvvm.viewmodel.SyncListViewModel
 import com.a.sync.mvvm.viewmodel.SyncSimpleViewModel
 import com.a.sync.server.DoKitWsServer
 import com.a.sync.server.HostInfo
@@ -67,6 +68,8 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
                     null
                 )
             )
+
+            SyncListViewModel.addMessage(text, Utils.WS_MODE)
         } else if (Utils.WS_MODE == WSMode.CLIENT) {
             val text = "random ${1000.random()}"
             "send message from client to host  by ${text}".toast()
@@ -78,6 +81,7 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
                     null
                 )
             )
+            SyncListViewModel.addMessage(text, Utils.WS_MODE)
         }
     }
 
