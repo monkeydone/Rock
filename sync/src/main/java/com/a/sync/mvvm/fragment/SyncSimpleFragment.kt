@@ -48,14 +48,16 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data);
-        "test: requestCode:${requestCode} resultCode:${resultCode} data:${data?.extras}".toast()
+//        "test: requestCode:${requestCode} resultCode:${resultCode} data:${data?.extras}".toast()
         if (requestCode == REQUEST_CONNECT_CODE) {
             val code = data?.getStringExtra("result")
-//            val code = "ws://10.129.100.121:4444/mc"
             val uri = Uri.parse(code)
             handleScanResult(uri)
         }
+    }
 
+    private fun handleConnectionInfo(info: String?) {
+        binding.tvSyncListMessage.text = info
     }
 
     private fun handleScanResult(uri: Uri) {
@@ -63,10 +65,9 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
             withContext(Dispatchers.Main) {
                 when (code) {
                     DoKitWsClient.CONNECT_SUCCEED -> {
-                        message?.toast()
-//                        binding.tvEvent.text = message?.toString()
                         Utils.HOST_INFO =
                             GsonUtils.fromJson<HostInfo>(message, HostInfo::class.java)
+                        handleConnectionInfo("连接到设备 ${Utils.HOST_INFO?.deviceName}")
                     }
                     DoKitWsClient.CONNECT_FAIL -> {
                         message?.toast()
