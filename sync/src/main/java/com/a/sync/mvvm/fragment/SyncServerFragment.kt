@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import com.a.base.RBaseFragment
-import com.a.findfragment.FragmentAnnotation
 import com.a.sync.*
 import com.a.sync.client.DoKitWsClient
 import com.a.sync.databinding.FragmentSyncServerBinding
@@ -21,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-@FragmentAnnotation("SyncServer", "Sync")
 class SyncServerFragment : RBaseFragment<SyncServerViewModel, FragmentSyncServerBinding>(),
     View.OnClickListener {
     override fun getContentId(): Int = R.layout.fragment_sync_server
