@@ -35,6 +35,7 @@ object Utils {
         }
 
     var MC_WS_PORT = 4444
+    var MC_HTTP_PORT = 8000
 
     var WS_MODE: WSMode = WSMode.UNKNOW
 

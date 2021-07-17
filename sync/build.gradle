@@ -36,6 +36,7 @@ android {
     dataBinding {
         enabled = true
     }
+
 //    kapt {
 //        generateStubs = true
 //    }
@@ -47,6 +48,12 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
+
+    implementation rootProject.ext.dependencies["ktor_server_core"]
+    implementation rootProject.ext.dependencies["ktor_server_cio"]
+    implementation rootProject.ext.dependencies["ktor_server_netty"]
+
+
 
     implementation rootProject.ext.dependencies["ktor_server_websockets"]
     implementation rootProject.ext.dependencies["ktor_client_websockets"]
