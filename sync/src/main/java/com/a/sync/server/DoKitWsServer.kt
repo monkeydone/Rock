@@ -56,7 +56,7 @@ object DoKitWsServer {
                         )!!
                     )
                 }
-                get("/m2") {
+                get("/m3") {
                     val path =
                         Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
                     call.respondFile(File(path!!))
