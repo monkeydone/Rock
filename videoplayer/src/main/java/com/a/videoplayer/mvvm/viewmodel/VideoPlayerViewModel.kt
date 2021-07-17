@@ -16,8 +16,8 @@ class VideoPlayerViewModel(application: Application) :
 
 
     fun getPlayUrl(): String? {
-        return "http://10.129.100.241:8000/m3"
-//        return  this.intent.getStringExtra(PARAM_URL)
+//        return "http://10.129.100.241:8000/m3"
+        return this.intent.getStringExtra(PARAM_URL)
     }
 
     companion object {

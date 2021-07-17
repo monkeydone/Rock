@@ -1,14 +1,18 @@
 package com.a.videoplayer.mvvm.fragment
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.view.View
 import android.widget.ImageView
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
+import com.a.findfragment.ListActivity
 import com.a.videoplayer.R
 import com.a.videoplayer.databinding.FragmentVideoPlayerBinding
 import com.a.videoplayer.mvvm.viewmodel.VideoPlayerViewModel
+import com.bn.utils.ContextUtils
 import com.bn.utils.PermissionUtils
 import com.bn.utils.toast
 import com.permissionx.guolindev.PermissionX
@@ -171,5 +175,20 @@ class VideoPlayerFragment : RBaseFragment<VideoPlayerViewModel, FragmentVideoPla
         }
     }
 
+    companion object {
+        fun openVideo(context: Context, url: String) {
+            val fragment = VideoPlayerFragment.javaClass.canonicalName
+            val intent = Intent()
+            intent.putExtra(VideoPlayerViewModel.PARAM_URL, url)
+            ListActivity.startFragmentWithBundle(context, fragment, intent)
+        }
+
+        fun openVideo(url: String) {
+            val topActivity = ContextUtils.getTopActivity()
+            if (topActivity != null) {
+                openVideo(topActivity, url)
+            }
+        }
+    }
 
 }

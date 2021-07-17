@@ -5,6 +5,8 @@ import com.a.sync.WSEvent
 import com.a.sync.WSMode
 import com.a.sync.mvvm.fragment.SyncSimpleFragment
 import com.a.sync.mvvm.viewmodel.SyncListViewModel
+import com.a.videoplayer.mvvm.fragment.VideoPlayerFragment
+import com.bn.utils.toast
 
 /**
  * ================================================
@@ -23,10 +25,18 @@ object WSServerProcessor {
     suspend fun process(wsEvent: WSEvent) {
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
-//                wsEvent.commParams.toString().toast()
+                wsEvent.commParams.toString().toast()
                 SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.CLIENT)
                 SyncListViewModel.liveRefreshData.postValue(true)
 
+            }
+
+            WSEType.WSE_VIDEO -> {
+                wsEvent.commParams.toString().toast()
+                val url = wsEvent.commParams?.get(WSEType.WSE_VIDEO.toString())
+                if (url != null) {
+                    VideoPlayerFragment.openVideo(url)
+                }
             }
 
             WSEType.WSE_CONNECTED -> {

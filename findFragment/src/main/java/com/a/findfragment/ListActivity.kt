@@ -41,6 +41,21 @@ open class ListActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
+        fun startFragmentWithBundle(
+            context: Context,
+            fragmentName: String,
+            bundle: Intent? = null
+        ) {
+            val intent = Intent();
+            intent.setClass(context, ListActivity::class.java)
+            var name = fragmentName.replace(".Companion", "")
+            intent.putExtra(FRAGMENT_NAME, name)
+            if (bundle != null) {
+                intent.putExtras(bundle)
+            }
+            context.startActivity(intent)
+        }
+
         fun initAnnotation(context: Context) {
             if (!init) {
                 val annotated = LocalPackage.getAnnotationClasses(

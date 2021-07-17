@@ -7,6 +7,7 @@ import com.a.sync.WSEvent
 import com.a.sync.WSMode
 import com.a.sync.mvvm.viewmodel.SyncListViewModel
 import com.a.sync.server.HostInfo
+import com.a.videoplayer.mvvm.fragment.VideoPlayerFragment
 import com.bn.utils.toast
 
 
@@ -33,9 +34,16 @@ object WSClientProcessor {
         when (wsEvent.eventType) {
             WSEType.WSE_TEST -> {
 //                ToastUtils.showShort(wsEvent.message)
-//                wsEvent.commParams.toString().toast()
+                wsEvent.commParams.toString().toast()
                 SyncListViewModel.addMessage(wsEvent.commParams.toString(), WSMode.HOST)
                 SyncListViewModel.liveRefreshData.postValue(true)
+            }
+            WSEType.WSE_VIDEO -> {
+                wsEvent.commParams.toString().toast()
+                val url = wsEvent.commParams?.get(WSEType.WSE_VIDEO.toString())
+                if (url != null) {
+                    VideoPlayerFragment.openVideo(url)
+                }
             }
 
             /**
