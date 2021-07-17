@@ -3,12 +3,16 @@ package com.a.sync
 import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.AssetManager
+import android.content.res.Resources
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.text.format.Formatter
 import androidx.annotation.RequiresPermission
 import com.a.sync.server.HostInfo
 import com.bn.utils.ContextUtils
+import java.io.*
+
 
 object Utils {
 
@@ -75,4 +79,66 @@ object Utils {
         return ContextUtils.applicationContext.resources.displayMetrics.heightPixels
     }
 
+    @Throws(IOException::class)
+    fun getResource(id: Int, context: Context): ByteArray? {
+        val resources: Resources = context.resources
+        val `is`: InputStream = resources.openRawResource(id)
+        val bout = ByteArrayOutputStream()
+        val readBuffer = ByteArray(4 * 1024)
+        return try {
+            var read: Int
+            do {
+                read = `is`.read(readBuffer, 0, readBuffer.size)
+                if (read == -1) {
+                    break
+                }
+                bout.write(readBuffer, 0, read)
+            } while (true)
+            bout.toByteArray()
+        } finally {
+            `is`.close()
+        }
+    }
+
+
+    fun copyAssets(context: Context, filename: String, destName: String): String? {
+        val assetManager: AssetManager = context.getAssets()
+        var `in`: InputStream? = null
+        var out: OutputStream? = null
+        var outputFilePath: String? = null
+        try {
+            `in` = assetManager.open(filename)
+            val outFile = File(context.cacheDir.absolutePath, destName)
+            outputFilePath = outFile.absolutePath
+            out = FileOutputStream(outFile)
+            copyFile(`in`, out)
+        } catch (e: IOException) {
+        } finally {
+            if (`in` != null) {
+                try {
+                    `in`.close()
+                } catch (e: IOException) {
+                    // NOOP
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close()
+                } catch (e: IOException) {
+                    // NOOP
+                }
+            }
+        }
+        return outputFilePath
+
+    }
+
+    @Throws(IOException::class)
+    private fun copyFile(`in`: InputStream, out: OutputStream?) {
+        val buffer = ByteArray(1024)
+        var read: Int
+        while (`in`.read(buffer).also { read = it } != -1) {
+            out?.write(buffer, 0, read)
+        }
+    }
 }

@@ -1,9 +1,7 @@
 package com.a.sync.server
 
-import com.a.sync.GsonUtils
-import com.a.sync.Utils
-import com.a.sync.WSEvent
-import com.a.sync.WSMode
+import com.a.sync.*
+import com.bn.utils.ContextUtils
 import io.ktor.application.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.response.*
@@ -15,6 +13,7 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.io.File
 
 /**
  * ================================================
@@ -48,6 +47,19 @@ object DoKitWsServer {
                 }
                 get("/demo") {
                     call.respondText("HELLO WORLD!")
+                }
+                get("/m") {
+                    call.respondBytes(
+                        Utils.getResource(
+                            R.raw.media,
+                            ContextUtils.applicationContext
+                        )!!
+                    )
+                }
+                get("/m2") {
+                    val path =
+                        Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
+                    call.respondFile(File(path!!))
                 }
             }
         }
