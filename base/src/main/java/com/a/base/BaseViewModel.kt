@@ -1,6 +1,7 @@
 package com.a.base
 
 import android.app.Application
+import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -13,6 +14,7 @@ open class BaseViewModel<T>(application: Application) : AndroidViewModel(applica
     var lastIdStr = ""
     var lastIdLong = 0L
     var lastIdInt = 0
+    lateinit var intent: Intent
 
     open var startIndex: Int = -requestCount
     var loadingLive = MutableLiveData<Boolean>()
@@ -31,6 +33,10 @@ open class BaseViewModel<T>(application: Application) : AndroidViewModel(applica
     open fun reloadData(): LiveData<T> {
         canReload = true
         return loadData()
+    }
+
+    fun initIntent(intent: Intent) {
+        this.intent = intent
     }
 
     fun postSkeleton(value: Boolean) {

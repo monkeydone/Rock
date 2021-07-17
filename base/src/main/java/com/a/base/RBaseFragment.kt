@@ -46,6 +46,7 @@ abstract class RBaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Frag
         ClassUtil.getViewModel<VM>(this).also {
             it?.also {
                 viewModel = ViewModelProvider(this).get(it)
+                viewModel.initIntent(requireActivity().intent)
                 doObserve(viewModel)
             }
         }

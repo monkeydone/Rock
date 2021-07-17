@@ -56,6 +56,7 @@ dependencies {
     implementation project(":ui")
     implementation project(":base")
     implementation project(":sync")
+    implementation project(":videoplayer")
 
     implementation project(":findFragment")
 //    implementation 'com.github.monkeydone.Rock:findFragment:1.1.2'
