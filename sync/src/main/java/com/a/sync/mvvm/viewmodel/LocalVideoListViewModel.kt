@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.a.base.BaseViewModel
 import com.a.sync.client.DoKitWsClient.TAG
+import java.io.File
 
 
 class LocalVideoListViewModel(application: Application) :
@@ -96,6 +97,15 @@ class LocalVideoListViewModel(application: Application) :
         itemList.value = list
     }
 
+    fun getFileList(filePath: String): List<File> {
+        val list = ArrayList<File>()
+        val f = File(filePath)
+
+        if (f.exists() && f.isDirectory) {
+            list.addAll(f.listFiles())
+        }
+        return list
+    }
 
     override fun loadData(): LiveData<List<LocalVideoListViewModel.LocalVideoListDataModel>> {
         if (loading) {

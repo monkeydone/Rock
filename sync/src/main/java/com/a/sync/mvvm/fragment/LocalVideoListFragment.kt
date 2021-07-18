@@ -53,12 +53,18 @@ class LocalVideoListFragment :
         requireActivity().runOnUiThread {
             initRequestPermission()
         }
+
+        initRequestPermission {
+            Thread() {
+                val list = viewModel.getFileList("/sdcard/QQBrowser/视频/")
+                "size:${list.size}".toast()
+            }.start()
+        }
     }
 
-    private fun initRequestPermission() {
+    private fun initRequestPermission(callback: () -> Unit) {
         if (!PermissionUtils.hasSelfPermissions(
                 activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
         ) {
@@ -69,11 +75,14 @@ class LocalVideoListFragment :
                 )
                 .request { allGranted, grantedList, deniedList ->
                     if (allGranted) {
+                        callback()
                         "All permissions are granted".toast()
                     } else {
                         "These permissions are denied: $deniedList".toast()
                     }
                 }
+        } else {
+            callback()
         }
 
     }
