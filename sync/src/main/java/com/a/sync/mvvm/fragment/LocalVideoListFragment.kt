@@ -50,16 +50,6 @@ class LocalVideoListFragment :
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(SimpleGridDecoration(10))
 
-        requireActivity().runOnUiThread {
-            initRequestPermission()
-        }
-
-        initRequestPermission {
-            Thread() {
-                val list = viewModel.getFileList("/sdcard/QQBrowser/视频/")
-                "size:${list.size}".toast()
-            }.start()
-        }
     }
 
     private fun initRequestPermission(callback: () -> Unit) {
@@ -88,18 +78,12 @@ class LocalVideoListFragment :
     }
 
     override fun initData() {
-//        getMoreData(true)
-        viewModel.loadVideoList(requireContext())
+        initRequestPermission {
+            viewModel.loadData()
+        }
     }
 
     override fun onLoadMore() {
-//        getMoreData(false)
-    }
-
-    private fun getMoreData(isFirst: Boolean) {
-        funOwnerObserver(viewModel.loadData()) {
-            loadListData(binding.recyclerView, adapter, it, isFirst)
-        }
     }
 
 

@@ -58,8 +58,15 @@ dependencies {
     api 'com.github.li-xiaojun:XPopup:2.4.5'
     api 'com.r0adkll:slidableactivity:2.0.5'
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'com.faltenreich:skeletonlayout:4.0.0'
+    api  'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api  'com.faltenreich:skeletonlayout:4.0.0'
+
+    api rootProject.ext.dependencies["coroutines-core"]
+    api rootProject.ext.dependencies["coroutines-android"]
+
+    api rootProject.ext.dependencies["lifecycle-extensions"]
+    api rootProject.ext.dependencies["lifecycle-livedata-ktx"]
+    api rootProject.ext.dependencies["lifecycle-viewmodel-ktx"]
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

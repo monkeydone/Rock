@@ -7,8 +7,12 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.a.base.BaseViewModel
 import com.a.sync.client.DoKitWsClient.TAG
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 
@@ -19,12 +23,14 @@ class LocalVideoListViewModel(application: Application) :
     var loading = false
     var id = 0L
 
+    var filePath = "/sdcard/QQBrowser/视频/"
+
     init {
         canReload = true
         canLoadMore = false
     }
 
-    class LocalVideoListDataModel(val info: VideoInfo)
+    class LocalVideoListDataModel(val file: File)
 
     open class VideoInfo {
         var id = 0
@@ -91,9 +97,9 @@ class LocalVideoListViewModel(application: Application) :
         initVideoData(context)
         val list = ArrayList<LocalVideoListViewModel.LocalVideoListDataModel>()
         list.clear()
-        mVideoInfos.forEach {
-            list.add(LocalVideoListDataModel(it))
-        }
+//        mVideoInfos.forEach {
+//            list.add(LocalVideoListDataModel(it))
+//        }
         itemList.value = list
     }
 
@@ -108,26 +114,16 @@ class LocalVideoListViewModel(application: Application) :
     }
 
     override fun loadData(): LiveData<List<LocalVideoListViewModel.LocalVideoListDataModel>> {
-        if (loading) {
-            return itemList
-        }
         val list = ArrayList<LocalVideoListViewModel.LocalVideoListDataModel>()
-        val size = itemList.value?.size ?: 1
-
-//        if(canReload) {
-//            for (i in 0..50) {
-//                val model = LocalVideoListViewModel.LocalVideoListDataModel("Item: ${i}", i)
-//                list.add(model)
-//            }
-//        }else if(canLoadMore) {
-//            for(i in size..size+50){
-//                val model = LocalVideoListViewModel.LocalVideoListDataModel("Item: ${i}", i)
-//                list.add(model)
-//            }
-//        }
-        canLoadMore = size <= 150
-        //itemList.value = handleListRequestResponse(list=list,haveMore = canLoadMore)
-        itemList.value = list
+        viewModelScope.launch {
+            list.clear()
+            withContext(Dispatchers.IO) {
+                val fileList =
+                    getFileList(filePath).filter { it.name.endsWith("mp4") or it.name.endsWith("m3u8") }
+                list.addAll(fileList.map { LocalVideoListDataModel(it) })
+            }
+            itemList.value = list
+        }
         return itemList
     }
 
