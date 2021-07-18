@@ -27,15 +27,13 @@ object ContextUtils {
         application.registerActivityLifecycleCallbacks(object :
             Application.ActivityLifecycleCallbacks {
             override fun onActivityPaused(activity: Activity) {
-
+                sCurrentActivityWeakRef = null
             }
 
             override fun onActivityStarted(activity: Activity) {
-                sCurrentActivityWeakRef = WeakReference<Activity>(activity)
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-//                sCurrentActivityWeakRef = null
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
@@ -48,6 +46,7 @@ object ContextUtils {
             }
 
             override fun onActivityResumed(activity: Activity) {
+                sCurrentActivityWeakRef = WeakReference<Activity>(activity)
             }
         })
     }
