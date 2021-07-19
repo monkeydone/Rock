@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.text.format.Formatter
 import androidx.annotation.RequiresPermission
+import com.a.sync.mvvm.viewmodel.LocalVideoListViewModel
 import com.a.sync.server.HostInfo
 import com.bn.utils.ContextUtils
 import java.io.*
@@ -77,6 +78,24 @@ object Utils {
 
     fun getAppScreenHeight(): Int {
         return ContextUtils.applicationContext.resources.displayMetrics.heightPixels
+    }
+
+    fun getUrlForFile(filename: String): String {
+        val url = "http://${IP_ADDRESS_BY_WIFI}:${MC_HTTP_PORT}/video?name=${filename}"
+        return url
+    }
+
+    fun getFileForFileName(
+        filename: String,
+        fileList: ArrayList<LocalVideoListViewModel.LocalVideoListDataModel>
+    ): File? {
+        val f = fileList.filter { it.fileName == filename }
+        if (f.isNotEmpty()) {
+            return f[0].file
+        } else {
+            return null
+        }
+
     }
 
     @Throws(IOException::class)

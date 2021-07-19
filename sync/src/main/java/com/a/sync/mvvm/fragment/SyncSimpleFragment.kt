@@ -20,6 +20,7 @@ import com.bn.utils.toast
 import com.jwsd.libzxing.activity.CaptureActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.File
 
 
 class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimpleBinding>(),
@@ -56,40 +57,14 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
 //                VideoPlayerFragment.openVideo("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
             }
             R.id.tv_sync_play_video -> {
-                sendVideoMessage("http://10.129.100.241:8000/m3")
+                sendVideoMessage("http://10.129.100.241:8000/m3?name=${100.random()}")
             }
 
 
         }
     }
 
-    private fun sendVideoMessage(url: String) {
-        val text = url
-        if (Utils.WS_MODE == WSMode.HOST) {
-            "send message from host to client  by ${text}".toast()
-            DoKitWsServer.send(
-                WSEvent(
-                    WSMode.HOST,
-                    WSEType.WSE_VIDEO,
-                    mutableMapOf(WSEType.WSE_VIDEO.toString() to "${text}"),
-                    null
-                )
-            )
 
-            SyncListViewModel.addMessage(text, Utils.WS_MODE)
-        } else if (Utils.WS_MODE == WSMode.CLIENT) {
-            "send message from client to host  by ${text}".toast()
-            DoKitWsClient.send(
-                WSEvent(
-                    WSMode.CLIENT,
-                    WSEType.WSE_VIDEO,
-                    mutableMapOf(WSEType.WSE_VIDEO.toString() to "${text}"),
-                    null
-                )
-            )
-            SyncListViewModel.addMessage(text, Utils.WS_MODE)
-        }
-    }
 
     private fun sendTestMessage() {
         if (Utils.WS_MODE == WSMode.HOST) {
@@ -158,6 +133,39 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
     companion object {
         const val REQUEST_CONNECT_CODE = 101
         public var liveConnectionInfo: MutableLiveData<String> = MutableLiveData<String>()
+
+        fun sendVideoMessage(file: File) {
+
+
+        }
+
+        fun sendVideoMessage(url: String) {
+            val text = url
+            if (Utils.WS_MODE == WSMode.HOST) {
+                "send message from host to client  by ${text}".toast()
+                DoKitWsServer.send(
+                    WSEvent(
+                        WSMode.HOST,
+                        WSEType.WSE_VIDEO,
+                        mutableMapOf(WSEType.WSE_VIDEO.toString() to "${text}"),
+                        null
+                    )
+                )
+
+                SyncListViewModel.addMessage(text, Utils.WS_MODE)
+            } else if (Utils.WS_MODE == WSMode.CLIENT) {
+                "send message from client to host  by ${text}".toast()
+                DoKitWsClient.send(
+                    WSEvent(
+                        WSMode.CLIENT,
+                        WSEType.WSE_VIDEO,
+                        mutableMapOf(WSEType.WSE_VIDEO.toString() to "${text}"),
+                        null
+                    )
+                )
+                SyncListViewModel.addMessage(text, Utils.WS_MODE)
+            }
+        }
 
     }
 

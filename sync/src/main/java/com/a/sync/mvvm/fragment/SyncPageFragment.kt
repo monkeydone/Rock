@@ -38,8 +38,10 @@ class SyncPageFragmentFragment : RViewPageFragment<SyncPageViewModel, FragmentSy
     private fun initFragments() {
         val d = FragmentData(R.string.sync_tab_main.string(), SyncSimpleFragment())
         fragments.add(d)
-        val d2 = FragmentData(R.string.sync_tab_list.string(), SyncListFragment())
+        val d2 = FragmentData(R.string.sync_tab_video.string(), LocalVideoListFragment())
         fragments.add(d2)
+        val d3 = FragmentData(R.string.sync_tab_list.string(), SyncListFragment())
+        fragments.add(d3)
     }
 
 

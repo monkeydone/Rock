@@ -4,6 +4,7 @@ import com.a.sync.client.WSClientProcessor
 import com.a.sync.server.WSServerProcessor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.File
 
 /**
  * ================================================
@@ -29,5 +30,10 @@ object WSEventProcessor {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+
+    fun handleVideo(file: File) {
+
     }
 }

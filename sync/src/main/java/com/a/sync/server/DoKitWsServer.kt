@@ -1,9 +1,12 @@
 package com.a.sync.server
 
+import android.net.Uri
 import com.a.sync.*
+import com.a.sync.mvvm.viewmodel.LocalVideoListViewModel
 import com.bn.utils.ContextUtils
 import io.ktor.application.*
 import io.ktor.http.cio.websocket.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.cio.*
@@ -42,6 +45,7 @@ object DoKitWsServer {
     private val httpServer: NettyApplicationEngine by lazy {
         embeddedServer(Netty, port = Utils.MC_HTTP_PORT, host = Utils.IP_ADDRESS_BY_WIFI) {
             routing {
+                val x = this
                 get("/") {
                     call.respondText("Hello, world!")
                 }
@@ -57,14 +61,26 @@ object DoKitWsServer {
                     )
                 }
                 get("/m3") {
-                    val path =
+                    val path2 =
                         Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
-                    call.respondFile(File(path!!))
+                    call.respondFile(File(path2!!))
+                }
+                get("/video") {
+                    val u = Uri.parse(this.call.request.uri)
+                    val videoName = u.getQueryParameter("name")
+                    if (videoName != null) {
+                        val path =
+                            Utils.getFileForFileName(videoName, LocalVideoListViewModel.fileList)
+                        call.respondFile(File(path?.absolutePath))
+                    }
+//                    call.respondText(u.getQueryParameter("name")?:"error")
+
                 }
             }
         }
     }
     //val engine
+
 
     fun start(callBack: () -> Unit) {
         try {

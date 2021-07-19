@@ -9,8 +9,10 @@ import com.a.base.list.loadListData
 import com.a.base.observer
 import com.a.findfragment.FragmentAnnotation
 import com.a.sync.R
+import com.a.sync.Utils
 import com.a.sync.databinding.FragmentLocalVideoListBinding
 import com.a.sync.mvvm.viewmodel.LocalVideoListViewModel
+import com.a.videoplayer.mvvm.fragment.VideoPlayerFragment
 import com.art.ui.adapter.recyclerview.CommonAdapter
 import com.bn.utils.PermissionUtils
 import com.bn.utils.toast
@@ -42,6 +44,7 @@ class LocalVideoListFragment :
         }
 
         funOwnerObserver(viewModel.itemList) {
+            LocalVideoListViewModel.fileList.addAll(it)
             loadListData(binding.recyclerView, adapter, it, true)
         }
     }
@@ -88,6 +91,8 @@ class LocalVideoListFragment :
 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val item = adapter.data[position] as LocalVideoListViewModel.LocalVideoListDataModel
+        VideoPlayerFragment.openVideo(Utils.getUrlForFile(item.fileName))
 //        val it = artworkAdapter.data[position].fragmentObject
     }
 
