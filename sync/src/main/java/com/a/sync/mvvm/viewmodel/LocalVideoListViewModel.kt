@@ -118,9 +118,16 @@ class LocalVideoListViewModel(application: Application) :
         viewModelScope.launch {
             list.clear()
             withContext(Dispatchers.IO) {
-                val fileList =
-                    getFileList(filePath).filter { it.name.endsWith("mp4") or it.name.endsWith("m3u8") }
-                list.addAll(fileList.map { LocalVideoListDataModel(it, it.name) })
+                val fileList = getFileList(filePath)
+                LocalVideoListViewModel.fileList.addAll(fileList.map {
+                    LocalVideoListDataModel(
+                        it,
+                        it.name
+                    )
+                })
+                val filterFileList =
+                    fileList.filter { it.name.endsWith("mp4") or it.name.endsWith("m3u8") }
+                list.addAll(filterFileList.map { LocalVideoListDataModel(it, it.name) })
             }
             itemList.value = list
         }

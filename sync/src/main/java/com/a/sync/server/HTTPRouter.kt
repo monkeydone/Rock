@@ -49,12 +49,26 @@ val HTTPRouter: Application.() -> Unit = {
                 Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
             call.respondFile(File(path2!!))
         }
+        get("/m3u8") {
+            val u = Uri.parse(this.call.request.uri)
+            val videoName = u.getQueryParameter("name")
+            val path2 =
+                Utils.copyAssets(ContextUtils.applicationContext, "video.txt", "m.m3u8")
+            call.respondFile(File(path2!!))
+        }
         get("/video") {
             val u = Uri.parse(this.call.request.uri)
             val videoName = u.getQueryParameter("name")
             if (videoName != null) {
-                val path =
+                var path =
                     Utils.getFileForFileName(videoName, LocalVideoListViewModel.fileList)
+                if (path == null) {
+                    path = File(videoName)
+                }
+                if (path == null || !path.exists()) {
+                    path = File("/storage/emulated/0/QQBrowser/视频/$videoName")
+                }
+
                 call.respondFile(File(path?.absolutePath))
             }
 //                    call.respondText(u.getQueryParameter("name")?:"error")

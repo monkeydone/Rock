@@ -45,7 +45,7 @@ class LocalVideoListFragment :
         }
 
         funOwnerObserver(viewModel.itemList) {
-            LocalVideoListViewModel.fileList.addAll(it)
+//            LocalVideoListViewModel.fileList.addAll(it)
             loadListData(binding.recyclerView, adapter, it, true)
         }
     }
