@@ -1,6 +1,7 @@
 package com.a.sync.mvvm.fragment
 
 import android.Manifest
+import android.util.Log
 import android.view.View
 import com.a.base.RBaseFragment
 import com.a.base.funOwnerObserver
@@ -92,9 +93,14 @@ class LocalVideoListFragment :
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val item = adapter.data[position] as LocalVideoListViewModel.LocalVideoListDataModel
-        VideoPlayerFragment.openVideo(Utils.getUrlForFile(item.fileName))
+        val url = Utils.getUrlForFile(item.fileName)
+        Log.e(TAG, "url :${url}")
+        VideoPlayerFragment.openVideo(url)
 //        val it = artworkAdapter.data[position].fragmentObject
     }
 
+    companion object {
+        var TAG = LocalVideoListFragment.Companion.javaClass.canonicalName
+    }
 
 }
