@@ -1,14 +1,10 @@
 package com.a.sync.server
 
-import android.net.Uri
-import com.a.sync.*
-import com.a.sync.mvvm.viewmodel.LocalVideoListViewModel
-import com.bn.utils.ContextUtils
-import io.ktor.application.*
+import com.a.sync.GsonUtils
+import com.a.sync.Utils
+import com.a.sync.WSEvent
+import com.a.sync.WSMode
 import io.ktor.http.cio.websocket.*
-import io.ktor.request.*
-import io.ktor.response.*
-import io.ktor.routing.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -16,7 +12,6 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.io.File
 
 /**
  * ================================================
@@ -43,41 +38,47 @@ object DoKitWsServer {
     }
 
     private val httpServer: NettyApplicationEngine by lazy {
-        embeddedServer(Netty, port = Utils.MC_HTTP_PORT, host = Utils.IP_ADDRESS_BY_WIFI) {
-            routing {
-                val x = this
-                get("/") {
-                    call.respondText("Hello, world!")
-                }
-                get("/demo") {
-                    call.respondText("HELLO WORLD!")
-                }
-                get("/m") {
-                    call.respondBytes(
-                        Utils.getResource(
-                            R.raw.media,
-                            ContextUtils.applicationContext
-                        )!!
-                    )
-                }
-                get("/m3") {
-                    val path2 =
-                        Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
-                    call.respondFile(File(path2!!))
-                }
-                get("/video") {
-                    val u = Uri.parse(this.call.request.uri)
-                    val videoName = u.getQueryParameter("name")
-                    if (videoName != null) {
-                        val path =
-                            Utils.getFileForFileName(videoName, LocalVideoListViewModel.fileList)
-                        call.respondFile(File(path?.absolutePath))
-                    }
-//                    call.respondText(u.getQueryParameter("name")?:"error")
-
-                }
-            }
-        }
+        embeddedServer(
+            Netty,
+            port = Utils.MC_HTTP_PORT,
+            host = Utils.IP_ADDRESS_BY_WIFI,
+            module = HTTPRouter
+        )
+//        {
+//            routing {
+//                val x = this
+//                get("/") {
+//                    call.respondText("Hello, world!")
+//                }
+//                get("/demo") {
+//                    call.respondText("HELLO WORLD!")
+//                }
+//                get("/m") {
+//                    call.respondBytes(
+//                        Utils.getResource(
+//                            R.raw.media,
+//                            ContextUtils.applicationContext
+//                        )!!
+//                    )
+//                }
+//                get("/m3") {
+//                    val path2 =
+//                        Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
+//                    call.respondFile(File(path2!!))
+//                }
+//                get("/video") {
+//                    val u = Uri.parse(this.call.request.uri)
+//                    val videoName = u.getQueryParameter("name")
+//                    if (videoName != null) {
+//                        val path =
+//                            Utils.getFileForFileName(videoName, LocalVideoListViewModel.fileList)
+//                        call.respondFile(File(path?.absolutePath))
+//                    }
+////                    call.respondText(u.getQueryParameter("name")?:"error")
+//
+//                }
+//            }
+//        }
     }
     //val engine
 
