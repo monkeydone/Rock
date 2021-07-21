@@ -12,14 +12,13 @@ import com.a.findfragment.ListActivity
 import com.a.videoplayer.R
 import com.a.videoplayer.databinding.FragmentVideoPlayerBinding
 import com.a.videoplayer.mvvm.viewmodel.VideoPlayerViewModel
+import com.a.videoplayer.mvvm.viewmodel.VideoPlayerViewModel.Companion.PARAM_URL
 import com.bn.utils.ContextUtils
 import com.bn.utils.PermissionUtils
 import com.bn.utils.toast
 import com.permissionx.guolindev.PermissionX
-import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils
+import xyz.doikki.videocontroller.StandardVideoController
+import xyz.doikki.videocontroller.component.*
 
 
 @FragmentAnnotation("VideoPlayer", "Demo")
@@ -39,79 +38,114 @@ class VideoPlayerFragment : RBaseFragment<VideoPlayerViewModel, FragmentVideoPla
         viewModel.loadData()
     }
 
-
     private fun init2() {
-        val imageView = ImageView(requireContext())
-        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        imageView.setImageResource(R.drawable.exo_controls_fastforward)
-        val url = viewModel.getPlayUrl()
-
-        val gsyVideoOptionBuilder = GSYVideoOptionBuilder()
-            .setThumbImageView(imageView)
-            .setIsTouchWiget(true)
-            .setRotateViewAuto(false)
-            .setLockLand(false)
-            .setShowFullAnimation(false)
-            .setNeedLockFull(true)
-            .setSeekRatio(1f)
-            .setUrl(url)
-            .setCacheWithPlay(true)
-            .setVideoTitle("测试视频")
-            .setVideoAllCallBack(object : GSYSampleCallBack() {
-                override fun onPrepared(url: String, vararg objects: Any) {
-                    super.onPrepared(url, *objects)
-                    //开始播放了才能旋转和全屏
-//                    orientationUtils.setEnable(binding.detailPlayer.isRotateWithSystem())
-//                    isPlay = true
-                }
-
-                override fun onQuitFullscreen(url: String, vararg objects: Any) {
-                    super.onQuitFullscreen(url, *objects)
-//                    if (orientationUtils != null) {
-//                        orientationUtils.backToProtVideo()
-//                    }
-                }
-            })
-
-
-        gsyVideoOptionBuilder.build(binding.videoPlayer)
-        binding.videoPlayer.postDelayed(Runnable { binding.videoPlayer.startPlayLogic() }, 1000)
-
+        val url: String = requireActivity().intent.getStringExtra(PARAM_URL) ?: ""
+        if (url.isNotEmpty()) {
+            binding.player.setVideoController(getControllView(false, ""))
+            binding.player.setUrl(url)
+            binding.player.start()
+        }
     }
 
-    private fun init() {
-        val videoPlayer = binding.videoPlayer
-//        val source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4"
-        val source1 = viewModel.getPlayUrl()
-        videoPlayer.setUp(source1, true, "测试视频")
-        videoPlayer.startWindowFullscreen(requireContext(), true, true)
 
-        //增加封面
-        val imageView = ImageView(requireContext())
-        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        imageView.setImageResource(R.drawable.exo_controls_fastforward)
-        videoPlayer.setThumbImageView(imageView)
-        //增加title
-        videoPlayer.getTitleTextView().setVisibility(View.VISIBLE)
-        //设置返回键
-        videoPlayer.getBackButton().setVisibility(View.VISIBLE)
-        //设置旋转
-        val orientationUtils = OrientationUtils(requireActivity(), videoPlayer)
+    private fun getControllView(isLive: Boolean, title: String): StandardVideoController {
+        val controller = StandardVideoController(requireContext())
+        //根据屏幕方向自动进入/退出全屏
+        //根据屏幕方向自动进入/退出全屏
+        controller.setEnableOrientation(true)
 
-        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
-        videoPlayer.getFullscreenButton()
-            .setOnClickListener(View.OnClickListener {
-                orientationUtils.resolveByClick()
-                videoPlayer.startWindowFullscreen(requireContext(), true, true)
+        val prepareView = PrepareView(requireContext()) //准备播放界面
 
-            })
-        //是否可以滑动调整
-        videoPlayer.setIsTouchWiget(true)
-        //设置返回按键功能
-        videoPlayer.getBackButton().setOnClickListener(View.OnClickListener { onBackPressed() })
-        videoPlayer.startPlayLogic()
+        prepareView.setClickStart()
+        val thumb: ImageView = prepareView.findViewById(R.id.thumb) //封面图
+
+//        Glide.with(this).load(xyz.doikki.dkplayer.activity.api.PlayerActivity.THUMB).into(thumb)
+        controller.addControlComponent(prepareView)
+
+        controller.addControlComponent(CompleteView(requireContext())) //自动完成播放界面
+
+
+        controller.addControlComponent(ErrorView(requireContext())) //错误界面
+
+
+        val titleView = TitleView(requireContext()) //标题栏
+        titleView.setTitle(title)
+        controller.addControlComponent(titleView)
+
+        //根据是否为直播设置不同的底部控制条
+
+        //根据是否为直播设置不同的底部控制条
+//        val isLive: Boolean = intent.getBooleanExtra(IntentKeys.IS_LIVE, requireActivity())
+        if (isLive) {
+            controller.addControlComponent(LiveControlView(requireContext())) //直播控制条
+        } else {
+            val vodControlView = VodControlView(requireContext()) //点播控制条
+            //是否显示底部进度条。默认显示
+//                vodControlView.showBottomProgress(false);
+            controller.addControlComponent(vodControlView)
+        }
+
+        val gestureControlView = GestureView(requireContext()) //滑动控制视图
+
+        controller.addControlComponent(gestureControlView)
+        //根据是否为直播决定是否需要滑动调节进度
+        //根据是否为直播决定是否需要滑动调节进度
+        controller.setCanChangePosition(!isLive)
+
+        //设置标题
+
+//        //设置标题
+//        val title: String = intent.getStringExtra(IntentKeys.TITLE)
+//        titleView.setTitle(title)
+
+        //注意：以上组件如果你想单独定制，我推荐你把源码复制一份出来，然后改成你想要的样子。
+        //改完之后再通过addControlComponent添加上去
+        //你也可以通过addControlComponent添加一些你自己的组件，具体实现方式参考现有组件的实现。
+        //这个组件不一定是View，请发挥你的想象力😃
+
+        //如果你不需要单独配置各个组件，可以直接调用此方法快速添加以上组件
+//            controller.addDefaultControlComponent(title, isLive);
+
+        //竖屏也开启手势操作，默认关闭
+//            controller.setEnableInNormal(true);
+        //滑动调节亮度，音量，进度，默认开启
+//            controller.setGestureEnabled(false);
+        //适配刘海屏，默认开启
+//            controller.setAdaptCutout(false);
+        //双击播放暂停，默认开启
+//            controller.setDoubleTapTogglePlayEnabled(false);
+
+        //在控制器上显示调试信息
+
+        //注意：以上组件如果你想单独定制，我推荐你把源码复制一份出来，然后改成你想要的样子。
+        //改完之后再通过addControlComponent添加上去
+        //你也可以通过addControlComponent添加一些你自己的组件，具体实现方式参考现有组件的实现。
+        //这个组件不一定是View，请发挥你的想象力😃
+
+        //如果你不需要单独配置各个组件，可以直接调用此方法快速添加以上组件
+//            controller.addDefaultControlComponent(title, isLive);
+
+        //竖屏也开启手势操作，默认关闭
+//            controller.setEnableInNormal(true);
+        //滑动调节亮度，音量，进度，默认开启
+//            controller.setGestureEnabled(false);
+        //适配刘海屏，默认开启
+//            controller.setAdaptCutout(false);
+        //双击播放暂停，默认开启
+//            controller.setDoubleTapTogglePlayEnabled(false);
+
+        //在控制器上显示调试信息
+//        controller.addControlComponent(DebugInfoView(this))
+        //在LogCat显示调试信息
+        //在LogCat显示调试信息
+//        controller.addControlComponent(PlayerMonitor())
+
+        //如果你不想要UI，不要设置控制器即可
+
+        //如果你不想要UI，不要设置控制器即可
+//        mVideoView.setVideoController(controller)
+        return controller
     }
-
 
     private fun initRequestPermission() {
         if (!PermissionUtils.hasSelfPermissions(
@@ -153,17 +187,15 @@ class VideoPlayerFragment : RBaseFragment<VideoPlayerViewModel, FragmentVideoPla
 
     override fun onPause() {
         super.onPause()
-        binding.videoPlayer.onVideoPause()
     }
 
     override fun onResume() {
         super.onResume()
-        binding.videoPlayer.onVideoResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        GSYVideoManager.releaseAllVideos()
+        binding.player.release()
     }
 
     override fun onClick(v: View?) {

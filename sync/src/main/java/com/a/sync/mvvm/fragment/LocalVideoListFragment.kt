@@ -65,7 +65,8 @@ class LocalVideoListFragment :
             PermissionX.init(activity)
                 .permissions(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
                 )
                 .request { allGranted, grantedList, deniedList ->
                     if (allGranted) {
