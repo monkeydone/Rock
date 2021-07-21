@@ -57,7 +57,7 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
 //                VideoPlayerFragment.openVideo("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
             }
             R.id.tv_sync_play_video -> {
-                sendVideoMessage("http://10.129.100.241:8000/m3?name=${100.random()}")
+                sendVideoMessage("http://10.129.100.241:8000/m3u8?name=${100.random()}")
             }
 
 
