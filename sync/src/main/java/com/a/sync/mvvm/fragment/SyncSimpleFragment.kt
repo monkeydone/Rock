@@ -14,6 +14,7 @@ import com.a.sync.mvvm.viewmodel.SyncListViewModel
 import com.a.sync.mvvm.viewmodel.SyncSimpleViewModel
 import com.a.sync.server.DoKitWsServer
 import com.a.sync.server.HostInfo
+import com.a.videoplayer.mvvm.fragment.VideoPlayerFragment
 import com.bn.utils.random
 import com.bn.utils.string
 import com.bn.utils.toast
@@ -53,11 +54,13 @@ class SyncSimpleFragment : RBaseFragment<SyncSimpleViewModel, FragmentSyncSimple
                 ListActivity.startFragment(binding.root.context, fragmentName, fragmentName)
             }
             R.id.tv_sync_send_message -> {
-                sendTestMessage()
-//                VideoPlayerFragment.openVideo("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
+//                sendTestMessage()
+                VideoPlayerFragment.openVideo("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
             }
             R.id.tv_sync_play_video -> {
-                sendVideoMessage("http://10.129.100.241:8000/m3u8?name=${100.random()}")
+//                VideoPlayerFragment.openVideo("http://10.129.100.121:8000/m3u8?name=${100.random()}")
+
+                sendVideoMessage("http://10.129.100.121:8000/m3u8?name=${100.random()}")
             }
 
 

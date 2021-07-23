@@ -41,7 +41,7 @@ class VideoPlayerFragment : RBaseFragment<VideoPlayerViewModel, FragmentVideoPla
     private fun init2() {
         val url: String = requireActivity().intent.getStringExtra(PARAM_URL) ?: ""
         if (url.isNotEmpty()) {
-            binding.player.setVideoController(getControllView(false, ""))
+            binding.player.setVideoController(getControllView(true, ""))
             binding.player.setUrl(url)
             binding.player.start()
         }
