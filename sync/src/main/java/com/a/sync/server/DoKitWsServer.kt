@@ -44,41 +44,6 @@ object DoKitWsServer {
             host = Utils.IP_ADDRESS_BY_WIFI,
             module = HTTPRouter
         )
-//        {
-//            routing {
-//                val x = this
-//                get("/") {
-//                    call.respondText("Hello, world!")
-//                }
-//                get("/demo") {
-//                    call.respondText("HELLO WORLD!")
-//                }
-//                get("/m") {
-//                    call.respondBytes(
-//                        Utils.getResource(
-//                            R.raw.media,
-//                            ContextUtils.applicationContext
-//                        )!!
-//                    )
-//                }
-//                get("/m3") {
-//                    val path2 =
-//                        Utils.copyAssets(ContextUtils.applicationContext, "media.mp4", "m.mp4")
-//                    call.respondFile(File(path2!!))
-//                }
-//                get("/video") {
-//                    val u = Uri.parse(this.call.request.uri)
-//                    val videoName = u.getQueryParameter("name")
-//                    if (videoName != null) {
-//                        val path =
-//                            Utils.getFileForFileName(videoName, LocalVideoListViewModel.fileList)
-//                        call.respondFile(File(path?.absolutePath))
-//                    }
-////                    call.respondText(u.getQueryParameter("name")?:"error")
-//
-//                }
-//            }
-//        }
     }
     //val engine
 
