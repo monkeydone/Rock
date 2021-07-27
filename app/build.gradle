@@ -14,18 +14,32 @@ android {
     }
     defaultConfig {
         applicationId "com.bn.pd"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            keyAlias 'browser'
+            keyPassword 'androidteam'
+            storeFile file('../android.keystore')
+            storePassword 'androidteam'
+//            v2SigningEnabled false
+        }
+    }
+
 
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
