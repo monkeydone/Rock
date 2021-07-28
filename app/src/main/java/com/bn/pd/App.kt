@@ -18,6 +18,10 @@ class App : Application() {
             "test3".toast()
         }
         ApiClient.init()
+        initPlayer()
+    }
+
+    fun initPlayer() {
         //播放器配置，注意：此为全局配置，按需开启
         VideoViewManager.setConfig(
             VideoViewConfig.newBuilder()
@@ -42,6 +46,5 @@ class App : Application() {
                 //                .setProgressManager(new ProgressManagerImpl())
                 .build()
         )
-
     }
 }
