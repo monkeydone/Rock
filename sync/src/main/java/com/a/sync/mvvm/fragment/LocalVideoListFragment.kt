@@ -13,7 +13,6 @@ import com.a.sync.R
 import com.a.sync.Utils
 import com.a.sync.databinding.FragmentLocalVideoListBinding
 import com.a.sync.mvvm.viewmodel.LocalVideoListViewModel
-import com.a.videoplayer.mvvm.fragment.VideoPlayerFragment
 import com.art.ui.adapter.recyclerview.CommonAdapter
 import com.bn.utils.PermissionUtils
 import com.bn.utils.toast
@@ -96,7 +95,8 @@ class LocalVideoListFragment :
         val item = adapter.data[position] as LocalVideoListViewModel.LocalVideoListDataModel
         val url = Utils.getUrlForFile(item.fullName)
         Log.e(TAG, "url :${url}")
-        VideoPlayerFragment.openVideo(url)
+//        VideoPlayerFragment.openVideo(url)
+        SyncSimpleFragment.sendVideoMessage(url)
 //        val it = artworkAdapter.data[position].fragmentObject
     }
 
