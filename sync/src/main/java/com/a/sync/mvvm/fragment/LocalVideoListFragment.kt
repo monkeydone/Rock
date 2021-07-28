@@ -94,7 +94,7 @@ class LocalVideoListFragment :
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val item = adapter.data[position] as LocalVideoListViewModel.LocalVideoListDataModel
-        val url = Utils.getUrlForFile(item.fileName)
+        val url = Utils.getUrlForFile(item.fullName)
         Log.e(TAG, "url :${url}")
         VideoPlayerFragment.openVideo(url)
 //        val it = artworkAdapter.data[position].fragmentObject

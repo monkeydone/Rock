@@ -13,6 +13,7 @@ import com.a.sync.mvvm.viewmodel.LocalVideoListViewModel
 import com.a.sync.server.HostInfo
 import com.bn.utils.ContextUtils
 import java.io.*
+import java.net.URLEncoder
 
 
 object Utils {
@@ -47,6 +48,7 @@ object Utils {
 
     var HOST_INFO: HostInfo? = null
 
+    var MC_HTTP_VIDEO = "http://${IP_ADDRESS_BY_WIFI}:${MC_HTTP_PORT}/local_video?name="
 
     /**
      * Return the manufacturer of the product/hardware.
@@ -81,7 +83,8 @@ object Utils {
     }
 
     fun getUrlForFile(filename: String): String {
-        val url = "http://${IP_ADDRESS_BY_WIFI}:${MC_HTTP_PORT}/video?name=${filename}"
+        val file = URLEncoder.encode(filename, "utf-8")
+        val url = "${MC_HTTP_VIDEO}${file}"
         return url
     }
 

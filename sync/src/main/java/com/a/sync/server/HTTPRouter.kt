@@ -2,6 +2,7 @@ package com.a.sync.server
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.a.sync.R
 import com.a.sync.Utils
@@ -13,6 +14,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import java.io.File
+import java.net.URLEncoder
 
 
 /**
@@ -55,6 +57,24 @@ val HTTPRouter: Application.() -> Unit = {
             val path2 =
                 Utils.copyAssets(ContextUtils.applicationContext, "video.txt", "m.m3u8")
             call.respondFile(File(path2!!))
+        }
+        get("/local_video") {
+            val u = Uri.parse(this.call.request.uri)
+            val videoName = u.getQueryParameter("name")
+            Log.e(TAG, "url: name:" + videoName)
+            if (videoName?.endsWith("m3u8") == true) {
+                val file = File(videoName)
+                val fileContent = file.readText(Charsets.UTF_8)
+                val newFileContent = fileContent.replace("file://", Utils.MC_HTTP_VIDEO)
+                    .replace("视频", URLEncoder.encode("视频"))
+                val file2 = File(ContextUtils.applicationContext.cacheDir.absolutePath + "/a.m3u8")
+                file2.writeText(newFileContent, Charsets.UTF_8)
+
+                Log.e(TAG, newFileContent)
+                call.respondFile(file2)
+            } else {
+                call.respondFile(File(videoName))
+            }
         }
         get("/video") {
             val u = Uri.parse(this.call.request.uri)

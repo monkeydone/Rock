@@ -30,7 +30,7 @@ class LocalVideoListViewModel(application: Application) :
         canLoadMore = false
     }
 
-    class LocalVideoListDataModel(val file: File, val fileName: String)
+    class LocalVideoListDataModel(val file: File, val fileName: String, val fullName: String)
 
     open class VideoInfo {
         var id = 0
@@ -122,12 +122,19 @@ class LocalVideoListViewModel(application: Application) :
                 LocalVideoListViewModel.fileList.addAll(fileList.map {
                     LocalVideoListDataModel(
                         it,
-                        it.name
+                        it.name,
+                        it.absolutePath
                     )
                 })
                 val filterFileList =
                     fileList.filter { it.name.endsWith("mp4") or it.name.endsWith("m3u8") }
-                list.addAll(filterFileList.map { LocalVideoListDataModel(it, it.name) })
+                list.addAll(filterFileList.map {
+                    LocalVideoListDataModel(
+                        it,
+                        it.name,
+                        it.absolutePath
+                    )
+                })
             }
             itemList.value = list
         }
