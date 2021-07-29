@@ -31,7 +31,7 @@ class SpanFragment : RBaseFragment<SpanViewModel, FragmentSpanBinding>(), View.O
         binding.viewModel = viewModel
 
         superscript()
-        superscript2()
+        subscriptSpan()
         backgroundText()
         foregroundText()
         maskFilterText()
@@ -81,7 +81,7 @@ class SpanFragment : RBaseFragment<SpanViewModel, FragmentSpanBinding>(), View.O
         binding.message.setText(ss)
     }
 
-    fun superscript2() {
+    fun subscriptSpan() {
         val ss = SpannableString("下标123.456")
 
         val sizeSpan = AbsoluteSizeSpan(18, true)
