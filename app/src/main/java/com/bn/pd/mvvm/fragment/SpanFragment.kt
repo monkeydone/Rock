@@ -184,11 +184,12 @@ class SpanFragment : RBaseFragment<SpanViewModel, FragmentSpanBinding>(), View.O
         builder.append("¥")
         builder.append("${price} ")
         builder.append(note)
+        builder.append("Appearance的设置方式")
 
         //默认字体，粗体，文字大小：60，红色
         var yuanSpan = TextAppearanceSpan(
             null, Typeface.BOLD, 60,
-            ColorStateList.valueOf(Color.GRAY), null
+            ColorStateList.valueOf(Color.GREEN), null
         )
         builder.setSpan(yuanSpan, 0, 1, SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
 
