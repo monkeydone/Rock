@@ -52,6 +52,24 @@ class SpanFragment : RBaseFragment<SpanViewModel, FragmentSpanBinding>(), View.O
         typefaceText()
         urlText()
         textAppearanceText()
+        tabStopText()
+        leadingMarginText()
+    }
+
+    fun leadingMarginText() {
+        val content = "段落缩进Text with a background color span"
+        val ssb = SpannableStringBuilder(content)
+        ssb.append(" ")
+            .append(ssb.toString())
+            .append(ssb.toString())
+            .append(ssb.toString())
+        ssb.setSpan(
+            LeadingMarginSpan.Standard(96, 36),
+            0,
+            ssb.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        binding.tvLeadingMarginSpan.setText(ssb)
     }
 
     fun superscript() {
@@ -175,6 +193,15 @@ class SpanFragment : RBaseFragment<SpanViewModel, FragmentSpanBinding>(), View.O
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         binding.tvBullet.setText(string)
+    }
+
+    fun tabStopText() {
+        val string = SpannableString("\tParagraph text beginning with tab.tab键的宽度处理")
+        string.setSpan(
+            TabStopSpan.Standard(300), 0, string.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.tvTabStop.text = string
     }
 
     fun textAppearanceText() {
