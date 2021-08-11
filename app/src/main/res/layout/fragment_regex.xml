@@ -80,5 +80,65 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_find_all3" />
+
+        <TextView
+            android:id="@+id/tv_match"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="match"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_find_replace_all" />
+
+        <TextView
+            android:id="@+id/tv_match_contains"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="containsMatchIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_match" />
+
+        <TextView
+            android:id="@+id/tv_replace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="replace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_match_contains" />
+
+        <TextView
+            android:id="@+id/tv_match_entire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="#cccccc"
+            android:gravity="center"
+            android:onClick="@{onClickListener}"
+            android:padding="10dp"
+            android:text="matchEntire"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_replace" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
