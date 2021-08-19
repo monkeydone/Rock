@@ -10,6 +10,7 @@ import com.bn.pd.mvvm.viewmodel.FloatViewViewModel
 import com.bn.utils.toast
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.SidePattern
+import com.lzf.easyfloat.interfaces.OnInvokeView
 
 
 @FragmentAnnotation("FloatView", "Demo")
@@ -42,7 +43,18 @@ class FloatViewFragment : RBaseFragment<FloatViewViewModel, FragmentFloatViewBin
                     ).show()
             }
             R.id.tv_fullscreen -> {
-                EasyFloat.with(requireActivity()).setLayout(R.layout.fragment_fullscreen)
+                EasyFloat.with(requireActivity()).setTag("fullscreen")
+                    .setLayout(R.layout.fragment_fullscreen,
+                        OnInvokeView {
+                            val ivLogo = it.findViewById<View>(R.id.message)
+                            val ivLogo2 = it.findViewById<View>(R.id.tv_event)
+                            ivLogo.setOnClickListener {
+                                "message".toast()
+                            }
+                            ivLogo2.setOnClickListener {
+                                EasyFloat.dismiss("fullscreen")
+                            }
+                        })
                     .setMatchParent(
                         widthMatch = true,
                         heightMatch = true
@@ -57,21 +69,21 @@ class FloatViewFragment : RBaseFragment<FloatViewViewModel, FragmentFloatViewBin
             R.id.tv_view_event -> {
                 EasyFloat.with(requireActivity())
                     .setTag(tag)
-                    .setLayout(R.layout.fragment_fullscreen)
-//                    {
-//                        val ivLogo = it.findViewById<ImageView>(R.id.iv_logo)
-//                        val ivLogo2 = it.findViewById<ImageView>(R.id.iv_logo2)
-//                        ivLogo.setOnClickListener {
-//                            ivLogo2.visibility =
-//                                if (ivLogo2.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-//                            EasyFloat.updateFloat(tag)
-//                        }
-//                        ivLogo2.setOnClickListener {
-//                            ivLogo.visibility =
-//                                if (ivLogo.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-//                            EasyFloat.updateFloat(tag)
-//                        }
-//                    }
+                    .setLayout(R.layout.fragment_fullscreen,
+                        OnInvokeView {
+                            val ivLogo = it.findViewById<View>(R.id.message)
+                            val ivLogo2 = it.findViewById<View>(R.id.tv_event)
+                            ivLogo.setOnClickListener {
+                                ivLogo2.visibility =
+                                    if (ivLogo2.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                                EasyFloat.updateFloat(tag)
+                            }
+                            ivLogo2.setOnClickListener {
+                                ivLogo.visibility =
+                                    if (ivLogo.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                                EasyFloat.updateFloat(tag)
+                            }
+                        })
                     .setBorder(
                         binding.viewBg.left,
                         binding.viewBg.top,
