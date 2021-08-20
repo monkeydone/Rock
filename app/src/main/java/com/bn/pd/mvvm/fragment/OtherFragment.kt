@@ -2,6 +2,9 @@ package com.bn.pd.mvvm.fragment
 
 import android.Manifest
 import android.view.View
+import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
 import com.arialyy.annotations.Download
@@ -10,9 +13,11 @@ import com.arialyy.aria.core.task.DownloadTask
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentOtherBinding
 import com.bn.pd.mvvm.viewmodel.OtherViewModel
+import com.bn.ui.FloatViewPager
 import com.bn.utils.AppUtils
 import com.bn.utils.toast
 import com.example.floatingwindowdemo.custom.floatview.FloatWindowHelper
+import com.lxj.xpopup.photoview.PhotoView
 import com.permissionx.guolindev.PermissionX
 import java.io.File
 
@@ -24,8 +29,84 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
     override fun initView() {
         binding.onClickListener = this
         binding.viewModel = viewModel
+
         Aria.download(this).register()
 
+        initViewPager()
+    }
+
+    var image = intArrayOf(
+        R.mipmap.image01,
+        R.mipmap.image02,
+        R.mipmap.image03,
+        R.mipmap.image04,
+        R.mipmap.image05
+    )
+
+    var mSellectIndex = 0
+    private fun initViewPager() {
+        val mViewPager = binding.viewPager
+        mViewPager.setAdapter(object : PagerAdapter() {
+            override fun instantiateItem(container: ViewGroup, position: Int): View {
+                val photoView: PhotoView = PhotoView(requireContext())
+                val index: Int = position % image.size
+                photoView.setImageResource(image.get(index))
+                photoView.setTag(position)
+                container.addView(photoView)
+                return photoView
+            }
+
+
+            override fun getItemPosition(`object`: Any): Int {
+                return POSITION_NONE
+            }
+
+
+            override fun getCount(): Int {
+                return image.size
+            }
+
+            override fun isViewFromObject(view: View, `object`: Any): Boolean {
+                return view === `object`
+            }
+
+            override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+                container.removeView(`object` as View?)
+            }
+
+
+        })
+        mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                mSellectIndex = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
+        mViewPager.setPositionListener(object : FloatViewPager.OnPositionChangeListener {
+            override fun onPositionChange(initTop: Int, nowTop: Int, ratio: Float) {
+                val alpha = 1 - Math.min(1f, ratio * 5)
+                binding.viewPager.alpha = alpha
+
+            }
+
+            override fun onFlingOutFinish() {
+                requireActivity().finish()
+            }
+        })
+        mViewPager.setDisallowInterruptHandler(object : FloatViewPager.DisallowInterruptHandler {
+            override fun disallowInterrupt(): Boolean {
+                val view: PhotoView = mViewPager.findViewWithTag(mSellectIndex)
+                return view.getScale().toInt() != 1
+            }
+        })
     }
 
     override fun initData() {
@@ -94,6 +175,9 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
                     "https://release.windimg.com/tmp/iOS/artgain/app-release_71d4258c80e5f3c341890632248d8028ac4d5a2d.apk"
                 FloatWindowHelper.requestPermission(requireActivity())
 
+            }
+            R.id.tv_image_pager -> {
+                binding.viewPager.visibility = View.VISIBLE
             }
 
 
