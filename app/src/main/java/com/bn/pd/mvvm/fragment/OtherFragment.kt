@@ -194,8 +194,7 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
                 initViewPager(view)
                 FloatWindowHelperV2.init(requireActivity().application, container)
                 FloatWindowHelperV2.showView(requireContext())
-                FloatWindowHelper.requestPermission(requireActivity())
-
+                FloatWindowHelperV2.requestPermission(requireActivity())
             }
 
 
