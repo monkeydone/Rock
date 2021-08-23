@@ -1,8 +1,10 @@
 package com.bn.pd.mvvm.fragment
 
 import android.Manifest
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.a.base.RBaseFragment
@@ -17,6 +19,7 @@ import com.bn.ui.FloatViewPager
 import com.bn.utils.AppUtils
 import com.bn.utils.toast
 import com.example.floatingwindowdemo.custom.floatview.FloatWindowHelper
+import com.example.floatingwindowdemo.custom.floatview.FloatWindowHelperV2
 import com.lxj.xpopup.photoview.PhotoView
 import com.permissionx.guolindev.PermissionX
 import java.io.File
@@ -32,7 +35,7 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
 
         Aria.download(this).register()
 
-        initViewPager()
+        initViewPager(binding.viewPager)
     }
 
     var image = intArrayOf(
@@ -44,8 +47,8 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
     )
 
     var mSellectIndex = 0
-    private fun initViewPager() {
-        val mViewPager = binding.viewPager
+    private fun initViewPager(viewPager: FloatViewPager) {
+        val mViewPager = viewPager
         mViewPager.setAdapter(object : PagerAdapter() {
             override fun instantiateItem(container: ViewGroup, position: Int): View {
                 val photoView: PhotoView = PhotoView(requireContext())
@@ -171,13 +174,28 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
                     }
             }
             R.id.tv_update_apk -> {
-                val downlaod_url =
-                    "https://release.windimg.com/tmp/iOS/artgain/app-release_71d4258c80e5f3c341890632248d8028ac4d5a2d.apk"
+                FloatWindowHelper.init(requireActivity().application)
+                FloatWindowHelper.viewClickListener = View.OnClickListener {
+                    "test3".toast()
+                }
                 FloatWindowHelper.requestPermission(requireActivity())
 
             }
             R.id.tv_image_pager -> {
+
                 binding.viewPager.visibility = View.VISIBLE
+            }
+
+            R.id.tv_float_image -> {
+                val container = FrameLayout(requireContext())
+                container.setBackgroundColor(Color.BLACK)
+                val view = com.bn.ui.FloatViewPager(requireContext())
+                container.addView(view)
+                initViewPager(view)
+                FloatWindowHelperV2.init(requireActivity().application, container)
+                FloatWindowHelperV2.showView(requireContext())
+                FloatWindowHelper.requestPermission(requireActivity())
+
             }
 
 
