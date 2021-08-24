@@ -8,7 +8,6 @@ import android.content.Intent
 import android.graphics.PixelFormat
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.Gravity
@@ -88,39 +87,6 @@ object FloatWindowHelperV2 {
 
     fun init(application: Application, view: ViewGroup) {
         this.view = view
-        application.registerActivityLifecycleCallbacks(object :
-            Application.ActivityLifecycleCallbacks {
-            override fun onActivityPaused(activity: Activity) {
-
-            }
-
-            override fun onActivityStarted(activity: Activity) {
-                if (activityCount == 0) {
-                    hideView(application)
-                }
-                ++activityCount
-            }
-
-            override fun onActivityDestroyed(activity: Activity) {
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-            }
-
-            override fun onActivityStopped(activity: Activity) {
-                --activityCount
-                if (activityCount == 0) {
-                    showView(application)
-                }
-            }
-
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            }
-
-            override fun onActivityResumed(activity: Activity) {
-            }
-        })
-
     }
 
     fun requestPermission(activity: Activity) {

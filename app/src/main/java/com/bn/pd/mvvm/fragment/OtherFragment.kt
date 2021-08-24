@@ -96,11 +96,13 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
         mViewPager.setPositionListener(object : FloatViewPager.OnPositionChangeListener {
             override fun onPositionChange(initTop: Int, nowTop: Int, ratio: Float) {
                 val alpha = 1 - Math.min(1f, ratio * 5)
-                binding.viewPager.alpha = alpha
+                mViewPager.alpha = alpha
+
 
             }
 
             override fun onFlingOutFinish() {
+                FloatWindowHelperV2.hideView(requireContext())
                 requireActivity().finish()
             }
         })
@@ -108,6 +110,7 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
             override fun disallowInterrupt(): Boolean {
                 val view: PhotoView = mViewPager.findViewWithTag(mSellectIndex)
                 return view.getScale().toInt() != 1
+//                return false
             }
         })
     }
@@ -188,8 +191,8 @@ class OtherFragment : RBaseFragment<OtherViewModel, FragmentOtherBinding>(), Vie
 
             R.id.tv_float_image -> {
                 val container = FrameLayout(requireContext())
-                container.setBackgroundColor(Color.BLACK)
                 val view = com.bn.ui.FloatViewPager(requireContext())
+                view.setBackgroundColor(Color.BLACK)
                 container.addView(view)
                 initViewPager(view)
                 FloatWindowHelperV2.init(requireActivity().application, container)
