@@ -137,6 +137,129 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_repeat" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_job1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程计算不能取消"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cancel_job" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_job2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程计算可以取消"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cancel_job1" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_exception"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程取消时异常处理"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cancel_job2" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_finally1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程finally时失败延时"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cancel_exception" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_nonCancellable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程finally时成功延时"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cancel_finally1" />
+
+                <TextView
+                    android:id="@+id/tv_timeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程超时处理"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cancel_finally1" />
+
+
+                <TextView
+                    android:id="@+id/tv_async"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="a+b"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_timeout" />
+
+                <TextView
+                    android:id="@+id/tv_async_lazy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="a+b async lazy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_async" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

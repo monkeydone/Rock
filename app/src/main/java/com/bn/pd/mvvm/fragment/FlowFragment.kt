@@ -75,6 +75,47 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                 }
             }
 
+            R.id.tv_cancel_job1 -> {
+                viewModel.jobNotCancel {
+                    binding.tvCancelJob1.text = it
+                }
+            }
+            R.id.tv_cancel_job2 -> {
+                viewModel.jobCancelOk {
+                    binding.tvCancelJob2.text = it
+                }
+            }
+            R.id.tv_cancel_exception -> {
+                viewModel.jobCancelException {
+                    binding.tvCancelException.text = it
+                }
+            }
+            R.id.tv_cancel_finally1 -> {
+                viewModel.jobCancelException2 {
+                    binding.tvCancelFinally1.text = it
+                }
+            }
+            R.id.tv_cancel_nonCancellable -> {
+                viewModel.jobNoCancellable {
+                    binding.tvCancelNonCancellable.text = it
+                }
+            }
+            R.id.tv_timeout -> {
+                viewModel.jobTimeout {
+                    binding.tvTimeout.text = it
+                }
+            }
+            R.id.tv_async -> {
+                viewModel.doSomething {
+                    binding.tvAsync.text = it
+                }
+            }
+            R.id.tv_async_lazy -> {
+                viewModel.doSomethingLazy {
+                    binding.tvAsyncLazy.text = it
+                }
+            }
+
         }
     }
 
