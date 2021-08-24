@@ -330,6 +330,31 @@ class FlowViewModel(application: Application) :
 
     }
 
+    fun dispatchRun(done: (String) -> Unit) {
+        val list = arrayListOf<CoroutineDispatcher>(
+            Dispatchers.IO,
+            Dispatchers.Main,
+            Dispatchers.Default,
+            Dispatchers.Unconfined
+        )
+        loadingLive.value = true
+        viewModelScope.launch {
+            val l = list.random()
+            try {
+                withContext(l) {
+                    delay(8000)
+                    done("The Thread name : ${l.toString()}")
+                    withContext(Dispatchers.Main) {
+                        loadingLive.value = false
+                    }
+                }
+            } catch (e: Exception) {
+                done("The Thread name : ${l.toString()} exception: ${e.message}")
+                loadingLive.value = false
+            }
+
+        }
+    }
 
     fun doSomethingMeasureTime(done: (String) -> Unit) {
         var result = ""
@@ -348,17 +373,28 @@ class FlowViewModel(application: Application) :
 
     }
 
+    data class Result(val value: Int, val desc: String)
     fun doSomethingLazy(done: (String) -> Unit) {
         loadingLive.value = true
         viewModelScope.launch {
+            var result = ""
 
             val o = 14.random()
             val t = 28.random()
-            val one = async(start = CoroutineStart.LAZY) { doSomethingDelay(100, o) }
-            val two = async(start = CoroutineStart.LAZY) { doSomethingDelay(2000, t) }
+            val one = async(CoroutineName("v1"), start = CoroutineStart.LAZY) {
+                val result = "one thread ${Thread.currentThread().name}\n"
+                Result(doSomethingDelay(100, o), result)
+
+            }
+            val two = async(CoroutineName("v2"), start = CoroutineStart.LAZY) {
+                val result = "two thread ${Thread.currentThread().name}\n"
+                Result(doSomethingDelay(2000, t), result)
+            }
             one.start()
             two.start()
-            val result = "${o} + ${t} = ${one.await() + two.await()}"
+            val oneValue = one.await()
+            val twoValue = two.await()
+            result += " ${o} + ${t} = ${oneValue.value + twoValue.value} current.name=${Thread.currentThread().name} one.threadName=${oneValue.desc} two.threadName=${twoValue.desc}"
             done(result)
             loadingLive.value = false
         }

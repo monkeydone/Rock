@@ -7,12 +7,14 @@ import com.a.findfragment.FragmentAnnotation
 import com.bn.pd.R
 import com.bn.pd.databinding.FragmentFlowBinding
 import com.bn.pd.mvvm.viewmodel.FlowViewModel
+import kotlinx.coroutines.*
 
 
 @FragmentAnnotation("Flow", "Demo")
 class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.OnClickListener {
     override fun getContentId(): Int = R.layout.fragment_flow
 
+    val mainScope = MainScope()
     override fun initView() {
         binding.onClickListener = this
         binding.viewModel = viewModel
@@ -20,6 +22,12 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
 
     override fun initData() {
         viewModel.loadData()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainScope.cancel()
     }
 
     override fun initObserver() {
@@ -115,6 +123,42 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                     binding.tvAsyncLazy.text = it
                 }
 
+            }
+            R.id.tv_dispatch_thread_name -> {
+                viewModel.dispatchRun {
+                    binding.tvDispatchThreadName.text = it
+                }
+            }
+            R.id.tv_dispatch_thread_name2 -> {
+                val threadLocal = ThreadLocal<String>()
+
+                val job = mainScope.launch(Dispatchers.IO) {
+                    threadLocal.set("IO")
+
+                    withContext(Dispatchers.Main) {
+
+                        binding.tvDispatchThreadName2.text =
+                            "main:" + Thread.currentThread().name + ",local:" + threadLocal.get()
+                        threadLocal.set("main")
+
+                    }
+
+                    yield()
+                    threadLocal.set("IO2")
+
+                    delay(1000)
+                    withContext(Dispatchers.Main) {
+                        binding.tvDispatchThreadName2.text =
+                            "after.yield. main:" + Thread.currentThread().name + ",local:" + threadLocal.get()
+
+                    }
+                }
+                mainScope.launch {
+                    job.join()
+                }
+//                mainScope.launch(Dispatchers.Main+CoroutineName("test")) {
+//                    binding.tvDispatchThreadName2.text = Thread.currentThread().name
+//                }
             }
 
         }
