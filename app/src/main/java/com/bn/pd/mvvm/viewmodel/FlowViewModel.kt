@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.a.base.BaseViewModel
 import com.bn.utils.random
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 
 class FlowViewModel(application: Application) :
@@ -329,9 +330,28 @@ class FlowViewModel(application: Application) :
 
     }
 
+
+    fun doSomethingMeasureTime(done: (String) -> Unit) {
+        var result = ""
+        viewModelScope.launch {
+            val time = async {
+                measureTimeMillis {
+                    doSomethingLazy() {
+                        result = it
+                    }
+                    delay(3000)
+                }
+            }
+
+            done("time: ${time.await()}  result:${result}")
+        }
+
+    }
+
     fun doSomethingLazy(done: (String) -> Unit) {
         loadingLive.value = true
         viewModelScope.launch {
+
             val o = 14.random()
             val t = 28.random()
             val one = async(start = CoroutineStart.LAZY) { doSomethingDelay(100, o) }

@@ -111,9 +111,10 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                 }
             }
             R.id.tv_async_lazy -> {
-                viewModel.doSomethingLazy {
+                viewModel.doSomethingMeasureTime {
                     binding.tvAsyncLazy.text = it
                 }
+
             }
 
         }
