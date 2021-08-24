@@ -100,7 +100,7 @@ class FlowViewModel(application: Application) :
         val job = viewModelScope.launch {
             repeat(1000) {
                 viewModelScope.launch {
-                    delay(100)
+                    delay(100 * it.toLong())
                     text += "i:${it} "
                 }
             }
@@ -113,7 +113,7 @@ class FlowViewModel(application: Application) :
             job.join()
             text += "Done"
             done(text)
-//            loadingLive.value = false
+            loadingLive.value = false
         }
 
     }

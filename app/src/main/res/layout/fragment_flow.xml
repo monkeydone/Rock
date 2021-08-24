@@ -21,109 +21,124 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="简单携程"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="携程TimeOut"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/message" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_job1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="JobNotJoin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_event" />
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="简单携程"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_job2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="JobAndJoin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_job1" />
+                <TextView
+                    android:id="@+id/tv_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程TimeOut"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/message" />
 
-        <TextView
-            android:id="@+id/tv_job3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="多个携程"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_job2" />
+                <TextView
+                    android:id="@+id/tv_job1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="JobNotJoin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event" />
 
-        <TextView
-            android:id="@+id/tv_repeat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="批量携程"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_job3" />
+                <TextView
+                    android:id="@+id/tv_job2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="JobAndJoin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_job1" />
 
-        <TextView
-            android:id="@+id/tv_cancel_job"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="20dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:onClick="@{onClickListener}"
-            android:padding="10dp"
-            android:text="携程取消"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_repeat" />
+                <TextView
+                    android:id="@+id/tv_job3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="多个携程"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_job2" />
+
+                <TextView
+                    android:id="@+id/tv_repeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="批量携程"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_job3" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="携程取消"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_repeat" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

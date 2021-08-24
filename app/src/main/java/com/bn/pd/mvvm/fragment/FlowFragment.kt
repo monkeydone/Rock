@@ -69,7 +69,7 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                     binding.tvRepeat.text = it
                 }
             }
-            R.id.tv_cancel -> {
+            R.id.tv_cancel_job -> {
                 viewModel.jobCancel {
                     binding.tvCancelJob.text = it
                 }
