@@ -1,6 +1,7 @@
 package com.bn.pd.mvvm.fragment
 
 import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.a.base.RBaseFragment
 import com.a.findfragment.FragmentAnnotation
@@ -8,6 +9,7 @@ import com.bn.pd.R
 import com.bn.pd.databinding.FragmentFlowBinding
 import com.bn.pd.mvvm.viewmodel.FlowViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlin.system.measureTimeMillis
 
@@ -396,9 +398,68 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
 
                 }
             }
+            R.id.tv_channel_base -> {
+                val channel = Channel<Int>()
+                showLoadingDialog()
+
+                mainScope.launch {
+                    for (i in 0..20) {
+                        delay(100)
+//                        binding.tvChannelBase.text = "${i}"
+                        mainScope.launch {
+                            channel.send(i)
+                        }
+                    }
+
+                    repeat(20) {
+                        val t = channel.receive()
+                        withContext(Dispatchers.Main) {
+                            hideLoadingDialog()
+                            appendText(binding.tvChannelBase, t.toString())
+                        }
+                    }
+                }
+
+
+            }
+
+            R.id.tv_channel_base2 -> {
+                val channel = Channel<Int>()
+
+                mainScope.launch {
+                    showLoadingDialog()
+                    for (i in 0..20) {
+                        delay(100)
+                        if (i == 10) {
+                            channel.close()
+                            break
+                        }
+                        mainScope.launch {
+                            channel.send(i)
+                        }
+
+                    }
+
+                    for (i in channel) {
+                        val t = i
+                        withContext(Dispatchers.Main) {
+                            hideLoadingDialog()
+                            appendText(binding.tvChannelBase, t.toString())
+                        }
+                    }
+
+
+                }
+
+
+            }
 
 
         }
+    }
+
+    fun appendText(textView: TextView, src: String) {
+        textView.text = textView.text.toString() + "\n" + src
     }
 
 

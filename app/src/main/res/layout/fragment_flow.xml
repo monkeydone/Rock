@@ -516,6 +516,36 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_flow_combine" />
 
+                <TextView
+                    android:id="@+id/tv_channel_base"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="通道简单例子,迭代"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_cancel" />
+
+                <TextView
+                    android:id="@+id/tv_channel_base2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="通道简单例子2，关闭"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_channel_base" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
