@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.a.base.BaseViewModel
 import com.bn.utils.random
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlin.system.measureTimeMillis
 
 
@@ -373,7 +375,7 @@ class FlowViewModel(application: Application) :
 
     }
 
-    data class Result(val value: Int, val desc: String)
+    data class FlowResult(val value: Int, val desc: String)
     fun doSomethingLazy(done: (String) -> Unit) {
         loadingLive.value = true
         viewModelScope.launch {
@@ -383,12 +385,12 @@ class FlowViewModel(application: Application) :
             val t = 28.random()
             val one = async(CoroutineName("v1"), start = CoroutineStart.LAZY) {
                 val result = "one thread ${Thread.currentThread().name}\n"
-                Result(doSomethingDelay(100, o), result)
+                FlowResult(doSomethingDelay(100, o), result)
 
             }
             val two = async(CoroutineName("v2"), start = CoroutineStart.LAZY) {
                 val result = "two thread ${Thread.currentThread().name}\n"
-                Result(doSomethingDelay(2000, t), result)
+                FlowResult(doSomethingDelay(2000, t), result)
             }
             one.start()
             two.start()
@@ -399,6 +401,18 @@ class FlowViewModel(application: Application) :
             loadingLive.value = false
         }
 
+    }
+
+    fun simpleList(num: Int = 4, delay: Long = 1000): Flow<Int> = flow {
+        for (i in 1..num) {
+            delay(delay)
+            emit(i)
+        }
+    }
+
+    suspend fun mapHelper(src: String): String {
+        delay(1000)
+        return "adapter ${src}"
     }
 
     suspend fun doSomethingDelay(delay: Long, result: Int): Int {

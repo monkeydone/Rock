@@ -284,10 +284,237 @@
                     android:gravity="center"
                     android:onClick="@{onClickListener}"
                     android:padding="10dp"
-                    android:text="自定义携程名字"
+                    android:text="携程使用ThreadLocal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_dispatch_thread_name" />
+
+
+                <TextView
+                    android:id="@+id/tv_flow_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="简单使用Flow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_dispatch_thread_name2" />
+
+
+                <TextView
+                    android:id="@+id/tv_flow_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow取消"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_1" />
+
+                <TextView
+                    android:id="@+id/tv_flow_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="List转Flow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_2" />
+
+                <TextView
+                    android:id="@+id/tv_flow_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Map方法"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_3" />
+
+                <TextView
+                    android:id="@+id/tv_flow_transform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Transform方法"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_map" />
+
+                <TextView
+                    android:id="@+id/tv_flow_take"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow take"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_transform" />
+
+                <TextView
+                    android:id="@+id/tv_flow_reduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow reduce"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_take" />
+
+                <TextView
+                    android:id="@+id/tv_flow_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Filter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_reduce" />
+
+                <TextView
+                    android:id="@+id/tv_flow_flowOn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Context"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_filter" />
+
+                <TextView
+                    android:id="@+id/tv_flow_buffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow buffer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_flowOn" />
+
+                <TextView
+                    android:id="@+id/tv_flow_conflate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow 合并"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_buffer" />
+
+                <TextView
+                    android:id="@+id/tv_flow_collectLastest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Lastest"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_conflate" />
+
+                <TextView
+                    android:id="@+id/tv_flow_zip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Zip"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_collectLastest" />
+
+                <TextView
+                    android:id="@+id/tv_flow_combine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Combine"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_zip" />
+
+                <TextView
+                    android:id="@+id/tv_flow_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="Flow Cancel "
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_flow_combine" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

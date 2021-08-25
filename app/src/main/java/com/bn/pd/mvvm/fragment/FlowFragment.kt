@@ -8,6 +8,8 @@ import com.bn.pd.R
 import com.bn.pd.databinding.FragmentFlowBinding
 import com.bn.pd.mvvm.viewmodel.FlowViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import kotlin.system.measureTimeMillis
 
 
 @FragmentAnnotation("Flow", "Demo")
@@ -156,10 +158,243 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                 mainScope.launch {
                     job.join()
                 }
-//                mainScope.launch(Dispatchers.Main+CoroutineName("test")) {
-//                    binding.tvDispatchThreadName2.text = Thread.currentThread().name
-//                }
+
             }
+
+            R.id.tv_flow_1 -> {
+                mainScope.launch {
+                    val list = viewModel.simpleList(6)
+                    list.collect {
+                        binding.tvFlow1.text = "it: ${it}"
+                    }
+                    binding.tvFlow1.text = "End List"
+                    list.collect {
+                        binding.tvDispatchThreadName2.text = "it : ${it}"
+                    }
+                    binding.tvDispatchThreadName2.text = "End List"
+                }
+            }
+
+            R.id.tv_flow_2 -> {
+                mainScope.launch {
+                    val list = viewModel.simpleList(8)
+                    withTimeoutOrNull(300) {
+                        list.collect {
+                            withContext(Dispatchers.Main) {
+                                binding.tvFlow1.text = "it: ${it}"
+
+                            }
+                        }
+
+                    }
+                    withContext(Dispatchers.Main) {
+                        binding.tvDispatchThreadName2.text = "End List"
+
+                    }
+
+
+                }
+            }
+            R.id.tv_flow_3 -> {
+                mainScope.launch {
+                    (1..4).asFlow().collect {
+                        delay(1000)
+                        withContext(Dispatchers.Main) {
+                            binding.tvFlow3.text = "it: ${it}"
+                        }
+                    }
+                }
+            }
+            R.id.tv_flow_map -> {
+                mainScope.launch {
+                    (1..4).asFlow().map {
+                        viewModel.mapHelper("${it}")
+                    }.collect {
+                        delay(100)
+                        withContext(Dispatchers.Main) {
+                            binding.tvFlowMap.text = "it : ${it}"
+                        }
+                    }
+                }
+            }
+            R.id.tv_flow_transform -> {
+                mainScope.launch {
+                    (1..4).asFlow().map {
+                        FlowViewModel.FlowResult(it, viewModel.mapHelper("${it}"))
+                    }.transform { it ->
+                        val it2 = FlowViewModel.FlowResult(it.value, "desc: ${it.desc}")
+                        emit(it)
+                        emit(it2)
+                    }.collect {
+                        delay(1000)
+                        withContext(Dispatchers.Main) {
+                            binding.tvFlowMap.text = "it:${it}"
+                        }
+                    }
+                }
+            }
+            R.id.tv_flow_take -> {
+                mainScope.launch {
+                    val n = (1..4).asFlow()
+
+                    n.take(2).collect {
+                        delay(1000)
+                        withContext(Dispatchers.Main) {
+                            binding.tvFlowTake.text = "it:${it}"
+                        }
+                    }
+                }
+            }
+            R.id.tv_flow_reduce -> {
+                mainScope.launch {
+                    val n = (1..5).asFlow()
+                    val sum = n.map { it * it }.reduce { a, b ->
+                        a + b
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        binding.tvFlowReduce.text = "(1..5).sum ${sum}"
+                    }
+                }
+            }
+            R.id.tv_flow_filter -> {
+                mainScope.launch {
+                    (1..15).asFlow().filter {
+                        it % 2 == 0
+                    }.map {
+                        delay(1000)
+                        "string ${it}"
+                    }.collect {
+                        withContext(Dispatchers.Main) {
+                            binding.tvFlowFilter.text = "${it}"
+                        }
+                    }
+                }
+
+            }
+            R.id.tv_flow_flowOn -> {
+                val n = (1..15).asFlow().filter {
+                    it % 2 == 0
+                }.map {
+                    delay(500)
+                    "string ${it}"
+                }.flowOn(Dispatchers.IO)
+
+                mainScope.launch {
+                    val time = measureTimeMillis {
+                        n.collect {
+                            delay(1000)
+                            withContext(Dispatchers.Main) {
+                                binding.tvFlowFlowOn.text = "${it}"
+                            }
+                        }
+                    }
+                    binding.tvFlowFlowOn.text = "time: ${time}"
+
+                }
+
+
+            }
+            R.id.tv_flow_buffer -> {
+                val n = (1..15).asFlow().filter {
+                    it % 2 == 0
+                }.map {
+                    delay(500)
+                    "string ${it}"
+                }.flowOn(Dispatchers.IO)
+
+                mainScope.launch {
+                    val time = measureTimeMillis {
+                        n.buffer().collect {
+                            delay(1000)
+                            withContext(Dispatchers.Main) {
+                                binding.tvFlowFlowOn.text = "${it}"
+                            }
+                        }
+                    }
+                    binding.tvFlowFlowOn.text = "time: ${time}"
+
+                }
+            }
+
+            R.id.tv_flow_conflate -> {
+                mainScope.launch {
+                    viewModel.simpleList(5).conflate().collect {
+                        delay(3000)
+                        binding.tvFlowConflate.text = "${it}"
+
+                    }
+                }
+
+            }
+            R.id.tv_flow_collectLastest -> {
+                mainScope.launch {
+                    viewModel.simpleList(5).collectLatest {
+                        delay(3000)
+                        binding.tvFlowCollectLastest.text = "${it}"
+
+                    }
+                }
+
+            }
+            R.id.tv_flow_zip -> {
+                mainScope.launch {
+                    showLoadingDialog()
+
+                    val n = viewModel.simpleList(10, 100)
+                    val s = flowOf("one", "two", "three").onEach { 400 }
+
+                    n.zip(s) { a, b -> "$a -> $b" }
+                        .collect {
+                            hideLoadingDialog()
+                            delay(100)
+                            binding.tvFlowZip.text = "$it"
+                        }
+
+                }
+            }
+            R.id.tv_flow_combine -> {
+                mainScope.launch {
+                    showLoadingDialog()
+
+//                    val n = viewModel.simpleList(10,500)
+                    val n = (1..10).asFlow().onEach { 400 }
+                    val s = flowOf("one", "two", "three").onEach { 1000 }
+
+                    n.combine(s) { a, b -> "$a -> $b" }
+                        .onCompletion { binding.tvFlowCombine.text = "Done" }
+                        .collect {
+                            hideLoadingDialog()
+                            delay(100)
+                            binding.tvFlowCombine.text =
+                                binding.tvFlowCombine.getText().toString() + " \n $it"
+                        }
+
+
+                }
+            }
+
+            R.id.tv_flow_cancel -> {
+                mainScope.launch {
+                    showLoadingDialog()
+
+//                    val n = viewModel.simpleList(10,500)
+                    val n = (1..10).asFlow().onEach { 400 }
+
+                    n
+                        .onCompletion { binding.tvFlowCombine.text = "Done" }
+                        .collect {
+                            hideLoadingDialog()
+                            delay(100)
+                            if (it == 5) cancel()
+                            binding.tvFlowCombine.text =
+                                binding.tvFlowCombine.getText().toString() + " \n $it"
+                        }
+
+
+                }
+            }
+
 
         }
     }
