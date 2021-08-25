@@ -362,7 +362,10 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                     val s = flowOf("one", "two", "three").onEach { 1000 }
 
                     n.combine(s) { a, b -> "$a -> $b" }
-                        .onCompletion { binding.tvFlowCombine.text = "Done" }
+                        .onCompletion {
+                            binding.tvFlowCombine.text =
+                                binding.tvFlowCombine.getText().toString() + "Done"
+                        }
                         .collect {
                             hideLoadingDialog()
                             delay(100)
@@ -382,7 +385,6 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
                     val n = (1..10).asFlow().onEach { 400 }
 
                     n
-                        .onCompletion { binding.tvFlowCombine.text = "Done" }
                         .collect {
                             hideLoadingDialog()
                             delay(100)
