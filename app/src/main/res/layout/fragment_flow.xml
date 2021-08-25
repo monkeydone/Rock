@@ -546,6 +546,50 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_channel_base" />
 
+                <TextView
+                    android:id="@+id/tv_channel_base3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="通道管道"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_channel_base2" />
+
+                <TextView
+                    android:id="@+id/tv_channel_base4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="多个消费通道"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_channel_base3" />
+
+                <TextView
+                    android:id="@+id/tv_channel_base5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#cccccc"
+                    android:gravity="center"
+                    android:onClick="@{onClickListener}"
+                    android:padding="10dp"
+                    android:text="多个生产通道"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_channel_base4" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

@@ -10,6 +10,9 @@ import com.bn.pd.databinding.FragmentFlowBinding
 import com.bn.pd.mvvm.viewmodel.FlowViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.*
 import kotlin.system.measureTimeMillis
 
@@ -453,9 +456,105 @@ class FlowFragment : RBaseFragment<FlowViewModel, FragmentFlowBinding>(), View.O
 
 
             }
+            R.id.tv_channel_base3 -> {
+                mainScope.launch {
+                    val numbers = produceNumbers(this)
+                    val squares = square(this, numbers)
+                    var text = ""
+
+                    repeat(20) {
+                        val t = squares.receive()
+                        text += " $t"
+                        withContext(Dispatchers.Main) {
+                            binding.tvChannelBase3.text = text
+                        }
+
+                    }
+                }
+
+
+            }
+
+            R.id.tv_channel_base4 -> {
+                mainScope.launch {
+                    var text = ""
+
+                    val numbers = produceNumbers(this)
+                    repeat(4) {
+                        mainScope.launch {
+                            val l = launchProcessor(this, it, numbers)
+                            for (i in l) {
+                                delay(100)
+                                val t = i
+                                text += " $t \n"
+                                withContext(Dispatchers.Main) {
+                                    binding.tvChannelBase3.text = text
+                                }
+                            }
+                        }
+
+
+                    }
+
+
+                }
+
+
+            }
+
+            R.id.tv_channel_base5 -> {
+                val channel = Channel<String>()
+                mainScope.launch {
+                    var text = ""
+                    mainScope.launch {
+                        createString(channel, "foo", 200L)
+
+                    }
+                    mainScope.launch {
+                        createString(channel, "foo2", 500L)
+                    }
+
+                    for (i in channel) {
+                        delay(100)
+                        text += "$i \n"
+                        withContext(Dispatchers.Main) {
+                            binding.tvChannelBase5.text = text
+                        }
+                    }
+//                    this.coroutineContext.cancelChildren()
+
+                }
+
+
+            }
 
 
         }
+    }
+
+    suspend fun createString(channel: SendChannel<String>, s: String, time: Long) {
+        while (true) {
+            delay(time)
+            channel.send(s)
+        }
+    }
+
+    fun produceNumbers(p: CoroutineScope) = p.produce<Int> {
+        var x = 1
+        while (true) send(x++)
+    }
+
+    fun launchProcessor(
+        p: CoroutineScope,
+        id: Int,
+        numbers: ReceiveChannel<Int>
+    ): ReceiveChannel<String> = p.produce {
+        for (x in numbers) send("Processor ${id} receiver ${x} ")
+    }
+
+
+    fun square(p: CoroutineScope, numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = p.produce {
+        for (x in numbers) send(x * x)
     }
 
     fun appendText(textView: TextView, src: String) {
