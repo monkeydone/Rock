@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import java.util.*
 
+@Keep
 @FragmentAnnotation("简单例子", "root")
 class EmptyFragment : Fragment() {
 
