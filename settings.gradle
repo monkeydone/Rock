@@ -7,3 +7,4 @@ rootProject.name = "PluginDemo"
 includeBuild("./AsmPlugin")
 include ':sync'
 include ':videoplayer'
+include ':sample'
