@@ -3,7 +3,7 @@
     package="com.a.findfragment">
 
     <application>
-        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".ListActivity" android:exported="true"></activity>
     </application>
 
 </manifest>
