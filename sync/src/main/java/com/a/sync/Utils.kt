@@ -27,6 +27,10 @@ object Utils {
         return Formatter.formatIpAddress(wm.dhcpInfo.ipAddress)
     }
 
+    fun getServiceInfo():String {
+        return Utils.IP_ADDRESS_BY_WIFI
+    }
+
 
     /**
      * Wifi IP 地址
